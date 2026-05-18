@@ -1,0 +1,1282 @@
+[
+  {
+    "plato_id": 1,
+    "restaurante_id": 4,
+    "plato_nombre": "Milanesa completa",
+    "tipo_comida": "Pastas",
+    "precio": 3500,
+    "disponible": true
+  },
+  {
+    "plato_id": 2,
+    "restaurante_id": 32,
+    "plato_nombre": "Asado con papas",
+    "tipo_comida": "Helados",
+    "precio": 9000,
+    "disponible": false
+  },
+  {
+    "plato_id": 3,
+    "restaurante_id": 38,
+    "plato_nombre": "Combo sushi",
+    "tipo_comida": "Mexicana",
+    "precio": 4200,
+    "disponible": false
+  },
+  {
+    "plato_id": 4,
+    "restaurante_id": 10,
+    "plato_nombre": "Milkshake",
+    "tipo_comida": "Parrilla",
+    "precio": 7800,
+    "disponible": false
+  },
+  {
+    "plato_id": 5,
+    "restaurante_id": 6,
+    "plato_nombre": "Choripán",
+    "tipo_comida": "Mexicana",
+    "precio": 4200,
+    "disponible": true
+  },
+  {
+    "plato_id": 6,
+    "restaurante_id": 29,
+    "plato_nombre": "Cheeseburger doble",
+    "tipo_comida": "Parrilla",
+    "precio": 6500,
+    "disponible": false
+  },
+  {
+    "plato_id": 7,
+    "restaurante_id": 13,
+    "plato_nombre": "Cheeseburger doble",
+    "tipo_comida": "Milanesas",
+    "precio": 7800,
+    "disponible": true
+  },
+  {
+    "plato_id": 8,
+    "restaurante_id": 7,
+    "plato_nombre": "Cheeseburger doble",
+    "tipo_comida": "Hamburguesas",
+    "precio": 3500,
+    "disponible": true
+  },
+  {
+    "plato_id": 9,
+    "restaurante_id": 33,
+    "plato_nombre": "Milkshake",
+    "tipo_comida": "Parrilla",
+    "precio": 7800,
+    "disponible": true
+  },
+  {
+    "plato_id": 10,
+    "restaurante_id": 14,
+    "plato_nombre": "Burrito clásico",
+    "tipo_comida": "Sushi",
+    "precio": 3500,
+    "disponible": false
+  },
+  {
+    "plato_id": 11,
+    "restaurante_id": 36,
+    "plato_nombre": "Combo sushi",
+    "tipo_comida": "Vegano",
+    "precio": 5000,
+    "disponible": false
+  },
+  {
+    "plato_id": 12,
+    "restaurante_id": 34,
+    "plato_nombre": "Cheeseburger doble",
+    "tipo_comida": "Mexicana",
+    "precio": 4200,
+    "disponible": false
+  },
+  {
+    "plato_id": 13,
+    "restaurante_id": 38,
+    "plato_nombre": "Ñoquis con salsa",
+    "tipo_comida": "Hamburguesas",
+    "precio": 10500,
+    "disponible": false
+  },
+  {
+    "plato_id": 14,
+    "restaurante_id": 4,
+    "plato_nombre": "Cheeseburger doble",
+    "tipo_comida": "Sushi",
+    "precio": 7800,
+    "disponible": false
+  },
+  {
+    "plato_id": 15,
+    "restaurante_id": 37,
+    "plato_nombre": "Ravioles de verdura",
+    "tipo_comida": "Milanesas",
+    "precio": 5000,
+    "disponible": false
+  },
+  {
+    "plato_id": 16,
+    "restaurante_id": 25,
+    "plato_nombre": "Hot roll",
+    "tipo_comida": "Sushi",
+    "precio": 5000,
+    "disponible": true
+  },
+  {
+    "plato_id": 17,
+    "restaurante_id": 25,
+    "plato_nombre": "Choripán",
+    "tipo_comida": "Mexicana",
+    "precio": 6500,
+    "disponible": false
+  },
+  {
+    "plato_id": 18,
+    "restaurante_id": 36,
+    "plato_nombre": "Cheeseburger doble",
+    "tipo_comida": "Sushi",
+    "precio": 10500,
+    "disponible": false
+  },
+  {
+    "plato_id": 19,
+    "restaurante_id": 31,
+    "plato_nombre": "Milkshake",
+    "tipo_comida": "Parrilla",
+    "precio": 9000,
+    "disponible": false
+  },
+  {
+    "plato_id": 20,
+    "restaurante_id": 39,
+    "plato_nombre": "Milkshake",
+    "tipo_comida": "Helados",
+    "precio": 12000,
+    "disponible": true
+  },
+  {
+    "plato_id": 21,
+    "restaurante_id": 37,
+    "plato_nombre": "Choripán",
+    "tipo_comida": "Hamburguesas",
+    "precio": 10500,
+    "disponible": false
+  },
+  {
+    "plato_id": 22,
+    "restaurante_id": 9,
+    "plato_nombre": "Combo sushi",
+    "tipo_comida": "Hamburguesas",
+    "precio": 3500,
+    "disponible": true
+  },
+  {
+    "plato_id": 23,
+    "restaurante_id": 34,
+    "plato_nombre": "Pizza muzzarella",
+    "tipo_comida": "Parrilla",
+    "precio": 4200,
+    "disponible": true
+  },
+  {
+    "plato_id": 24,
+    "restaurante_id": 34,
+    "plato_nombre": "Hot roll",
+    "tipo_comida": "Milanesas",
+    "precio": 5000,
+    "disponible": false
+  },
+  {
+    "plato_id": 25,
+    "restaurante_id": 38,
+    "plato_nombre": "Asado con papas",
+    "tipo_comida": "Sushi",
+    "precio": 7800,
+    "disponible": true
+  },
+  {
+    "plato_id": 26,
+    "restaurante_id": 19,
+    "plato_nombre": "Combo sushi",
+    "tipo_comida": "Vegano",
+    "precio": 12000,
+    "disponible": false
+  },
+  {
+    "plato_id": 27,
+    "restaurante_id": 30,
+    "plato_nombre": "Pizza muzzarella",
+    "tipo_comida": "Parrilla",
+    "precio": 12000,
+    "disponible": true
+  },
+  {
+    "plato_id": 28,
+    "restaurante_id": 2,
+    "plato_nombre": "Milanesa completa",
+    "tipo_comida": "Milanesas",
+    "precio": 9000,
+    "disponible": false
+  },
+  {
+    "plato_id": 29,
+    "restaurante_id": 25,
+    "plato_nombre": "Choripán",
+    "tipo_comida": "Pastas",
+    "precio": 6500,
+    "disponible": true
+  },
+  {
+    "plato_id": 30,
+    "restaurante_id": 16,
+    "plato_nombre": "Choripán",
+    "tipo_comida": "Cafetería",
+    "precio": 7800,
+    "disponible": true
+  },
+  {
+    "plato_id": 31,
+    "restaurante_id": 38,
+    "plato_nombre": "Pizza napolitana",
+    "tipo_comida": "Parrilla",
+    "precio": 10500,
+    "disponible": true
+  },
+  {
+    "plato_id": 32,
+    "restaurante_id": 31,
+    "plato_nombre": "Bowl veggie",
+    "tipo_comida": "Sushi",
+    "precio": 6500,
+    "disponible": true
+  },
+  {
+    "plato_id": 33,
+    "restaurante_id": 32,
+    "plato_nombre": "Ravioles de verdura",
+    "tipo_comida": "Vegano",
+    "precio": 5000,
+    "disponible": false
+  },
+  {
+    "plato_id": 34,
+    "restaurante_id": 37,
+    "plato_nombre": "Combo sushi",
+    "tipo_comida": "Pizza",
+    "precio": 3500,
+    "disponible": false
+  },
+  {
+    "plato_id": 35,
+    "restaurante_id": 11,
+    "plato_nombre": "Ravioles de verdura",
+    "tipo_comida": "Mexicana",
+    "precio": 6500,
+    "disponible": false
+  },
+  {
+    "plato_id": 36,
+    "restaurante_id": 38,
+    "plato_nombre": "Milanesa napolitana",
+    "tipo_comida": "Hamburguesas",
+    "precio": 9000,
+    "disponible": false
+  },
+  {
+    "plato_id": 37,
+    "restaurante_id": 4,
+    "plato_nombre": "Pizza muzzarella",
+    "tipo_comida": "Parrilla",
+    "precio": 4200,
+    "disponible": false
+  },
+  {
+    "plato_id": 38,
+    "restaurante_id": 40,
+    "plato_nombre": "Helado artesanal",
+    "tipo_comida": "Sushi",
+    "precio": 9000,
+    "disponible": false
+  },
+  {
+    "plato_id": 39,
+    "restaurante_id": 2,
+    "plato_nombre": "Cheeseburger doble",
+    "tipo_comida": "Pizza",
+    "precio": 12000,
+    "disponible": true
+  },
+  {
+    "plato_id": 40,
+    "restaurante_id": 32,
+    "plato_nombre": "Choripán",
+    "tipo_comida": "Cafetería",
+    "precio": 12000,
+    "disponible": false
+  },
+  {
+    "plato_id": 41,
+    "restaurante_id": 1,
+    "plato_nombre": "Milanesa napolitana",
+    "tipo_comida": "Milanesas",
+    "precio": 9000,
+    "disponible": true
+  },
+  {
+    "plato_id": 42,
+    "restaurante_id": 20,
+    "plato_nombre": "Hamburguesa clásica",
+    "tipo_comida": "Pizza",
+    "precio": 12000,
+    "disponible": false
+  },
+  {
+    "plato_id": 43,
+    "restaurante_id": 28,
+    "plato_nombre": "Medialunas",
+    "tipo_comida": "Pizza",
+    "precio": 5000,
+    "disponible": false
+  },
+  {
+    "plato_id": 44,
+    "restaurante_id": 25,
+    "plato_nombre": "Ravioles de verdura",
+    "tipo_comida": "Mexicana",
+    "precio": 10500,
+    "disponible": true
+  },
+  {
+    "plato_id": 45,
+    "restaurante_id": 13,
+    "plato_nombre": "Milanesa napolitana",
+    "tipo_comida": "Hamburguesas",
+    "precio": 4200,
+    "disponible": false
+  },
+  {
+    "plato_id": 46,
+    "restaurante_id": 31,
+    "plato_nombre": "Helado artesanal",
+    "tipo_comida": "Hamburguesas",
+    "precio": 5000,
+    "disponible": false
+  },
+  {
+    "plato_id": 47,
+    "restaurante_id": 11,
+    "plato_nombre": "Milanesa completa",
+    "tipo_comida": "Vegano",
+    "precio": 9000,
+    "disponible": true
+  },
+  {
+    "plato_id": 48,
+    "restaurante_id": 9,
+    "plato_nombre": "Cheeseburger doble",
+    "tipo_comida": "Milanesas",
+    "precio": 5000,
+    "disponible": false
+  },
+  {
+    "plato_id": 49,
+    "restaurante_id": 35,
+    "plato_nombre": "Burrito clásico",
+    "tipo_comida": "Vegano",
+    "precio": 5000,
+    "disponible": true
+  },
+  {
+    "plato_id": 50,
+    "restaurante_id": 19,
+    "plato_nombre": "Hamburguesa clásica",
+    "tipo_comida": "Pizza",
+    "precio": 6500,
+    "disponible": true
+  },
+  {
+    "plato_id": 51,
+    "restaurante_id": 16,
+    "plato_nombre": "Pizza napolitana",
+    "tipo_comida": "Helados",
+    "precio": 6500,
+    "disponible": false
+  },
+  {
+    "plato_id": 52,
+    "restaurante_id": 8,
+    "plato_nombre": "Asado con papas",
+    "tipo_comida": "Cafetería",
+    "precio": 10500,
+    "disponible": true
+  },
+  {
+    "plato_id": 53,
+    "restaurante_id": 24,
+    "plato_nombre": "Hot roll",
+    "tipo_comida": "Vegano",
+    "precio": 10500,
+    "disponible": false
+  },
+  {
+    "plato_id": 54,
+    "restaurante_id": 21,
+    "plato_nombre": "Milkshake",
+    "tipo_comida": "Pastas",
+    "precio": 10500,
+    "disponible": false
+  },
+  {
+    "plato_id": 55,
+    "restaurante_id": 17,
+    "plato_nombre": "Helado artesanal",
+    "tipo_comida": "Hamburguesas",
+    "precio": 6500,
+    "disponible": true
+  },
+  {
+    "plato_id": 56,
+    "restaurante_id": 38,
+    "plato_nombre": "Bowl veggie",
+    "tipo_comida": "Vegano",
+    "precio": 6500,
+    "disponible": true
+  },
+  {
+    "plato_id": 57,
+    "restaurante_id": 9,
+    "plato_nombre": "Medialunas",
+    "tipo_comida": "Mexicana",
+    "precio": 12000,
+    "disponible": false
+  },
+  {
+    "plato_id": 58,
+    "restaurante_id": 25,
+    "plato_nombre": "Pizza napolitana",
+    "tipo_comida": "Helados",
+    "precio": 9000,
+    "disponible": true
+  },
+  {
+    "plato_id": 59,
+    "restaurante_id": 27,
+    "plato_nombre": "Helado artesanal",
+    "tipo_comida": "Cafetería",
+    "precio": 5000,
+    "disponible": false
+  },
+  {
+    "plato_id": 60,
+    "restaurante_id": 32,
+    "plato_nombre": "Hot roll",
+    "tipo_comida": "Hamburguesas",
+    "precio": 4200,
+    "disponible": true
+  },
+  {
+    "plato_id": 61,
+    "restaurante_id": 39,
+    "plato_nombre": "Helado artesanal",
+    "tipo_comida": "Pastas",
+    "precio": 6500,
+    "disponible": false
+  },
+  {
+    "plato_id": 62,
+    "restaurante_id": 11,
+    "plato_nombre": "Cheeseburger doble",
+    "tipo_comida": "Mexicana",
+    "precio": 4200,
+    "disponible": true
+  },
+  {
+    "plato_id": 63,
+    "restaurante_id": 19,
+    "plato_nombre": "Choripán",
+    "tipo_comida": "Hamburguesas",
+    "precio": 6500,
+    "disponible": true
+  },
+  {
+    "plato_id": 64,
+    "restaurante_id": 35,
+    "plato_nombre": "Combo sushi",
+    "tipo_comida": "Pastas",
+    "precio": 4200,
+    "disponible": true
+  },
+  {
+    "plato_id": 65,
+    "restaurante_id": 1,
+    "plato_nombre": "Café latte",
+    "tipo_comida": "Milanesas",
+    "precio": 10500,
+    "disponible": false
+  },
+  {
+    "plato_id": 66,
+    "restaurante_id": 28,
+    "plato_nombre": "Milanesa napolitana",
+    "tipo_comida": "Helados",
+    "precio": 5000,
+    "disponible": false
+  },
+  {
+    "plato_id": 67,
+    "restaurante_id": 3,
+    "plato_nombre": "Helado artesanal",
+    "tipo_comida": "Mexicana",
+    "precio": 4200,
+    "disponible": true
+  },
+  {
+    "plato_id": 68,
+    "restaurante_id": 17,
+    "plato_nombre": "Ñoquis con salsa",
+    "tipo_comida": "Sushi",
+    "precio": 6500,
+    "disponible": false
+  },
+  {
+    "plato_id": 69,
+    "restaurante_id": 27,
+    "plato_nombre": "Asado con papas",
+    "tipo_comida": "Pastas",
+    "precio": 12000,
+    "disponible": false
+  },
+  {
+    "plato_id": 70,
+    "restaurante_id": 17,
+    "plato_nombre": "Tacos mexicanos",
+    "tipo_comida": "Parrilla",
+    "precio": 6500,
+    "disponible": true
+  },
+  {
+    "plato_id": 71,
+    "restaurante_id": 23,
+    "plato_nombre": "Combo sushi",
+    "tipo_comida": "Pastas",
+    "precio": 5000,
+    "disponible": true
+  },
+  {
+    "plato_id": 72,
+    "restaurante_id": 29,
+    "plato_nombre": "Burrito clásico",
+    "tipo_comida": "Cafetería",
+    "precio": 3500,
+    "disponible": false
+  },
+  {
+    "plato_id": 73,
+    "restaurante_id": 19,
+    "plato_nombre": "Medialunas",
+    "tipo_comida": "Sushi",
+    "precio": 7800,
+    "disponible": true
+  },
+  {
+    "plato_id": 74,
+    "restaurante_id": 8,
+    "plato_nombre": "Helado artesanal",
+    "tipo_comida": "Hamburguesas",
+    "precio": 5000,
+    "disponible": true
+  },
+  {
+    "plato_id": 75,
+    "restaurante_id": 34,
+    "plato_nombre": "Wrap vegetal",
+    "tipo_comida": "Cafetería",
+    "precio": 7800,
+    "disponible": false
+  },
+  {
+    "plato_id": 76,
+    "restaurante_id": 3,
+    "plato_nombre": "Milanesa napolitana",
+    "tipo_comida": "Milanesas",
+    "precio": 3500,
+    "disponible": false
+  },
+  {
+    "plato_id": 77,
+    "restaurante_id": 14,
+    "plato_nombre": "Café latte",
+    "tipo_comida": "Mexicana",
+    "precio": 3500,
+    "disponible": true
+  },
+  {
+    "plato_id": 78,
+    "restaurante_id": 23,
+    "plato_nombre": "Cheeseburger doble",
+    "tipo_comida": "Sushi",
+    "precio": 3500,
+    "disponible": false
+  },
+  {
+    "plato_id": 79,
+    "restaurante_id": 6,
+    "plato_nombre": "Pizza muzzarella",
+    "tipo_comida": "Vegano",
+    "precio": 12000,
+    "disponible": false
+  },
+  {
+    "plato_id": 80,
+    "restaurante_id": 19,
+    "plato_nombre": "Ravioles de verdura",
+    "tipo_comida": "Cafetería",
+    "precio": 3500,
+    "disponible": true
+  },
+  {
+    "plato_id": 81,
+    "restaurante_id": 7,
+    "plato_nombre": "Bowl veggie",
+    "tipo_comida": "Mexicana",
+    "precio": 9000,
+    "disponible": true
+  },
+  {
+    "plato_id": 82,
+    "restaurante_id": 36,
+    "plato_nombre": "Hamburguesa clásica",
+    "tipo_comida": "Parrilla",
+    "precio": 7800,
+    "disponible": true
+  },
+  {
+    "plato_id": 83,
+    "restaurante_id": 26,
+    "plato_nombre": "Wrap vegetal",
+    "tipo_comida": "Pizza",
+    "precio": 9000,
+    "disponible": false
+  },
+  {
+    "plato_id": 84,
+    "restaurante_id": 30,
+    "plato_nombre": "Helado artesanal",
+    "tipo_comida": "Mexicana",
+    "precio": 3500,
+    "disponible": false
+  },
+  {
+    "plato_id": 85,
+    "restaurante_id": 10,
+    "plato_nombre": "Milkshake",
+    "tipo_comida": "Hamburguesas",
+    "precio": 4200,
+    "disponible": false
+  },
+  {
+    "plato_id": 86,
+    "restaurante_id": 12,
+    "plato_nombre": "Helado artesanal",
+    "tipo_comida": "Milanesas",
+    "precio": 9000,
+    "disponible": true
+  },
+  {
+    "plato_id": 87,
+    "restaurante_id": 40,
+    "plato_nombre": "Café latte",
+    "tipo_comida": "Pizza",
+    "precio": 3500,
+    "disponible": false
+  },
+  {
+    "plato_id": 88,
+    "restaurante_id": 26,
+    "plato_nombre": "Medialunas",
+    "tipo_comida": "Helados",
+    "precio": 6500,
+    "disponible": true
+  },
+  {
+    "plato_id": 89,
+    "restaurante_id": 9,
+    "plato_nombre": "Cheeseburger doble",
+    "tipo_comida": "Mexicana",
+    "precio": 12000,
+    "disponible": true
+  },
+  {
+    "plato_id": 90,
+    "restaurante_id": 9,
+    "plato_nombre": "Wrap vegetal",
+    "tipo_comida": "Pizza",
+    "precio": 10500,
+    "disponible": true
+  },
+  {
+    "plato_id": 91,
+    "restaurante_id": 40,
+    "plato_nombre": "Hamburguesa clásica",
+    "tipo_comida": "Hamburguesas",
+    "precio": 5000,
+    "disponible": true
+  },
+  {
+    "plato_id": 92,
+    "restaurante_id": 7,
+    "plato_nombre": "Wrap vegetal",
+    "tipo_comida": "Parrilla",
+    "precio": 3500,
+    "disponible": true
+  },
+  {
+    "plato_id": 93,
+    "restaurante_id": 2,
+    "plato_nombre": "Ñoquis con salsa",
+    "tipo_comida": "Milanesas",
+    "precio": 3500,
+    "disponible": true
+  },
+  {
+    "plato_id": 94,
+    "restaurante_id": 40,
+    "plato_nombre": "Cheeseburger doble",
+    "tipo_comida": "Hamburguesas",
+    "precio": 12000,
+    "disponible": true
+  },
+  {
+    "plato_id": 95,
+    "restaurante_id": 14,
+    "plato_nombre": "Pizza muzzarella",
+    "tipo_comida": "Sushi",
+    "precio": 6500,
+    "disponible": false
+  },
+  {
+    "plato_id": 96,
+    "restaurante_id": 14,
+    "plato_nombre": "Asado con papas",
+    "tipo_comida": "Cafetería",
+    "precio": 6500,
+    "disponible": false
+  },
+  {
+    "plato_id": 97,
+    "restaurante_id": 20,
+    "plato_nombre": "Pizza muzzarella",
+    "tipo_comida": "Pastas",
+    "precio": 3500,
+    "disponible": true
+  },
+  {
+    "plato_id": 98,
+    "restaurante_id": 9,
+    "plato_nombre": "Choripán",
+    "tipo_comida": "Cafetería",
+    "precio": 5000,
+    "disponible": false
+  },
+  {
+    "plato_id": 99,
+    "restaurante_id": 39,
+    "plato_nombre": "Hamburguesa clásica",
+    "tipo_comida": "Cafetería",
+    "precio": 3500,
+    "disponible": false
+  },
+  {
+    "plato_id": 100,
+    "restaurante_id": 29,
+    "plato_nombre": "Milanesa napolitana",
+    "tipo_comida": "Pastas",
+    "precio": 10500,
+    "disponible": true
+  },
+  {
+    "plato_id": 101,
+    "restaurante_id": 8,
+    "plato_nombre": "Choripán",
+    "tipo_comida": "Vegano",
+    "precio": 12000,
+    "disponible": true
+  },
+  {
+    "plato_id": 102,
+    "restaurante_id": 30,
+    "plato_nombre": "Hamburguesa clásica",
+    "tipo_comida": "Pastas",
+    "precio": 4200,
+    "disponible": false
+  },
+  {
+    "plato_id": 103,
+    "restaurante_id": 22,
+    "plato_nombre": "Pizza napolitana",
+    "tipo_comida": "Pizza",
+    "precio": 5000,
+    "disponible": false
+  },
+  {
+    "plato_id": 104,
+    "restaurante_id": 9,
+    "plato_nombre": "Ravioles de verdura",
+    "tipo_comida": "Pizza",
+    "precio": 5000,
+    "disponible": true
+  },
+  {
+    "plato_id": 105,
+    "restaurante_id": 12,
+    "plato_nombre": "Milanesa completa",
+    "tipo_comida": "Pastas",
+    "precio": 6500,
+    "disponible": true
+  },
+  {
+    "plato_id": 106,
+    "restaurante_id": 40,
+    "plato_nombre": "Cheeseburger doble",
+    "tipo_comida": "Vegano",
+    "precio": 12000,
+    "disponible": true
+  },
+  {
+    "plato_id": 107,
+    "restaurante_id": 23,
+    "plato_nombre": "Pizza muzzarella",
+    "tipo_comida": "Pizza",
+    "precio": 6500,
+    "disponible": false
+  },
+  {
+    "plato_id": 108,
+    "restaurante_id": 25,
+    "plato_nombre": "Burrito clásico",
+    "tipo_comida": "Pizza",
+    "precio": 4200,
+    "disponible": true
+  },
+  {
+    "plato_id": 109,
+    "restaurante_id": 16,
+    "plato_nombre": "Burrito clásico",
+    "tipo_comida": "Mexicana",
+    "precio": 6500,
+    "disponible": false
+  },
+  {
+    "plato_id": 110,
+    "restaurante_id": 30,
+    "plato_nombre": "Milanesa completa",
+    "tipo_comida": "Sushi",
+    "precio": 5000,
+    "disponible": false
+  },
+  {
+    "plato_id": 111,
+    "restaurante_id": 3,
+    "plato_nombre": "Milanesa completa",
+    "tipo_comida": "Milanesas",
+    "precio": 6500,
+    "disponible": true
+  },
+  {
+    "plato_id": 112,
+    "restaurante_id": 11,
+    "plato_nombre": "Milanesa completa",
+    "tipo_comida": "Parrilla",
+    "precio": 5000,
+    "disponible": false
+  },
+  {
+    "plato_id": 113,
+    "restaurante_id": 13,
+    "plato_nombre": "Bowl veggie",
+    "tipo_comida": "Vegano",
+    "precio": 12000,
+    "disponible": false
+  },
+  {
+    "plato_id": 114,
+    "restaurante_id": 7,
+    "plato_nombre": "Choripán",
+    "tipo_comida": "Hamburguesas",
+    "precio": 4200,
+    "disponible": true
+  },
+  {
+    "plato_id": 115,
+    "restaurante_id": 37,
+    "plato_nombre": "Bowl veggie",
+    "tipo_comida": "Helados",
+    "precio": 10500,
+    "disponible": true
+  },
+  {
+    "plato_id": 116,
+    "restaurante_id": 7,
+    "plato_nombre": "Wrap vegetal",
+    "tipo_comida": "Hamburguesas",
+    "precio": 6500,
+    "disponible": false
+  },
+  {
+    "plato_id": 117,
+    "restaurante_id": 36,
+    "plato_nombre": "Milkshake",
+    "tipo_comida": "Mexicana",
+    "precio": 10500,
+    "disponible": true
+  },
+  {
+    "plato_id": 118,
+    "restaurante_id": 13,
+    "plato_nombre": "Milkshake",
+    "tipo_comida": "Cafetería",
+    "precio": 4200,
+    "disponible": false
+  },
+  {
+    "plato_id": 119,
+    "restaurante_id": 10,
+    "plato_nombre": "Bowl veggie",
+    "tipo_comida": "Sushi",
+    "precio": 5000,
+    "disponible": false
+  },
+  {
+    "plato_id": 120,
+    "restaurante_id": 39,
+    "plato_nombre": "Pizza napolitana",
+    "tipo_comida": "Hamburguesas",
+    "precio": 7800,
+    "disponible": false
+  },
+  {
+    "plato_id": 121,
+    "restaurante_id": 35,
+    "plato_nombre": "Tacos mexicanos",
+    "tipo_comida": "Hamburguesas",
+    "precio": 6500,
+    "disponible": false
+  },
+  {
+    "plato_id": 122,
+    "restaurante_id": 9,
+    "plato_nombre": "Hot roll",
+    "tipo_comida": "Pizza",
+    "precio": 10500,
+    "disponible": true
+  },
+  {
+    "plato_id": 123,
+    "restaurante_id": 23,
+    "plato_nombre": "Café latte",
+    "tipo_comida": "Parrilla",
+    "precio": 5000,
+    "disponible": false
+  },
+  {
+    "plato_id": 124,
+    "restaurante_id": 18,
+    "plato_nombre": "Hot roll",
+    "tipo_comida": "Sushi",
+    "precio": 5000,
+    "disponible": true
+  },
+  {
+    "plato_id": 125,
+    "restaurante_id": 2,
+    "plato_nombre": "Pizza napolitana",
+    "tipo_comida": "Sushi",
+    "precio": 4200,
+    "disponible": false
+  },
+  {
+    "plato_id": 126,
+    "restaurante_id": 26,
+    "plato_nombre": "Café latte",
+    "tipo_comida": "Sushi",
+    "precio": 5000,
+    "disponible": false
+  },
+  {
+    "plato_id": 127,
+    "restaurante_id": 34,
+    "plato_nombre": "Pizza napolitana",
+    "tipo_comida": "Parrilla",
+    "precio": 7800,
+    "disponible": true
+  },
+  {
+    "plato_id": 128,
+    "restaurante_id": 33,
+    "plato_nombre": "Tacos mexicanos",
+    "tipo_comida": "Cafetería",
+    "precio": 7800,
+    "disponible": false
+  },
+  {
+    "plato_id": 129,
+    "restaurante_id": 30,
+    "plato_nombre": "Milanesa napolitana",
+    "tipo_comida": "Helados",
+    "precio": 12000,
+    "disponible": false
+  },
+  {
+    "plato_id": 130,
+    "restaurante_id": 11,
+    "plato_nombre": "Milanesa completa",
+    "tipo_comida": "Hamburguesas",
+    "precio": 9000,
+    "disponible": true
+  },
+  {
+    "plato_id": 131,
+    "restaurante_id": 2,
+    "plato_nombre": "Helado artesanal",
+    "tipo_comida": "Cafetería",
+    "precio": 7800,
+    "disponible": false
+  },
+  {
+    "plato_id": 132,
+    "restaurante_id": 10,
+    "plato_nombre": "Pizza napolitana",
+    "tipo_comida": "Pizza",
+    "precio": 7800,
+    "disponible": true
+  },
+  {
+    "plato_id": 133,
+    "restaurante_id": 21,
+    "plato_nombre": "Burrito clásico",
+    "tipo_comida": "Pizza",
+    "precio": 5000,
+    "disponible": true
+  },
+  {
+    "plato_id": 134,
+    "restaurante_id": 32,
+    "plato_nombre": "Tacos mexicanos",
+    "tipo_comida": "Sushi",
+    "precio": 5000,
+    "disponible": true
+  },
+  {
+    "plato_id": 135,
+    "restaurante_id": 36,
+    "plato_nombre": "Milkshake",
+    "tipo_comida": "Helados",
+    "precio": 3500,
+    "disponible": false
+  },
+  {
+    "plato_id": 136,
+    "restaurante_id": 20,
+    "plato_nombre": "Pizza muzzarella",
+    "tipo_comida": "Parrilla",
+    "precio": 3500,
+    "disponible": false
+  },
+  {
+    "plato_id": 137,
+    "restaurante_id": 8,
+    "plato_nombre": "Helado artesanal",
+    "tipo_comida": "Cafetería",
+    "precio": 4200,
+    "disponible": true
+  },
+  {
+    "plato_id": 138,
+    "restaurante_id": 32,
+    "plato_nombre": "Burrito clásico",
+    "tipo_comida": "Vegano",
+    "precio": 3500,
+    "disponible": true
+  },
+  {
+    "plato_id": 139,
+    "restaurante_id": 30,
+    "plato_nombre": "Pizza muzzarella",
+    "tipo_comida": "Mexicana",
+    "precio": 3500,
+    "disponible": false
+  },
+  {
+    "plato_id": 140,
+    "restaurante_id": 14,
+    "plato_nombre": "Hot roll",
+    "tipo_comida": "Milanesas",
+    "precio": 12000,
+    "disponible": true
+  },
+  {
+    "plato_id": 141,
+    "restaurante_id": 25,
+    "plato_nombre": "Burrito clásico",
+    "tipo_comida": "Pastas",
+    "precio": 4200,
+    "disponible": false
+  },
+  {
+    "plato_id": 142,
+    "restaurante_id": 7,
+    "plato_nombre": "Combo sushi",
+    "tipo_comida": "Parrilla",
+    "precio": 12000,
+    "disponible": false
+  },
+  {
+    "plato_id": 143,
+    "restaurante_id": 17,
+    "plato_nombre": "Choripán",
+    "tipo_comida": "Pizza",
+    "precio": 9000,
+    "disponible": false
+  },
+  {
+    "plato_id": 144,
+    "restaurante_id": 22,
+    "plato_nombre": "Ñoquis con salsa",
+    "tipo_comida": "Cafetería",
+    "precio": 7800,
+    "disponible": false
+  },
+  {
+    "plato_id": 145,
+    "restaurante_id": 27,
+    "plato_nombre": "Ñoquis con salsa",
+    "tipo_comida": "Cafetería",
+    "precio": 3500,
+    "disponible": false
+  },
+  {
+    "plato_id": 146,
+    "restaurante_id": 2,
+    "plato_nombre": "Asado con papas",
+    "tipo_comida": "Cafetería",
+    "precio": 3500,
+    "disponible": true
+  },
+  {
+    "plato_id": 147,
+    "restaurante_id": 22,
+    "plato_nombre": "Pizza napolitana",
+    "tipo_comida": "Cafetería",
+    "precio": 7800,
+    "disponible": false
+  },
+  {
+    "plato_id": 148,
+    "restaurante_id": 14,
+    "plato_nombre": "Milkshake",
+    "tipo_comida": "Helados",
+    "precio": 10500,
+    "disponible": false
+  },
+  {
+    "plato_id": 149,
+    "restaurante_id": 37,
+    "plato_nombre": "Wrap vegetal",
+    "tipo_comida": "Pizza",
+    "precio": 12000,
+    "disponible": true
+  },
+  {
+    "plato_id": 150,
+    "restaurante_id": 21,
+    "plato_nombre": "Pizza muzzarella",
+    "tipo_comida": "Pastas",
+    "precio": 9000,
+    "disponible": true
+  },
+  {
+    "plato_id": 151,
+    "restaurante_id": 37,
+    "plato_nombre": "Ravioles de verdura",
+    "tipo_comida": "Helados",
+    "precio": 12000,
+    "disponible": false
+  },
+  {
+    "plato_id": 152,
+    "restaurante_id": 9,
+    "plato_nombre": "Ravioles de verdura",
+    "tipo_comida": "Sushi",
+    "precio": 9000,
+    "disponible": false
+  },
+  {
+    "plato_id": 153,
+    "restaurante_id": 3,
+    "plato_nombre": "Bowl veggie",
+    "tipo_comida": "Sushi",
+    "precio": 12000,
+    "disponible": true
+  },
+  {
+    "plato_id": 154,
+    "restaurante_id": 38,
+    "plato_nombre": "Combo sushi",
+    "tipo_comida": "Sushi",
+    "precio": 10500,
+    "disponible": false
+  },
+  {
+    "plato_id": 155,
+    "restaurante_id": 25,
+    "plato_nombre": "Bowl veggie",
+    "tipo_comida": "Pastas",
+    "precio": 9000,
+    "disponible": false
+  },
+  {
+    "plato_id": 156,
+    "restaurante_id": 8,
+    "plato_nombre": "Burrito clásico",
+    "tipo_comida": "Parrilla",
+    "precio": 10500,
+    "disponible": true
+  },
+  {
+    "plato_id": 157,
+    "restaurante_id": 25,
+    "plato_nombre": "Helado artesanal",
+    "tipo_comida": "Sushi",
+    "precio": 7800,
+    "disponible": true
+  },
+  {
+    "plato_id": 158,
+    "restaurante_id": 22,
+    "plato_nombre": "Wrap vegetal",
+    "tipo_comida": "Cafetería",
+    "precio": 10500,
+    "disponible": false
+  },
+  {
+    "plato_id": 159,
+    "restaurante_id": 13,
+    "plato_nombre": "Medialunas",
+    "tipo_comida": "Parrilla",
+    "precio": 4200,
+    "disponible": true
+  },
+  {
+    "plato_id": 160,
+    "restaurante_id": 28,
+    "plato_nombre": "Milanesa completa",
+    "tipo_comida": "Hamburguesas",
+    "precio": 9000,
+    "disponible": true
+  }
+]

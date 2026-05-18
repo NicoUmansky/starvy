@@ -1,0 +1,642 @@
+[
+  {
+    "dni_usuario": 44000001,
+    "nombre": "Franco",
+    "apellido": "Lan",
+    "username": "FrancoLan",
+    "password": "starvy123",
+    "mail": "franco.lan@mail.com"
+  },
+  {
+    "dni_usuario": 44000002,
+    "nombre": "Nicolas",
+    "apellido": "Giordano",
+    "username": "NicolasGiordano",
+    "password": "starvy123",
+    "mail": "nicolas.giordano@mail.com"
+  },
+  {
+    "dni_usuario": 44000003,
+    "nombre": "Nicolas",
+    "apellido": "Umansky",
+    "username": "NicolasUmansky",
+    "password": "starvy123",
+    "mail": "nicolas.umansky@mail.com"
+  },
+  {
+    "dni_usuario": 44000004,
+    "nombre": "Santiago",
+    "apellido": "Gimenez",
+    "username": "SantiagoGimenez",
+    "password": "starvy123",
+    "mail": "santiago.gimenez@mail.com"
+  },
+  {
+    "dni_usuario": 44000005,
+    "nombre": "Valentina",
+    "apellido": "Mannino",
+    "username": "ValentinaMannino",
+    "password": "starvy123",
+    "mail": "valentina.mannino@mail.com"
+  },
+  {
+    "dni_usuario": 44000006,
+    "nombre": "Vito",
+    "apellido": "Nava",
+    "username": "VitoNava",
+    "password": "starvy123",
+    "mail": "vito.nava@mail.com"
+  },
+  {
+    "dni_usuario": 44000007,
+    "nombre": "Roxana",
+    "apellido": "Martinez",
+    "username": "RoxanaMartinez",
+    "password": "starvy123",
+    "mail": "roxana.martinez@mail.com"
+  },
+  {
+    "dni_usuario": 44000008,
+    "nombre": "Mateo",
+    "apellido": "Perez",
+    "username": "MateoPerez",
+    "password": "starvy123",
+    "mail": "mateo.perez@mail.com"
+  },
+  {
+    "dni_usuario": 44000009,
+    "nombre": "Sofia",
+    "apellido": "Garcia",
+    "username": "SofiaGarcia",
+    "password": "starvy123",
+    "mail": "sofia.garcia@mail.com"
+  },
+  {
+    "dni_usuario": 44000010,
+    "nombre": "Martina",
+    "apellido": "Lopez",
+    "username": "MartinaLopez",
+    "password": "starvy123",
+    "mail": "martina.lopez@mail.com"
+  },
+  {
+    "dni_usuario": 44000011,
+    "nombre": "Lucas",
+    "apellido": "Fernandez",
+    "username": "LucasFernandez",
+    "password": "starvy123",
+    "mail": "lucas.fernandez@mail.com"
+  },
+  {
+    "dni_usuario": 44000012,
+    "nombre": "Camila",
+    "apellido": "Rodriguez",
+    "username": "CamilaRodriguez",
+    "password": "starvy123",
+    "mail": "camila.rodriguez@mail.com"
+  },
+  {
+    "dni_usuario": 44000013,
+    "nombre": "Joaquin",
+    "apellido": "Gomez",
+    "username": "JoaquinGomez",
+    "password": "starvy123",
+    "mail": "joaquin.gomez@mail.com"
+  },
+  {
+    "dni_usuario": 44000014,
+    "nombre": "Mia",
+    "apellido": "Diaz",
+    "username": "MiaDiaz",
+    "password": "starvy123",
+    "mail": "mia.diaz@mail.com"
+  },
+  {
+    "dni_usuario": 44000015,
+    "nombre": "Benjamin",
+    "apellido": "Sosa",
+    "username": "BenjaminSosa",
+    "password": "starvy123",
+    "mail": "benjamin.sosa@mail.com"
+  },
+  {
+    "dni_usuario": 44000016,
+    "nombre": "Lucia",
+    "apellido": "Romero",
+    "username": "LuciaRomero",
+    "password": "starvy123",
+    "mail": "lucia.romero@mail.com"
+  },
+  {
+    "dni_usuario": 44000017,
+    "nombre": "Tomas",
+    "apellido": "Torres",
+    "username": "TomasTorres",
+    "password": "starvy123",
+    "mail": "tomas.torres@mail.com"
+  },
+  {
+    "dni_usuario": 44000018,
+    "nombre": "Julieta",
+    "apellido": "Alvarez",
+    "username": "JulietaAlvarez",
+    "password": "starvy123",
+    "mail": "julieta.alvarez@mail.com"
+  },
+  {
+    "dni_usuario": 44000019,
+    "nombre": "Agustin",
+    "apellido": "Ruiz",
+    "username": "AgustinRuiz",
+    "password": "starvy123",
+    "mail": "agustin.ruiz@mail.com"
+  },
+  {
+    "dni_usuario": 44000020,
+    "nombre": "Emilia",
+    "apellido": "Acosta",
+    "username": "EmiliaAcosta",
+    "password": "starvy123",
+    "mail": "emilia.acosta@mail.com"
+  },
+  {
+    "dni_usuario": 44000021,
+    "nombre": "Bautista",
+    "apellido": "Benitez",
+    "username": "BautistaBenitez",
+    "password": "starvy123",
+    "mail": "bautista.benitez@mail.com"
+  },
+  {
+    "dni_usuario": 44000022,
+    "nombre": "Catalina",
+    "apellido": "Molina",
+    "username": "CatalinaMolina",
+    "password": "starvy123",
+    "mail": "catalina.molina@mail.com"
+  },
+  {
+    "dni_usuario": 44000023,
+    "nombre": "Thiago",
+    "apellido": "Silva",
+    "username": "ThiagoSilva",
+    "password": "starvy123",
+    "mail": "thiago.silva@mail.com"
+  },
+  {
+    "dni_usuario": 44000024,
+    "nombre": "Delfina",
+    "apellido": "Castro",
+    "username": "DelfinaCastro",
+    "password": "starvy123",
+    "mail": "delfina.castro@mail.com"
+  },
+  {
+    "dni_usuario": 44000025,
+    "nombre": "Felipe",
+    "apellido": "Ramos",
+    "username": "FelipeRamos",
+    "password": "starvy123",
+    "mail": "felipe.ramos@mail.com"
+  },
+  {
+    "dni_usuario": 44000026,
+    "nombre": "Renata",
+    "apellido": "Vega",
+    "username": "RenataVega",
+    "password": "starvy123",
+    "mail": "renata.vega@mail.com"
+  },
+  {
+    "dni_usuario": 44000027,
+    "nombre": "Juan",
+    "apellido": "Morales",
+    "username": "JuanMorales",
+    "password": "starvy123",
+    "mail": "juan.morales@mail.com"
+  },
+  {
+    "dni_usuario": 44000028,
+    "nombre": "Paula",
+    "apellido": "Herrera",
+    "username": "PaulaHerrera",
+    "password": "starvy123",
+    "mail": "paula.herrera@mail.com"
+  },
+  {
+    "dni_usuario": 44000029,
+    "nombre": "Bruno",
+    "apellido": "Suarez",
+    "username": "BrunoSuarez",
+    "password": "starvy123",
+    "mail": "bruno.suarez@mail.com"
+  },
+  {
+    "dni_usuario": 44000030,
+    "nombre": "Malena",
+    "apellido": "Paredes",
+    "username": "MalenaParedes",
+    "password": "starvy123",
+    "mail": "malena.paredes@mail.com"
+  },
+  {
+    "dni_usuario": 44000031,
+    "nombre": "Lautaro",
+    "apellido": "Medina",
+    "username": "LautaroMedina",
+    "password": "starvy123",
+    "mail": "lautaro.medina@mail.com"
+  },
+  {
+    "dni_usuario": 44000032,
+    "nombre": "Morena",
+    "apellido": "Navarro",
+    "username": "MorenaNavarro",
+    "password": "starvy123",
+    "mail": "morena.navarro@mail.com"
+  },
+  {
+    "dni_usuario": 44000033,
+    "nombre": "Facundo",
+    "apellido": "Cabrera",
+    "username": "FacundoCabrera",
+    "password": "starvy123",
+    "mail": "facundo.cabrera@mail.com"
+  },
+  {
+    "dni_usuario": 44000034,
+    "nombre": "Abril",
+    "apellido": "Arias",
+    "username": "AbrilArias",
+    "password": "starvy123",
+    "mail": "abril.arias@mail.com"
+  },
+  {
+    "dni_usuario": 44000035,
+    "nombre": "Ignacio",
+    "apellido": "Ibarra",
+    "username": "IgnacioIbarra",
+    "password": "starvy123",
+    "mail": "ignacio.ibarra@mail.com"
+  },
+  {
+    "dni_usuario": 44000036,
+    "nombre": "Florencia",
+    "apellido": "Figueroa",
+    "username": "FlorenciaFigueroa",
+    "password": "starvy123",
+    "mail": "florencia.figueroa@mail.com"
+  },
+  {
+    "dni_usuario": 44000037,
+    "nombre": "Ramiro",
+    "apellido": "Campos",
+    "username": "RamiroCampos",
+    "password": "starvy123",
+    "mail": "ramiro.campos@mail.com"
+  },
+  {
+    "dni_usuario": 44000038,
+    "nombre": "Clara",
+    "apellido": "Carrizo",
+    "username": "ClaraCarrizo",
+    "password": "starvy123",
+    "mail": "clara.carrizo@mail.com"
+  },
+  {
+    "dni_usuario": 44000039,
+    "nombre": "Gonzalo",
+    "apellido": "Luna",
+    "username": "GonzaloLuna",
+    "password": "starvy123",
+    "mail": "gonzalo.luna@mail.com"
+  },
+  {
+    "dni_usuario": 44000040,
+    "nombre": "Bianca",
+    "apellido": "Ojeda",
+    "username": "BiancaOjeda",
+    "password": "starvy123",
+    "mail": "bianca.ojeda@mail.com"
+  },
+  {
+    "dni_usuario": 44000041,
+    "nombre": "Manuel",
+    "apellido": "Mendez",
+    "username": "ManuelMendez",
+    "password": "starvy123",
+    "mail": "manuel.mendez@mail.com"
+  },
+  {
+    "dni_usuario": 44000042,
+    "nombre": "Carolina",
+    "apellido": "Rojas",
+    "username": "CarolinaRojas",
+    "password": "starvy123",
+    "mail": "carolina.rojas@mail.com"
+  },
+  {
+    "dni_usuario": 44000043,
+    "nombre": "Federico",
+    "apellido": "Ponce",
+    "username": "FedericoPonce",
+    "password": "starvy123",
+    "mail": "federico.ponce@mail.com"
+  },
+  {
+    "dni_usuario": 44000044,
+    "nombre": "Josefina",
+    "apellido": "Paz",
+    "username": "JosefinaPaz",
+    "password": "starvy123",
+    "mail": "josefina.paz@mail.com"
+  },
+  {
+    "dni_usuario": 44000045,
+    "nombre": "Diego",
+    "apellido": "Villalba",
+    "username": "DiegoVillalba",
+    "password": "starvy123",
+    "mail": "diego.villalba@mail.com"
+  },
+  {
+    "dni_usuario": 44000046,
+    "nombre": "Martina",
+    "apellido": "Peralta",
+    "username": "MartinaPeralta",
+    "password": "starvy123",
+    "mail": "martina.peralta@mail.com"
+  },
+  {
+    "dni_usuario": 44000047,
+    "nombre": "Alan",
+    "apellido": "Coria",
+    "username": "AlanCoria",
+    "password": "starvy123",
+    "mail": "alan.coria@mail.com"
+  },
+  {
+    "dni_usuario": 44000048,
+    "nombre": "Sol",
+    "apellido": "Bravo",
+    "username": "SolBravo",
+    "password": "starvy123",
+    "mail": "sol.bravo@mail.com"
+  },
+  {
+    "dni_usuario": 44000049,
+    "nombre": "Marcos",
+    "apellido": "Escobar",
+    "username": "MarcosEscobar",
+    "password": "starvy123",
+    "mail": "marcos.escobar@mail.com"
+  },
+  {
+    "dni_usuario": 44000050,
+    "nombre": "Ariana",
+    "apellido": "Ferreyra",
+    "username": "ArianaFerreyra",
+    "password": "starvy123",
+    "mail": "ariana.ferreyra@mail.com"
+  },
+  {
+    "dni_usuario": 44000051,
+    "nombre": "Tiziano",
+    "apellido": "Moyano",
+    "username": "TizianoMoyano",
+    "password": "starvy123",
+    "mail": "tiziano.moyano@mail.com"
+  },
+  {
+    "dni_usuario": 44000052,
+    "nombre": "Lola",
+    "apellido": "Leiva",
+    "username": "LolaLeiva",
+    "password": "starvy123",
+    "mail": "lola.leiva@mail.com"
+  },
+  {
+    "dni_usuario": 44000053,
+    "nombre": "Ezequiel",
+    "apellido": "Quiroga",
+    "username": "EzequielQuiroga",
+    "password": "starvy123",
+    "mail": "ezequiel.quiroga@mail.com"
+  },
+  {
+    "dni_usuario": 44000054,
+    "nombre": "Milagros",
+    "apellido": "Godoy",
+    "username": "MilagrosGodoy",
+    "password": "starvy123",
+    "mail": "milagros.godoy@mail.com"
+  },
+  {
+    "dni_usuario": 44000055,
+    "nombre": "Sebastian",
+    "apellido": "Aguirre",
+    "username": "SebastianAguirre",
+    "password": "starvy123",
+    "mail": "sebastian.aguirre@mail.com"
+  },
+  {
+    "dni_usuario": 44000056,
+    "nombre": "Rocio",
+    "apellido": "Vargas",
+    "username": "RocioVargas",
+    "password": "starvy123",
+    "mail": "rocio.vargas@mail.com"
+  },
+  {
+    "dni_usuario": 44000057,
+    "nombre": "Pedro",
+    "apellido": "Caceres",
+    "username": "PedroCaceres",
+    "password": "starvy123",
+    "mail": "pedro.caceres@mail.com"
+  },
+  {
+    "dni_usuario": 44000058,
+    "nombre": "Agostina",
+    "apellido": "Serrano",
+    "username": "AgostinaSerrano",
+    "password": "starvy123",
+    "mail": "agostina.serrano@mail.com"
+  },
+  {
+    "dni_usuario": 44000059,
+    "nombre": "Julian",
+    "apellido": "Miranda",
+    "username": "JulianMiranda",
+    "password": "starvy123",
+    "mail": "julian.miranda@mail.com"
+  },
+  {
+    "dni_usuario": 44000060,
+    "nombre": "Candela",
+    "apellido": "Toledo",
+    "username": "CandelaToledo",
+    "password": "starvy123",
+    "mail": "candela.toledo@mail.com"
+  },
+  {
+    "dni_usuario": 44000061,
+    "nombre": "Matias",
+    "apellido": "Coronel",
+    "username": "MatiasCoronel",
+    "password": "starvy123",
+    "mail": "matias.coronel@mail.com"
+  },
+  {
+    "dni_usuario": 44000062,
+    "nombre": "Azul",
+    "apellido": "Dominguez",
+    "username": "AzulDominguez",
+    "password": "starvy123",
+    "mail": "azul.dominguez@mail.com"
+  },
+  {
+    "dni_usuario": 44000063,
+    "nombre": "Franco",
+    "apellido": "Sanchez",
+    "username": "FrancoSanchez",
+    "password": "starvy123",
+    "mail": "franco.sanchez@mail.com"
+  },
+  {
+    "dni_usuario": 44000064,
+    "nombre": "Valeria",
+    "apellido": "Nunez",
+    "username": "ValeriaNunez",
+    "password": "starvy123",
+    "mail": "valeria.nunez@mail.com"
+  },
+  {
+    "dni_usuario": 44000065,
+    "nombre": "Nicolas",
+    "apellido": "Ortega",
+    "username": "NicolasOrtega",
+    "password": "starvy123",
+    "mail": "nicolas.ortega@mail.com"
+  },
+  {
+    "dni_usuario": 44000066,
+    "nombre": "Pilar",
+    "apellido": "Vidal",
+    "username": "PilarVidal",
+    "password": "starvy123",
+    "mail": "pilar.vidal@mail.com"
+  },
+  {
+    "dni_usuario": 44000067,
+    "nombre": "Santino",
+    "apellido": "Pena",
+    "username": "SantinoPena",
+    "password": "starvy123",
+    "mail": "santino.pena@mail.com"
+  },
+  {
+    "dni_usuario": 44000068,
+    "nombre": "Micaela",
+    "apellido": "Montenegro",
+    "username": "MicaelaMontenegro",
+    "password": "starvy123",
+    "mail": "micaela.montenegro@mail.com"
+  },
+  {
+    "dni_usuario": 44000069,
+    "nombre": "Andres",
+    "apellido": "Ledesma",
+    "username": "AndresLedesma",
+    "password": "starvy123",
+    "mail": "andres.ledesma@mail.com"
+  },
+  {
+    "dni_usuario": 44000070,
+    "nombre": "Maite",
+    "apellido": "Funes",
+    "username": "MaiteFunes",
+    "password": "starvy123",
+    "mail": "maite.funes@mail.com"
+  },
+  {
+    "dni_usuario": 44000071,
+    "nombre": "Leonardo",
+    "apellido": "Barrios",
+    "username": "LeonardoBarrios",
+    "password": "starvy123",
+    "mail": "leonardo.barrios@mail.com"
+  },
+  {
+    "dni_usuario": 44000072,
+    "nombre": "Victoria",
+    "apellido": "Gallardo",
+    "username": "VictoriaGallardo",
+    "password": "starvy123",
+    "mail": "victoria.gallardo@mail.com"
+  },
+  {
+    "dni_usuario": 44000073,
+    "nombre": "Maximiliano",
+    "apellido": "Rivero",
+    "username": "MaximilianoRivero",
+    "password": "starvy123",
+    "mail": "maximiliano.rivero@mail.com"
+  },
+  {
+    "dni_usuario": 44000074,
+    "nombre": "Elena",
+    "apellido": "Aguilar",
+    "username": "ElenaAguilar",
+    "password": "starvy123",
+    "mail": "elena.aguilar@mail.com"
+  },
+  {
+    "dni_usuario": 44000075,
+    "nombre": "Dante",
+    "apellido": "Cano",
+    "username": "DanteCano",
+    "password": "starvy123",
+    "mail": "dante.cano@mail.com"
+  },
+  {
+    "dni_usuario": 44000076,
+    "nombre": "Juana",
+    "apellido": "Espinosa",
+    "username": "JuanaEspinosa",
+    "password": "starvy123",
+    "mail": "juana.espinosa@mail.com"
+  },
+  {
+    "dni_usuario": 44000077,
+    "nombre": "Gabriel",
+    "apellido": "Valdez",
+    "username": "GabrielValdez",
+    "password": "starvy123",
+    "mail": "gabriel.valdez@mail.com"
+  },
+  {
+    "dni_usuario": 44000078,
+    "nombre": "Emma",
+    "apellido": "Fuentes",
+    "username": "EmmaFuentes",
+    "password": "starvy123",
+    "mail": "emma.fuentes@mail.com"
+  },
+  {
+    "dni_usuario": 44000079,
+    "nombre": "Martin",
+    "apellido": "Blanco",
+    "username": "MartinBlanco",
+    "password": "starvy123",
+    "mail": "martin.blanco@mail.com"
+  },
+  {
+    "dni_usuario": 44000080,
+    "nombre": "Lara",
+    "apellido": "Guerra",
+    "username": "LaraGuerra",
+    "password": "starvy123",
+    "mail": "lara.guerra@mail.com"
+  }
+]

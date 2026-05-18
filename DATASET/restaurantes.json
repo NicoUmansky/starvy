@@ -1,0 +1,322 @@
+[
+  {
+    "restaurante_id": 1,
+    "nombre": "Qnekt",
+    "tipo_comida": "Mexicana",
+    "barrio": "Flores",
+    "direccion": "848 Reed Street",
+    "calificacion_promedio": 3.1
+  },
+  {
+    "restaurante_id": 2,
+    "nombre": "Entogrok",
+    "tipo_comida": "Pastas",
+    "barrio": "Belgrano",
+    "direccion": "724 Clifford Place",
+    "calificacion_promedio": 3.1
+  },
+  {
+    "restaurante_id": 3,
+    "nombre": "Kiosk",
+    "tipo_comida": "Hamburguesas",
+    "barrio": "San Telmo",
+    "direccion": "1771 Euclid Avenue",
+    "calificacion_promedio": 4.4
+  },
+  {
+    "restaurante_id": 4,
+    "nombre": "Dragbot",
+    "tipo_comida": "Cafetería",
+    "barrio": "Almagro",
+    "direccion": "1472 Cypress Avenue",
+    "calificacion_promedio": 4.5
+  },
+  {
+    "restaurante_id": 5,
+    "nombre": "Genekom",
+    "tipo_comida": "Hamburguesas",
+    "barrio": "Recoleta",
+    "direccion": "1117 Homecrest Avenue",
+    "calificacion_promedio": 4.1
+  },
+  {
+    "restaurante_id": 6,
+    "nombre": "Viasia",
+    "tipo_comida": "Vegano",
+    "barrio": "Núñez",
+    "direccion": "2595 Auburn Place",
+    "calificacion_promedio": 4.2
+  },
+  {
+    "restaurante_id": 7,
+    "nombre": "Springbee",
+    "tipo_comida": "Pastas",
+    "barrio": "Flores",
+    "direccion": "1443 Wyckoff Avenue",
+    "calificacion_promedio": 4.7
+  },
+  {
+    "restaurante_id": 8,
+    "nombre": "Anixang",
+    "tipo_comida": "Pizza",
+    "barrio": "Núñez",
+    "direccion": "1049 Benson Avenue",
+    "calificacion_promedio": 3.9
+  },
+  {
+    "restaurante_id": 9,
+    "nombre": "Comstar",
+    "tipo_comida": "Vegano",
+    "barrio": "Núñez",
+    "direccion": "2589 Kent Street",
+    "calificacion_promedio": 4.3
+  },
+  {
+    "restaurante_id": 10,
+    "nombre": "Jimbies",
+    "tipo_comida": "Mexicana",
+    "barrio": "Villa Crespo",
+    "direccion": "534 Macon Street",
+    "calificacion_promedio": 4
+  },
+  {
+    "restaurante_id": 11,
+    "nombre": "Accuprint",
+    "tipo_comida": "Parrilla",
+    "barrio": "Belgrano",
+    "direccion": "1205 Cumberland Walk",
+    "calificacion_promedio": 3.9
+  },
+  {
+    "restaurante_id": 12,
+    "nombre": "Insuresys",
+    "tipo_comida": "Helados",
+    "barrio": "Recoleta",
+    "direccion": "3033 Oceanic Avenue",
+    "calificacion_promedio": 3.8
+  },
+  {
+    "restaurante_id": 13,
+    "nombre": "Limage",
+    "tipo_comida": "Pastas",
+    "barrio": "Recoleta",
+    "direccion": "2844 Bergen Street",
+    "calificacion_promedio": 3.8
+  },
+  {
+    "restaurante_id": 14,
+    "nombre": "Kozgene",
+    "tipo_comida": "Vegano",
+    "barrio": "Almagro",
+    "direccion": "1567 Bartlett Place",
+    "calificacion_promedio": 3.1
+  },
+  {
+    "restaurante_id": 15,
+    "nombre": "Signidyne",
+    "tipo_comida": "Parrilla",
+    "barrio": "Palermo",
+    "direccion": "1203 Hampton Place",
+    "calificacion_promedio": 5
+  },
+  {
+    "restaurante_id": 16,
+    "nombre": "Plasmox",
+    "tipo_comida": "Pastas",
+    "barrio": "Núñez",
+    "direccion": "342 Kimball Street",
+    "calificacion_promedio": 3.3
+  },
+  {
+    "restaurante_id": 17,
+    "nombre": "Digiprint",
+    "tipo_comida": "Cafetería",
+    "barrio": "Belgrano",
+    "direccion": "538 Kossuth Place",
+    "calificacion_promedio": 3.6
+  },
+  {
+    "restaurante_id": 18,
+    "nombre": "Cedward",
+    "tipo_comida": "Milanesas",
+    "barrio": "Almagro",
+    "direccion": "2155 Brigham Street",
+    "calificacion_promedio": 3.5
+  },
+  {
+    "restaurante_id": 19,
+    "nombre": "Voipa",
+    "tipo_comida": "Cafetería",
+    "barrio": "Caballito",
+    "direccion": "317 Elliott Place",
+    "calificacion_promedio": 3.3
+  },
+  {
+    "restaurante_id": 20,
+    "nombre": "Combogen",
+    "tipo_comida": "Pastas",
+    "barrio": "Almagro",
+    "direccion": "3010 Manor Court",
+    "calificacion_promedio": 3.2
+  },
+  {
+    "restaurante_id": 21,
+    "nombre": "Zilencio",
+    "tipo_comida": "Hamburguesas",
+    "barrio": "Villa Crespo",
+    "direccion": "1055 Hendrix Street",
+    "calificacion_promedio": 3.9
+  },
+  {
+    "restaurante_id": 22,
+    "nombre": "Wrapture",
+    "tipo_comida": "Sushi",
+    "barrio": "Núñez",
+    "direccion": "3202 Tillary Street",
+    "calificacion_promedio": 3.5
+  },
+  {
+    "restaurante_id": 23,
+    "nombre": "Danja",
+    "tipo_comida": "Sushi",
+    "barrio": "Núñez",
+    "direccion": "3510 Evans Street",
+    "calificacion_promedio": 3.1
+  },
+  {
+    "restaurante_id": 24,
+    "nombre": "Turnabout",
+    "tipo_comida": "Helados",
+    "barrio": "Flores",
+    "direccion": "969 Cyrus Avenue",
+    "calificacion_promedio": 5
+  },
+  {
+    "restaurante_id": 25,
+    "nombre": "Ovium",
+    "tipo_comida": "Pizza",
+    "barrio": "Puerto Madero",
+    "direccion": "2190 Bragg Court",
+    "calificacion_promedio": 4.4
+  },
+  {
+    "restaurante_id": 26,
+    "nombre": "Perkle",
+    "tipo_comida": "Cafetería",
+    "barrio": "Almagro",
+    "direccion": "2666 Pierrepont Street",
+    "calificacion_promedio": 4.7
+  },
+  {
+    "restaurante_id": 27,
+    "nombre": "Sulfax",
+    "tipo_comida": "Parrilla",
+    "barrio": "Villa Crespo",
+    "direccion": "1055 Varick Avenue",
+    "calificacion_promedio": 3.6
+  },
+  {
+    "restaurante_id": 28,
+    "nombre": "Visalia",
+    "tipo_comida": "Pizza",
+    "barrio": "Belgrano",
+    "direccion": "3715 Madeline Court",
+    "calificacion_promedio": 4.9
+  },
+  {
+    "restaurante_id": 29,
+    "nombre": "Telepark",
+    "tipo_comida": "Cafetería",
+    "barrio": "Flores",
+    "direccion": "634 Jackson Street",
+    "calificacion_promedio": 3.2
+  },
+  {
+    "restaurante_id": 30,
+    "nombre": "Intrawear",
+    "tipo_comida": "Helados",
+    "barrio": "Palermo",
+    "direccion": "2234 Court Street",
+    "calificacion_promedio": 3.8
+  },
+  {
+    "restaurante_id": 31,
+    "nombre": "Aquasseur",
+    "tipo_comida": "Parrilla",
+    "barrio": "San Telmo",
+    "direccion": "568 Laurel Avenue",
+    "calificacion_promedio": 4.7
+  },
+  {
+    "restaurante_id": 32,
+    "nombre": "Sequitur",
+    "tipo_comida": "Hamburguesas",
+    "barrio": "Almagro",
+    "direccion": "2256 Seeley Street",
+    "calificacion_promedio": 4.3
+  },
+  {
+    "restaurante_id": 33,
+    "nombre": "Orbiflex",
+    "tipo_comida": "Pastas",
+    "barrio": "Villa Crespo",
+    "direccion": "3029 Central Avenue",
+    "calificacion_promedio": 3.6
+  },
+  {
+    "restaurante_id": 34,
+    "nombre": "Grok",
+    "tipo_comida": "Helados",
+    "barrio": "Núñez",
+    "direccion": "1498 Langham Street",
+    "calificacion_promedio": 4.2
+  },
+  {
+    "restaurante_id": 35,
+    "nombre": "Quilch",
+    "tipo_comida": "Hamburguesas",
+    "barrio": "Palermo",
+    "direccion": "3255 Richardson Street",
+    "calificacion_promedio": 3.3
+  },
+  {
+    "restaurante_id": 36,
+    "nombre": "Zentility",
+    "tipo_comida": "Milanesas",
+    "barrio": "Puerto Madero",
+    "direccion": "2737 Etna Street",
+    "calificacion_promedio": 3.9
+  },
+  {
+    "restaurante_id": 37,
+    "nombre": "Medmex",
+    "tipo_comida": "Cafetería",
+    "barrio": "Caballito",
+    "direccion": "619 Lincoln Road",
+    "calificacion_promedio": 4.5
+  },
+  {
+    "restaurante_id": 38,
+    "nombre": "Rockyard",
+    "tipo_comida": "Hamburguesas",
+    "barrio": "Almagro",
+    "direccion": "3816 Olive Street",
+    "calificacion_promedio": 3.3
+  },
+  {
+    "restaurante_id": 39,
+    "nombre": "Austech",
+    "tipo_comida": "Pastas",
+    "barrio": "San Telmo",
+    "direccion": "2310 Debevoise Avenue",
+    "calificacion_promedio": 3.5
+  },
+  {
+    "restaurante_id": 40,
+    "nombre": "Talendula",
+    "tipo_comida": "Mexicana",
+    "barrio": "Villa Crespo",
+    "direccion": "3380 Minna Street",
+    "calificacion_promedio": 3.9
+  }
+]

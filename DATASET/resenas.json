@@ -1,0 +1,2002 @@
+[
+  {
+    "resena_id": 1,
+    "dni_usuario": 44000009,
+    "restaurante_id": 2,
+    "puntaje": 5,
+    "comentario": "Buen precio para estudiantes",
+    "fecha": "2026-05-14"
+  },
+  {
+    "resena_id": 2,
+    "dni_usuario": 44000009,
+    "restaurante_id": 4,
+    "puntaje": 5,
+    "comentario": "Volvería con amigos",
+    "fecha": "2026-05-02"
+  },
+  {
+    "resena_id": 3,
+    "dni_usuario": 44000054,
+    "restaurante_id": 30,
+    "puntaje": 3,
+    "comentario": "Ideal para ir después de cursar",
+    "fecha": "2026-05-08"
+  },
+  {
+    "resena_id": 4,
+    "dni_usuario": 44000009,
+    "restaurante_id": 1,
+    "puntaje": 3,
+    "comentario": "Buen precio para estudiantes",
+    "fecha": "2026-05-12"
+  },
+  {
+    "resena_id": 5,
+    "dni_usuario": 44000067,
+    "restaurante_id": 26,
+    "puntaje": 5,
+    "comentario": "Excelente promoción",
+    "fecha": "2026-05-06"
+  },
+  {
+    "resena_id": 6,
+    "dni_usuario": 44000053,
+    "restaurante_id": 31,
+    "puntaje": 3,
+    "comentario": "La comida llegó rápido",
+    "fecha": "2026-05-15"
+  },
+  {
+    "resena_id": 7,
+    "dni_usuario": 44000015,
+    "restaurante_id": 1,
+    "puntaje": 1,
+    "comentario": "Buen precio para estudiantes",
+    "fecha": "2026-05-02"
+  },
+  {
+    "resena_id": 8,
+    "dni_usuario": 44000004,
+    "restaurante_id": 4,
+    "puntaje": 2,
+    "comentario": "Buena relación precio calidad",
+    "fecha": "2026-05-05"
+  },
+  {
+    "resena_id": 9,
+    "dni_usuario": 44000042,
+    "restaurante_id": 1,
+    "puntaje": 4,
+    "comentario": "La porción fue abundante",
+    "fecha": "2026-05-15"
+  },
+  {
+    "resena_id": 10,
+    "dni_usuario": 44000062,
+    "restaurante_id": 13,
+    "puntaje": 4,
+    "comentario": "El plato estaba muy rico",
+    "fecha": "2026-05-07"
+  },
+  {
+    "resena_id": 11,
+    "dni_usuario": 44000032,
+    "restaurante_id": 9,
+    "puntaje": 4,
+    "comentario": "Buen precio para estudiantes",
+    "fecha": "2026-05-18"
+  },
+  {
+    "resena_id": 12,
+    "dni_usuario": 44000036,
+    "restaurante_id": 8,
+    "puntaje": 4,
+    "comentario": "Muy buena experiencia",
+    "fecha": "2026-05-16"
+  },
+  {
+    "resena_id": 13,
+    "dni_usuario": 44000069,
+    "restaurante_id": 38,
+    "puntaje": 5,
+    "comentario": "Muy buena experiencia",
+    "fecha": "2026-05-07"
+  },
+  {
+    "resena_id": 14,
+    "dni_usuario": 44000052,
+    "restaurante_id": 29,
+    "puntaje": 3,
+    "comentario": "El lugar estaba lleno pero valió la pena",
+    "fecha": "2026-05-09"
+  },
+  {
+    "resena_id": 15,
+    "dni_usuario": 44000005,
+    "restaurante_id": 33,
+    "puntaje": 3,
+    "comentario": "Ideal para ir después de cursar",
+    "fecha": "2026-05-04"
+  },
+  {
+    "resena_id": 16,
+    "dni_usuario": 44000025,
+    "restaurante_id": 8,
+    "puntaje": 4,
+    "comentario": "La atención podría mejorar",
+    "fecha": "2026-05-18"
+  },
+  {
+    "resena_id": 17,
+    "dni_usuario": 44000065,
+    "restaurante_id": 19,
+    "puntaje": 1,
+    "comentario": "Buena relación precio calidad",
+    "fecha": "2026-05-06"
+  },
+  {
+    "resena_id": 18,
+    "dni_usuario": 44000032,
+    "restaurante_id": 20,
+    "puntaje": 4,
+    "comentario": "Ideal para ir después de cursar",
+    "fecha": "2026-05-13"
+  },
+  {
+    "resena_id": 19,
+    "dni_usuario": 44000052,
+    "restaurante_id": 8,
+    "puntaje": 4,
+    "comentario": "Volvería con amigos",
+    "fecha": "2026-05-13"
+  },
+  {
+    "resena_id": 20,
+    "dni_usuario": 44000025,
+    "restaurante_id": 14,
+    "puntaje": 1,
+    "comentario": "Buen precio para estudiantes",
+    "fecha": "2026-05-14"
+  },
+  {
+    "resena_id": 21,
+    "dni_usuario": 44000063,
+    "restaurante_id": 27,
+    "puntaje": 3,
+    "comentario": "La porción fue abundante",
+    "fecha": "2026-05-16"
+  },
+  {
+    "resena_id": 22,
+    "dni_usuario": 44000036,
+    "restaurante_id": 15,
+    "puntaje": 4,
+    "comentario": "La atención podría mejorar",
+    "fecha": "2026-05-03"
+  },
+  {
+    "resena_id": 23,
+    "dni_usuario": 44000070,
+    "restaurante_id": 9,
+    "puntaje": 5,
+    "comentario": "Volvería con amigos",
+    "fecha": "2026-05-06"
+  },
+  {
+    "resena_id": 24,
+    "dni_usuario": 44000006,
+    "restaurante_id": 22,
+    "puntaje": 3,
+    "comentario": "Ideal para ir después de cursar",
+    "fecha": "2026-05-07"
+  },
+  {
+    "resena_id": 25,
+    "dni_usuario": 44000020,
+    "restaurante_id": 33,
+    "puntaje": 4,
+    "comentario": "Me gustó mucho el ambiente",
+    "fecha": "2026-05-17"
+  },
+  {
+    "resena_id": 26,
+    "dni_usuario": 44000016,
+    "restaurante_id": 27,
+    "puntaje": 4,
+    "comentario": "El lugar estaba lleno pero valió la pena",
+    "fecha": "2026-05-03"
+  },
+  {
+    "resena_id": 27,
+    "dni_usuario": 44000054,
+    "restaurante_id": 30,
+    "puntaje": 3,
+    "comentario": "Excelente promoción",
+    "fecha": "2026-05-11"
+  },
+  {
+    "resena_id": 28,
+    "dni_usuario": 44000060,
+    "restaurante_id": 3,
+    "puntaje": 3,
+    "comentario": "Me gustó mucho el ambiente",
+    "fecha": "2026-05-04"
+  },
+  {
+    "resena_id": 29,
+    "dni_usuario": 44000062,
+    "restaurante_id": 22,
+    "puntaje": 4,
+    "comentario": "La comida llegó rápido",
+    "fecha": "2026-05-18"
+  },
+  {
+    "resena_id": 30,
+    "dni_usuario": 44000019,
+    "restaurante_id": 2,
+    "puntaje": 1,
+    "comentario": "La porción fue abundante",
+    "fecha": "2026-05-04"
+  },
+  {
+    "resena_id": 31,
+    "dni_usuario": 44000068,
+    "restaurante_id": 20,
+    "puntaje": 1,
+    "comentario": "Muy buena experiencia",
+    "fecha": "2026-05-03"
+  },
+  {
+    "resena_id": 32,
+    "dni_usuario": 44000037,
+    "restaurante_id": 6,
+    "puntaje": 1,
+    "comentario": "Volvería con amigos",
+    "fecha": "2026-05-13"
+  },
+  {
+    "resena_id": 33,
+    "dni_usuario": 44000073,
+    "restaurante_id": 30,
+    "puntaje": 2,
+    "comentario": "Buena relación precio calidad",
+    "fecha": "2026-05-11"
+  },
+  {
+    "resena_id": 34,
+    "dni_usuario": 44000070,
+    "restaurante_id": 3,
+    "puntaje": 5,
+    "comentario": "El lugar estaba lleno pero valió la pena",
+    "fecha": "2026-05-08"
+  },
+  {
+    "resena_id": 35,
+    "dni_usuario": 44000020,
+    "restaurante_id": 37,
+    "puntaje": 4,
+    "comentario": "Muy buena experiencia",
+    "fecha": "2026-05-09"
+  },
+  {
+    "resena_id": 36,
+    "dni_usuario": 44000036,
+    "restaurante_id": 32,
+    "puntaje": 2,
+    "comentario": "El lugar estaba lleno pero valió la pena",
+    "fecha": "2026-05-01"
+  },
+  {
+    "resena_id": 37,
+    "dni_usuario": 44000007,
+    "restaurante_id": 39,
+    "puntaje": 2,
+    "comentario": "Volvería con amigos",
+    "fecha": "2026-05-18"
+  },
+  {
+    "resena_id": 38,
+    "dni_usuario": 44000037,
+    "restaurante_id": 21,
+    "puntaje": 5,
+    "comentario": "La comida llegó rápido",
+    "fecha": "2026-05-04"
+  },
+  {
+    "resena_id": 39,
+    "dni_usuario": 44000065,
+    "restaurante_id": 12,
+    "puntaje": 4,
+    "comentario": "La comida llegó rápido",
+    "fecha": "2026-05-12"
+  },
+  {
+    "resena_id": 40,
+    "dni_usuario": 44000019,
+    "restaurante_id": 33,
+    "puntaje": 1,
+    "comentario": "La porción fue abundante",
+    "fecha": "2026-05-13"
+  },
+  {
+    "resena_id": 41,
+    "dni_usuario": 44000053,
+    "restaurante_id": 30,
+    "puntaje": 2,
+    "comentario": "Me gustó mucho el ambiente",
+    "fecha": "2026-05-14"
+  },
+  {
+    "resena_id": 42,
+    "dni_usuario": 44000048,
+    "restaurante_id": 38,
+    "puntaje": 2,
+    "comentario": "Me gustó mucho el ambiente",
+    "fecha": "2026-05-13"
+  },
+  {
+    "resena_id": 43,
+    "dni_usuario": 44000068,
+    "restaurante_id": 20,
+    "puntaje": 2,
+    "comentario": "La comida llegó rápido",
+    "fecha": "2026-05-08"
+  },
+  {
+    "resena_id": 44,
+    "dni_usuario": 44000063,
+    "restaurante_id": 24,
+    "puntaje": 4,
+    "comentario": "El plato estaba muy rico",
+    "fecha": "2026-05-07"
+  },
+  {
+    "resena_id": 45,
+    "dni_usuario": 44000067,
+    "restaurante_id": 26,
+    "puntaje": 1,
+    "comentario": "Volvería con amigos",
+    "fecha": "2026-05-08"
+  },
+  {
+    "resena_id": 46,
+    "dni_usuario": 44000053,
+    "restaurante_id": 7,
+    "puntaje": 3,
+    "comentario": "La atención podría mejorar",
+    "fecha": "2026-05-03"
+  },
+  {
+    "resena_id": 47,
+    "dni_usuario": 44000005,
+    "restaurante_id": 18,
+    "puntaje": 2,
+    "comentario": "La porción fue abundante",
+    "fecha": "2026-05-15"
+  },
+  {
+    "resena_id": 48,
+    "dni_usuario": 44000046,
+    "restaurante_id": 37,
+    "puntaje": 5,
+    "comentario": "La porción fue abundante",
+    "fecha": "2026-05-11"
+  },
+  {
+    "resena_id": 49,
+    "dni_usuario": 44000062,
+    "restaurante_id": 1,
+    "puntaje": 2,
+    "comentario": "El plato estaba muy rico",
+    "fecha": "2026-05-16"
+  },
+  {
+    "resena_id": 50,
+    "dni_usuario": 44000053,
+    "restaurante_id": 4,
+    "puntaje": 4,
+    "comentario": "Buen precio para estudiantes",
+    "fecha": "2026-05-09"
+  },
+  {
+    "resena_id": 51,
+    "dni_usuario": 44000070,
+    "restaurante_id": 25,
+    "puntaje": 5,
+    "comentario": "Me gustó mucho el ambiente",
+    "fecha": "2026-05-13"
+  },
+  {
+    "resena_id": 52,
+    "dni_usuario": 44000069,
+    "restaurante_id": 7,
+    "puntaje": 5,
+    "comentario": "El lugar estaba lleno pero valió la pena",
+    "fecha": "2026-05-02"
+  },
+  {
+    "resena_id": 53,
+    "dni_usuario": 44000013,
+    "restaurante_id": 28,
+    "puntaje": 3,
+    "comentario": "La comida llegó rápido",
+    "fecha": "2026-05-11"
+  },
+  {
+    "resena_id": 54,
+    "dni_usuario": 44000075,
+    "restaurante_id": 11,
+    "puntaje": 1,
+    "comentario": "Ideal para ir después de cursar",
+    "fecha": "2026-05-08"
+  },
+  {
+    "resena_id": 55,
+    "dni_usuario": 44000036,
+    "restaurante_id": 27,
+    "puntaje": 2,
+    "comentario": "El plato estaba muy rico",
+    "fecha": "2026-05-14"
+  },
+  {
+    "resena_id": 56,
+    "dni_usuario": 44000035,
+    "restaurante_id": 29,
+    "puntaje": 2,
+    "comentario": "Volvería con amigos",
+    "fecha": "2026-05-12"
+  },
+  {
+    "resena_id": 57,
+    "dni_usuario": 44000047,
+    "restaurante_id": 13,
+    "puntaje": 3,
+    "comentario": "Muy buena experiencia",
+    "fecha": "2026-05-14"
+  },
+  {
+    "resena_id": 58,
+    "dni_usuario": 44000008,
+    "restaurante_id": 1,
+    "puntaje": 2,
+    "comentario": "Buen precio para estudiantes",
+    "fecha": "2026-05-13"
+  },
+  {
+    "resena_id": 59,
+    "dni_usuario": 44000080,
+    "restaurante_id": 18,
+    "puntaje": 5,
+    "comentario": "Ideal para ir después de cursar",
+    "fecha": "2026-05-09"
+  },
+  {
+    "resena_id": 60,
+    "dni_usuario": 44000055,
+    "restaurante_id": 18,
+    "puntaje": 4,
+    "comentario": "Volvería con amigos",
+    "fecha": "2026-05-14"
+  },
+  {
+    "resena_id": 61,
+    "dni_usuario": 44000007,
+    "restaurante_id": 11,
+    "puntaje": 3,
+    "comentario": "La porción fue abundante",
+    "fecha": "2026-05-15"
+  },
+  {
+    "resena_id": 62,
+    "dni_usuario": 44000041,
+    "restaurante_id": 9,
+    "puntaje": 1,
+    "comentario": "El plato estaba muy rico",
+    "fecha": "2026-05-04"
+  },
+  {
+    "resena_id": 63,
+    "dni_usuario": 44000040,
+    "restaurante_id": 6,
+    "puntaje": 5,
+    "comentario": "Ideal para ir después de cursar",
+    "fecha": "2026-05-10"
+  },
+  {
+    "resena_id": 64,
+    "dni_usuario": 44000059,
+    "restaurante_id": 31,
+    "puntaje": 1,
+    "comentario": "El plato estaba muy rico",
+    "fecha": "2026-05-12"
+  },
+  {
+    "resena_id": 65,
+    "dni_usuario": 44000035,
+    "restaurante_id": 7,
+    "puntaje": 4,
+    "comentario": "Ideal para ir después de cursar",
+    "fecha": "2026-05-01"
+  },
+  {
+    "resena_id": 66,
+    "dni_usuario": 44000036,
+    "restaurante_id": 16,
+    "puntaje": 2,
+    "comentario": "Me gustó mucho el ambiente",
+    "fecha": "2026-05-15"
+  },
+  {
+    "resena_id": 67,
+    "dni_usuario": 44000050,
+    "restaurante_id": 10,
+    "puntaje": 4,
+    "comentario": "Ideal para ir después de cursar",
+    "fecha": "2026-05-16"
+  },
+  {
+    "resena_id": 68,
+    "dni_usuario": 44000061,
+    "restaurante_id": 30,
+    "puntaje": 2,
+    "comentario": "La atención podría mejorar",
+    "fecha": "2026-05-11"
+  },
+  {
+    "resena_id": 69,
+    "dni_usuario": 44000027,
+    "restaurante_id": 37,
+    "puntaje": 5,
+    "comentario": "Excelente promoción",
+    "fecha": "2026-05-06"
+  },
+  {
+    "resena_id": 70,
+    "dni_usuario": 44000025,
+    "restaurante_id": 22,
+    "puntaje": 5,
+    "comentario": "Muy buena experiencia",
+    "fecha": "2026-05-15"
+  },
+  {
+    "resena_id": 71,
+    "dni_usuario": 44000052,
+    "restaurante_id": 24,
+    "puntaje": 4,
+    "comentario": "Volvería con amigos",
+    "fecha": "2026-05-15"
+  },
+  {
+    "resena_id": 72,
+    "dni_usuario": 44000055,
+    "restaurante_id": 27,
+    "puntaje": 1,
+    "comentario": "El plato estaba muy rico",
+    "fecha": "2026-05-08"
+  },
+  {
+    "resena_id": 73,
+    "dni_usuario": 44000012,
+    "restaurante_id": 10,
+    "puntaje": 5,
+    "comentario": "La porción fue abundante",
+    "fecha": "2026-05-07"
+  },
+  {
+    "resena_id": 74,
+    "dni_usuario": 44000051,
+    "restaurante_id": 10,
+    "puntaje": 4,
+    "comentario": "Volvería con amigos",
+    "fecha": "2026-05-12"
+  },
+  {
+    "resena_id": 75,
+    "dni_usuario": 44000049,
+    "restaurante_id": 33,
+    "puntaje": 4,
+    "comentario": "El lugar estaba lleno pero valió la pena",
+    "fecha": "2026-05-01"
+  },
+  {
+    "resena_id": 76,
+    "dni_usuario": 44000071,
+    "restaurante_id": 26,
+    "puntaje": 5,
+    "comentario": "El lugar estaba lleno pero valió la pena",
+    "fecha": "2026-05-16"
+  },
+  {
+    "resena_id": 77,
+    "dni_usuario": 44000037,
+    "restaurante_id": 21,
+    "puntaje": 1,
+    "comentario": "La atención podría mejorar",
+    "fecha": "2026-05-04"
+  },
+  {
+    "resena_id": 78,
+    "dni_usuario": 44000040,
+    "restaurante_id": 38,
+    "puntaje": 1,
+    "comentario": "La comida llegó rápido",
+    "fecha": "2026-05-09"
+  },
+  {
+    "resena_id": 79,
+    "dni_usuario": 44000044,
+    "restaurante_id": 8,
+    "puntaje": 5,
+    "comentario": "Ideal para ir después de cursar",
+    "fecha": "2026-05-14"
+  },
+  {
+    "resena_id": 80,
+    "dni_usuario": 44000040,
+    "restaurante_id": 25,
+    "puntaje": 5,
+    "comentario": "Muy buena experiencia",
+    "fecha": "2026-05-15"
+  },
+  {
+    "resena_id": 81,
+    "dni_usuario": 44000055,
+    "restaurante_id": 14,
+    "puntaje": 1,
+    "comentario": "Ideal para ir después de cursar",
+    "fecha": "2026-05-06"
+  },
+  {
+    "resena_id": 82,
+    "dni_usuario": 44000054,
+    "restaurante_id": 9,
+    "puntaje": 2,
+    "comentario": "Buena relación precio calidad",
+    "fecha": "2026-05-12"
+  },
+  {
+    "resena_id": 83,
+    "dni_usuario": 44000064,
+    "restaurante_id": 14,
+    "puntaje": 4,
+    "comentario": "Me gustó mucho el ambiente",
+    "fecha": "2026-05-01"
+  },
+  {
+    "resena_id": 84,
+    "dni_usuario": 44000025,
+    "restaurante_id": 21,
+    "puntaje": 1,
+    "comentario": "La atención podría mejorar",
+    "fecha": "2026-05-18"
+  },
+  {
+    "resena_id": 85,
+    "dni_usuario": 44000060,
+    "restaurante_id": 22,
+    "puntaje": 4,
+    "comentario": "Volvería con amigos",
+    "fecha": "2026-05-18"
+  },
+  {
+    "resena_id": 86,
+    "dni_usuario": 44000018,
+    "restaurante_id": 2,
+    "puntaje": 2,
+    "comentario": "La atención podría mejorar",
+    "fecha": "2026-05-08"
+  },
+  {
+    "resena_id": 87,
+    "dni_usuario": 44000075,
+    "restaurante_id": 38,
+    "puntaje": 1,
+    "comentario": "La comida llegó rápido",
+    "fecha": "2026-05-06"
+  },
+  {
+    "resena_id": 88,
+    "dni_usuario": 44000010,
+    "restaurante_id": 35,
+    "puntaje": 1,
+    "comentario": "La atención podría mejorar",
+    "fecha": "2026-05-03"
+  },
+  {
+    "resena_id": 89,
+    "dni_usuario": 44000017,
+    "restaurante_id": 26,
+    "puntaje": 1,
+    "comentario": "La atención podría mejorar",
+    "fecha": "2026-05-08"
+  },
+  {
+    "resena_id": 90,
+    "dni_usuario": 44000032,
+    "restaurante_id": 8,
+    "puntaje": 1,
+    "comentario": "Muy buena experiencia",
+    "fecha": "2026-05-03"
+  },
+  {
+    "resena_id": 91,
+    "dni_usuario": 44000061,
+    "restaurante_id": 26,
+    "puntaje": 1,
+    "comentario": "Buen precio para estudiantes",
+    "fecha": "2026-05-12"
+  },
+  {
+    "resena_id": 92,
+    "dni_usuario": 44000030,
+    "restaurante_id": 37,
+    "puntaje": 2,
+    "comentario": "El lugar estaba lleno pero valió la pena",
+    "fecha": "2026-05-12"
+  },
+  {
+    "resena_id": 93,
+    "dni_usuario": 44000074,
+    "restaurante_id": 32,
+    "puntaje": 2,
+    "comentario": "El plato estaba muy rico",
+    "fecha": "2026-05-02"
+  },
+  {
+    "resena_id": 94,
+    "dni_usuario": 44000049,
+    "restaurante_id": 5,
+    "puntaje": 5,
+    "comentario": "El plato estaba muy rico",
+    "fecha": "2026-05-02"
+  },
+  {
+    "resena_id": 95,
+    "dni_usuario": 44000020,
+    "restaurante_id": 19,
+    "puntaje": 4,
+    "comentario": "El lugar estaba lleno pero valió la pena",
+    "fecha": "2026-05-06"
+  },
+  {
+    "resena_id": 96,
+    "dni_usuario": 44000079,
+    "restaurante_id": 38,
+    "puntaje": 4,
+    "comentario": "Muy buena experiencia",
+    "fecha": "2026-05-17"
+  },
+  {
+    "resena_id": 97,
+    "dni_usuario": 44000067,
+    "restaurante_id": 15,
+    "puntaje": 2,
+    "comentario": "Me gustó mucho el ambiente",
+    "fecha": "2026-05-18"
+  },
+  {
+    "resena_id": 98,
+    "dni_usuario": 44000015,
+    "restaurante_id": 36,
+    "puntaje": 4,
+    "comentario": "La comida llegó rápido",
+    "fecha": "2026-05-10"
+  },
+  {
+    "resena_id": 99,
+    "dni_usuario": 44000005,
+    "restaurante_id": 25,
+    "puntaje": 1,
+    "comentario": "Ideal para ir después de cursar",
+    "fecha": "2026-05-15"
+  },
+  {
+    "resena_id": 100,
+    "dni_usuario": 44000039,
+    "restaurante_id": 12,
+    "puntaje": 4,
+    "comentario": "Buena relación precio calidad",
+    "fecha": "2026-05-11"
+  },
+  {
+    "resena_id": 101,
+    "dni_usuario": 44000015,
+    "restaurante_id": 33,
+    "puntaje": 1,
+    "comentario": "Me gustó mucho el ambiente",
+    "fecha": "2026-05-18"
+  },
+  {
+    "resena_id": 102,
+    "dni_usuario": 44000075,
+    "restaurante_id": 20,
+    "puntaje": 2,
+    "comentario": "Muy buena experiencia",
+    "fecha": "2026-05-09"
+  },
+  {
+    "resena_id": 103,
+    "dni_usuario": 44000005,
+    "restaurante_id": 16,
+    "puntaje": 5,
+    "comentario": "Volvería con amigos",
+    "fecha": "2026-05-16"
+  },
+  {
+    "resena_id": 104,
+    "dni_usuario": 44000060,
+    "restaurante_id": 29,
+    "puntaje": 5,
+    "comentario": "Muy buena experiencia",
+    "fecha": "2026-05-13"
+  },
+  {
+    "resena_id": 105,
+    "dni_usuario": 44000033,
+    "restaurante_id": 24,
+    "puntaje": 2,
+    "comentario": "Ideal para ir después de cursar",
+    "fecha": "2026-05-10"
+  },
+  {
+    "resena_id": 106,
+    "dni_usuario": 44000060,
+    "restaurante_id": 16,
+    "puntaje": 4,
+    "comentario": "Me gustó mucho el ambiente",
+    "fecha": "2026-05-17"
+  },
+  {
+    "resena_id": 107,
+    "dni_usuario": 44000019,
+    "restaurante_id": 28,
+    "puntaje": 1,
+    "comentario": "Buena relación precio calidad",
+    "fecha": "2026-05-09"
+  },
+  {
+    "resena_id": 108,
+    "dni_usuario": 44000070,
+    "restaurante_id": 7,
+    "puntaje": 1,
+    "comentario": "La porción fue abundante",
+    "fecha": "2026-05-14"
+  },
+  {
+    "resena_id": 109,
+    "dni_usuario": 44000026,
+    "restaurante_id": 4,
+    "puntaje": 2,
+    "comentario": "Volvería con amigos",
+    "fecha": "2026-05-13"
+  },
+  {
+    "resena_id": 110,
+    "dni_usuario": 44000067,
+    "restaurante_id": 15,
+    "puntaje": 1,
+    "comentario": "La atención podría mejorar",
+    "fecha": "2026-05-07"
+  },
+  {
+    "resena_id": 111,
+    "dni_usuario": 44000033,
+    "restaurante_id": 26,
+    "puntaje": 4,
+    "comentario": "Muy buena experiencia",
+    "fecha": "2026-05-03"
+  },
+  {
+    "resena_id": 112,
+    "dni_usuario": 44000079,
+    "restaurante_id": 12,
+    "puntaje": 5,
+    "comentario": "El plato estaba muy rico",
+    "fecha": "2026-05-06"
+  },
+  {
+    "resena_id": 113,
+    "dni_usuario": 44000021,
+    "restaurante_id": 40,
+    "puntaje": 2,
+    "comentario": "El lugar estaba lleno pero valió la pena",
+    "fecha": "2026-05-10"
+  },
+  {
+    "resena_id": 114,
+    "dni_usuario": 44000032,
+    "restaurante_id": 34,
+    "puntaje": 4,
+    "comentario": "Buena relación precio calidad",
+    "fecha": "2026-05-14"
+  },
+  {
+    "resena_id": 115,
+    "dni_usuario": 44000044,
+    "restaurante_id": 33,
+    "puntaje": 4,
+    "comentario": "La porción fue abundante",
+    "fecha": "2026-05-01"
+  },
+  {
+    "resena_id": 116,
+    "dni_usuario": 44000029,
+    "restaurante_id": 17,
+    "puntaje": 1,
+    "comentario": "El plato estaba muy rico",
+    "fecha": "2026-05-11"
+  },
+  {
+    "resena_id": 117,
+    "dni_usuario": 44000006,
+    "restaurante_id": 34,
+    "puntaje": 4,
+    "comentario": "El plato estaba muy rico",
+    "fecha": "2026-05-10"
+  },
+  {
+    "resena_id": 118,
+    "dni_usuario": 44000038,
+    "restaurante_id": 5,
+    "puntaje": 2,
+    "comentario": "La porción fue abundante",
+    "fecha": "2026-05-04"
+  },
+  {
+    "resena_id": 119,
+    "dni_usuario": 44000048,
+    "restaurante_id": 16,
+    "puntaje": 4,
+    "comentario": "Excelente promoción",
+    "fecha": "2026-05-04"
+  },
+  {
+    "resena_id": 120,
+    "dni_usuario": 44000056,
+    "restaurante_id": 29,
+    "puntaje": 2,
+    "comentario": "Ideal para ir después de cursar",
+    "fecha": "2026-05-13"
+  },
+  {
+    "resena_id": 121,
+    "dni_usuario": 44000016,
+    "restaurante_id": 40,
+    "puntaje": 5,
+    "comentario": "El plato estaba muy rico",
+    "fecha": "2026-05-16"
+  },
+  {
+    "resena_id": 122,
+    "dni_usuario": 44000025,
+    "restaurante_id": 2,
+    "puntaje": 5,
+    "comentario": "Ideal para ir después de cursar",
+    "fecha": "2026-05-03"
+  },
+  {
+    "resena_id": 123,
+    "dni_usuario": 44000050,
+    "restaurante_id": 9,
+    "puntaje": 5,
+    "comentario": "Excelente promoción",
+    "fecha": "2026-05-17"
+  },
+  {
+    "resena_id": 124,
+    "dni_usuario": 44000068,
+    "restaurante_id": 29,
+    "puntaje": 1,
+    "comentario": "Buena relación precio calidad",
+    "fecha": "2026-05-12"
+  },
+  {
+    "resena_id": 125,
+    "dni_usuario": 44000061,
+    "restaurante_id": 19,
+    "puntaje": 1,
+    "comentario": "La atención podría mejorar",
+    "fecha": "2026-05-14"
+  },
+  {
+    "resena_id": 126,
+    "dni_usuario": 44000030,
+    "restaurante_id": 31,
+    "puntaje": 3,
+    "comentario": "Ideal para ir después de cursar",
+    "fecha": "2026-05-06"
+  },
+  {
+    "resena_id": 127,
+    "dni_usuario": 44000007,
+    "restaurante_id": 24,
+    "puntaje": 3,
+    "comentario": "Me gustó mucho el ambiente",
+    "fecha": "2026-05-04"
+  },
+  {
+    "resena_id": 128,
+    "dni_usuario": 44000029,
+    "restaurante_id": 14,
+    "puntaje": 2,
+    "comentario": "Volvería con amigos",
+    "fecha": "2026-05-17"
+  },
+  {
+    "resena_id": 129,
+    "dni_usuario": 44000074,
+    "restaurante_id": 33,
+    "puntaje": 5,
+    "comentario": "Buena relación precio calidad",
+    "fecha": "2026-05-09"
+  },
+  {
+    "resena_id": 130,
+    "dni_usuario": 44000068,
+    "restaurante_id": 30,
+    "puntaje": 4,
+    "comentario": "Buen precio para estudiantes",
+    "fecha": "2026-05-02"
+  },
+  {
+    "resena_id": 131,
+    "dni_usuario": 44000053,
+    "restaurante_id": 37,
+    "puntaje": 5,
+    "comentario": "Buen precio para estudiantes",
+    "fecha": "2026-05-14"
+  },
+  {
+    "resena_id": 132,
+    "dni_usuario": 44000035,
+    "restaurante_id": 7,
+    "puntaje": 5,
+    "comentario": "La porción fue abundante",
+    "fecha": "2026-05-16"
+  },
+  {
+    "resena_id": 133,
+    "dni_usuario": 44000019,
+    "restaurante_id": 18,
+    "puntaje": 2,
+    "comentario": "Muy buena experiencia",
+    "fecha": "2026-05-03"
+  },
+  {
+    "resena_id": 134,
+    "dni_usuario": 44000076,
+    "restaurante_id": 19,
+    "puntaje": 1,
+    "comentario": "Ideal para ir después de cursar",
+    "fecha": "2026-05-10"
+  },
+  {
+    "resena_id": 135,
+    "dni_usuario": 44000022,
+    "restaurante_id": 27,
+    "puntaje": 1,
+    "comentario": "La comida llegó rápido",
+    "fecha": "2026-05-09"
+  },
+  {
+    "resena_id": 136,
+    "dni_usuario": 44000074,
+    "restaurante_id": 36,
+    "puntaje": 1,
+    "comentario": "Buena relación precio calidad",
+    "fecha": "2026-05-05"
+  },
+  {
+    "resena_id": 137,
+    "dni_usuario": 44000067,
+    "restaurante_id": 24,
+    "puntaje": 1,
+    "comentario": "Ideal para ir después de cursar",
+    "fecha": "2026-05-01"
+  },
+  {
+    "resena_id": 138,
+    "dni_usuario": 44000068,
+    "restaurante_id": 11,
+    "puntaje": 1,
+    "comentario": "La porción fue abundante",
+    "fecha": "2026-05-14"
+  },
+  {
+    "resena_id": 139,
+    "dni_usuario": 44000015,
+    "restaurante_id": 34,
+    "puntaje": 5,
+    "comentario": "Volvería con amigos",
+    "fecha": "2026-05-06"
+  },
+  {
+    "resena_id": 140,
+    "dni_usuario": 44000011,
+    "restaurante_id": 31,
+    "puntaje": 3,
+    "comentario": "Buena relación precio calidad",
+    "fecha": "2026-05-13"
+  },
+  {
+    "resena_id": 141,
+    "dni_usuario": 44000010,
+    "restaurante_id": 20,
+    "puntaje": 5,
+    "comentario": "La atención podría mejorar",
+    "fecha": "2026-05-09"
+  },
+  {
+    "resena_id": 142,
+    "dni_usuario": 44000076,
+    "restaurante_id": 28,
+    "puntaje": 4,
+    "comentario": "Buen precio para estudiantes",
+    "fecha": "2026-05-02"
+  },
+  {
+    "resena_id": 143,
+    "dni_usuario": 44000024,
+    "restaurante_id": 11,
+    "puntaje": 4,
+    "comentario": "La comida llegó rápido",
+    "fecha": "2026-05-09"
+  },
+  {
+    "resena_id": 144,
+    "dni_usuario": 44000074,
+    "restaurante_id": 32,
+    "puntaje": 3,
+    "comentario": "Muy buena experiencia",
+    "fecha": "2026-05-04"
+  },
+  {
+    "resena_id": 145,
+    "dni_usuario": 44000022,
+    "restaurante_id": 36,
+    "puntaje": 2,
+    "comentario": "La porción fue abundante",
+    "fecha": "2026-05-07"
+  },
+  {
+    "resena_id": 146,
+    "dni_usuario": 44000016,
+    "restaurante_id": 29,
+    "puntaje": 3,
+    "comentario": "Muy buena experiencia",
+    "fecha": "2026-05-13"
+  },
+  {
+    "resena_id": 147,
+    "dni_usuario": 44000049,
+    "restaurante_id": 19,
+    "puntaje": 4,
+    "comentario": "La porción fue abundante",
+    "fecha": "2026-05-02"
+  },
+  {
+    "resena_id": 148,
+    "dni_usuario": 44000042,
+    "restaurante_id": 13,
+    "puntaje": 3,
+    "comentario": "Excelente promoción",
+    "fecha": "2026-05-09"
+  },
+  {
+    "resena_id": 149,
+    "dni_usuario": 44000069,
+    "restaurante_id": 2,
+    "puntaje": 4,
+    "comentario": "Volvería con amigos",
+    "fecha": "2026-05-06"
+  },
+  {
+    "resena_id": 150,
+    "dni_usuario": 44000076,
+    "restaurante_id": 1,
+    "puntaje": 1,
+    "comentario": "El lugar estaba lleno pero valió la pena",
+    "fecha": "2026-05-18"
+  },
+  {
+    "resena_id": 151,
+    "dni_usuario": 44000054,
+    "restaurante_id": 19,
+    "puntaje": 1,
+    "comentario": "Ideal para ir después de cursar",
+    "fecha": "2026-05-16"
+  },
+  {
+    "resena_id": 152,
+    "dni_usuario": 44000076,
+    "restaurante_id": 39,
+    "puntaje": 1,
+    "comentario": "El plato estaba muy rico",
+    "fecha": "2026-05-17"
+  },
+  {
+    "resena_id": 153,
+    "dni_usuario": 44000003,
+    "restaurante_id": 6,
+    "puntaje": 5,
+    "comentario": "La atención podría mejorar",
+    "fecha": "2026-05-13"
+  },
+  {
+    "resena_id": 154,
+    "dni_usuario": 44000011,
+    "restaurante_id": 7,
+    "puntaje": 3,
+    "comentario": "El lugar estaba lleno pero valió la pena",
+    "fecha": "2026-05-18"
+  },
+  {
+    "resena_id": 155,
+    "dni_usuario": 44000043,
+    "restaurante_id": 2,
+    "puntaje": 3,
+    "comentario": "Volvería con amigos",
+    "fecha": "2026-05-13"
+  },
+  {
+    "resena_id": 156,
+    "dni_usuario": 44000021,
+    "restaurante_id": 28,
+    "puntaje": 3,
+    "comentario": "Muy buena experiencia",
+    "fecha": "2026-05-06"
+  },
+  {
+    "resena_id": 157,
+    "dni_usuario": 44000019,
+    "restaurante_id": 32,
+    "puntaje": 2,
+    "comentario": "Volvería con amigos",
+    "fecha": "2026-05-11"
+  },
+  {
+    "resena_id": 158,
+    "dni_usuario": 44000010,
+    "restaurante_id": 39,
+    "puntaje": 3,
+    "comentario": "Me gustó mucho el ambiente",
+    "fecha": "2026-05-12"
+  },
+  {
+    "resena_id": 159,
+    "dni_usuario": 44000073,
+    "restaurante_id": 38,
+    "puntaje": 4,
+    "comentario": "Ideal para ir después de cursar",
+    "fecha": "2026-05-16"
+  },
+  {
+    "resena_id": 160,
+    "dni_usuario": 44000021,
+    "restaurante_id": 17,
+    "puntaje": 3,
+    "comentario": "Me gustó mucho el ambiente",
+    "fecha": "2026-05-12"
+  },
+  {
+    "resena_id": 161,
+    "dni_usuario": 44000042,
+    "restaurante_id": 6,
+    "puntaje": 3,
+    "comentario": "Muy buena experiencia",
+    "fecha": "2026-05-13"
+  },
+  {
+    "resena_id": 162,
+    "dni_usuario": 44000019,
+    "restaurante_id": 27,
+    "puntaje": 3,
+    "comentario": "La porción fue abundante",
+    "fecha": "2026-05-10"
+  },
+  {
+    "resena_id": 163,
+    "dni_usuario": 44000007,
+    "restaurante_id": 17,
+    "puntaje": 2,
+    "comentario": "Me gustó mucho el ambiente",
+    "fecha": "2026-05-02"
+  },
+  {
+    "resena_id": 164,
+    "dni_usuario": 44000080,
+    "restaurante_id": 36,
+    "puntaje": 3,
+    "comentario": "Volvería con amigos",
+    "fecha": "2026-05-14"
+  },
+  {
+    "resena_id": 165,
+    "dni_usuario": 44000075,
+    "restaurante_id": 14,
+    "puntaje": 5,
+    "comentario": "La comida llegó rápido",
+    "fecha": "2026-05-10"
+  },
+  {
+    "resena_id": 166,
+    "dni_usuario": 44000029,
+    "restaurante_id": 9,
+    "puntaje": 2,
+    "comentario": "Ideal para ir después de cursar",
+    "fecha": "2026-05-14"
+  },
+  {
+    "resena_id": 167,
+    "dni_usuario": 44000050,
+    "restaurante_id": 5,
+    "puntaje": 5,
+    "comentario": "Volvería con amigos",
+    "fecha": "2026-05-01"
+  },
+  {
+    "resena_id": 168,
+    "dni_usuario": 44000069,
+    "restaurante_id": 11,
+    "puntaje": 4,
+    "comentario": "El lugar estaba lleno pero valió la pena",
+    "fecha": "2026-05-03"
+  },
+  {
+    "resena_id": 169,
+    "dni_usuario": 44000054,
+    "restaurante_id": 28,
+    "puntaje": 4,
+    "comentario": "Ideal para ir después de cursar",
+    "fecha": "2026-05-10"
+  },
+  {
+    "resena_id": 170,
+    "dni_usuario": 44000056,
+    "restaurante_id": 25,
+    "puntaje": 2,
+    "comentario": "La comida llegó rápido",
+    "fecha": "2026-05-11"
+  },
+  {
+    "resena_id": 171,
+    "dni_usuario": 44000059,
+    "restaurante_id": 40,
+    "puntaje": 3,
+    "comentario": "La porción fue abundante",
+    "fecha": "2026-05-03"
+  },
+  {
+    "resena_id": 172,
+    "dni_usuario": 44000053,
+    "restaurante_id": 35,
+    "puntaje": 5,
+    "comentario": "Volvería con amigos",
+    "fecha": "2026-05-07"
+  },
+  {
+    "resena_id": 173,
+    "dni_usuario": 44000059,
+    "restaurante_id": 18,
+    "puntaje": 2,
+    "comentario": "Volvería con amigos",
+    "fecha": "2026-05-01"
+  },
+  {
+    "resena_id": 174,
+    "dni_usuario": 44000018,
+    "restaurante_id": 23,
+    "puntaje": 3,
+    "comentario": "Muy buena experiencia",
+    "fecha": "2026-05-02"
+  },
+  {
+    "resena_id": 175,
+    "dni_usuario": 44000009,
+    "restaurante_id": 20,
+    "puntaje": 5,
+    "comentario": "La atención podría mejorar",
+    "fecha": "2026-05-14"
+  },
+  {
+    "resena_id": 176,
+    "dni_usuario": 44000009,
+    "restaurante_id": 15,
+    "puntaje": 5,
+    "comentario": "El lugar estaba lleno pero valió la pena",
+    "fecha": "2026-05-06"
+  },
+  {
+    "resena_id": 177,
+    "dni_usuario": 44000036,
+    "restaurante_id": 37,
+    "puntaje": 5,
+    "comentario": "La comida llegó rápido",
+    "fecha": "2026-05-01"
+  },
+  {
+    "resena_id": 178,
+    "dni_usuario": 44000064,
+    "restaurante_id": 12,
+    "puntaje": 4,
+    "comentario": "Buen precio para estudiantes",
+    "fecha": "2026-05-07"
+  },
+  {
+    "resena_id": 179,
+    "dni_usuario": 44000057,
+    "restaurante_id": 39,
+    "puntaje": 2,
+    "comentario": "Muy buena experiencia",
+    "fecha": "2026-05-04"
+  },
+  {
+    "resena_id": 180,
+    "dni_usuario": 44000050,
+    "restaurante_id": 31,
+    "puntaje": 4,
+    "comentario": "Buen precio para estudiantes",
+    "fecha": "2026-05-17"
+  },
+  {
+    "resena_id": 181,
+    "dni_usuario": 44000073,
+    "restaurante_id": 16,
+    "puntaje": 5,
+    "comentario": "Ideal para ir después de cursar",
+    "fecha": "2026-05-09"
+  },
+  {
+    "resena_id": 182,
+    "dni_usuario": 44000067,
+    "restaurante_id": 17,
+    "puntaje": 1,
+    "comentario": "Buena relación precio calidad",
+    "fecha": "2026-05-04"
+  },
+  {
+    "resena_id": 183,
+    "dni_usuario": 44000015,
+    "restaurante_id": 27,
+    "puntaje": 4,
+    "comentario": "El plato estaba muy rico",
+    "fecha": "2026-05-18"
+  },
+  {
+    "resena_id": 184,
+    "dni_usuario": 44000061,
+    "restaurante_id": 1,
+    "puntaje": 3,
+    "comentario": "El plato estaba muy rico",
+    "fecha": "2026-05-12"
+  },
+  {
+    "resena_id": 185,
+    "dni_usuario": 44000075,
+    "restaurante_id": 4,
+    "puntaje": 4,
+    "comentario": "La porción fue abundante",
+    "fecha": "2026-05-18"
+  },
+  {
+    "resena_id": 186,
+    "dni_usuario": 44000064,
+    "restaurante_id": 34,
+    "puntaje": 1,
+    "comentario": "Ideal para ir después de cursar",
+    "fecha": "2026-05-17"
+  },
+  {
+    "resena_id": 187,
+    "dni_usuario": 44000050,
+    "restaurante_id": 29,
+    "puntaje": 3,
+    "comentario": "Me gustó mucho el ambiente",
+    "fecha": "2026-05-03"
+  },
+  {
+    "resena_id": 188,
+    "dni_usuario": 44000072,
+    "restaurante_id": 4,
+    "puntaje": 4,
+    "comentario": "El plato estaba muy rico",
+    "fecha": "2026-05-07"
+  },
+  {
+    "resena_id": 189,
+    "dni_usuario": 44000022,
+    "restaurante_id": 21,
+    "puntaje": 4,
+    "comentario": "Buen precio para estudiantes",
+    "fecha": "2026-05-01"
+  },
+  {
+    "resena_id": 190,
+    "dni_usuario": 44000015,
+    "restaurante_id": 31,
+    "puntaje": 1,
+    "comentario": "El lugar estaba lleno pero valió la pena",
+    "fecha": "2026-05-04"
+  },
+  {
+    "resena_id": 191,
+    "dni_usuario": 44000077,
+    "restaurante_id": 9,
+    "puntaje": 4,
+    "comentario": "Me gustó mucho el ambiente",
+    "fecha": "2026-05-07"
+  },
+  {
+    "resena_id": 192,
+    "dni_usuario": 44000065,
+    "restaurante_id": 33,
+    "puntaje": 3,
+    "comentario": "El lugar estaba lleno pero valió la pena",
+    "fecha": "2026-05-10"
+  },
+  {
+    "resena_id": 193,
+    "dni_usuario": 44000067,
+    "restaurante_id": 35,
+    "puntaje": 1,
+    "comentario": "Buena relación precio calidad",
+    "fecha": "2026-05-06"
+  },
+  {
+    "resena_id": 194,
+    "dni_usuario": 44000046,
+    "restaurante_id": 39,
+    "puntaje": 1,
+    "comentario": "Me gustó mucho el ambiente",
+    "fecha": "2026-05-14"
+  },
+  {
+    "resena_id": 195,
+    "dni_usuario": 44000079,
+    "restaurante_id": 8,
+    "puntaje": 3,
+    "comentario": "Buena relación precio calidad",
+    "fecha": "2026-05-04"
+  },
+  {
+    "resena_id": 196,
+    "dni_usuario": 44000029,
+    "restaurante_id": 3,
+    "puntaje": 2,
+    "comentario": "Muy buena experiencia",
+    "fecha": "2026-05-04"
+  },
+  {
+    "resena_id": 197,
+    "dni_usuario": 44000040,
+    "restaurante_id": 24,
+    "puntaje": 5,
+    "comentario": "Volvería con amigos",
+    "fecha": "2026-05-02"
+  },
+  {
+    "resena_id": 198,
+    "dni_usuario": 44000012,
+    "restaurante_id": 20,
+    "puntaje": 2,
+    "comentario": "Volvería con amigos",
+    "fecha": "2026-05-05"
+  },
+  {
+    "resena_id": 199,
+    "dni_usuario": 44000014,
+    "restaurante_id": 20,
+    "puntaje": 4,
+    "comentario": "El plato estaba muy rico",
+    "fecha": "2026-05-09"
+  },
+  {
+    "resena_id": 200,
+    "dni_usuario": 44000056,
+    "restaurante_id": 40,
+    "puntaje": 3,
+    "comentario": "Me gustó mucho el ambiente",
+    "fecha": "2026-05-05"
+  },
+  {
+    "resena_id": 201,
+    "dni_usuario": 44000041,
+    "restaurante_id": 39,
+    "puntaje": 4,
+    "comentario": "Muy buena experiencia",
+    "fecha": "2026-05-18"
+  },
+  {
+    "resena_id": 202,
+    "dni_usuario": 44000046,
+    "restaurante_id": 29,
+    "puntaje": 4,
+    "comentario": "El plato estaba muy rico",
+    "fecha": "2026-05-18"
+  },
+  {
+    "resena_id": 203,
+    "dni_usuario": 44000058,
+    "restaurante_id": 40,
+    "puntaje": 1,
+    "comentario": "Ideal para ir después de cursar",
+    "fecha": "2026-05-16"
+  },
+  {
+    "resena_id": 204,
+    "dni_usuario": 44000024,
+    "restaurante_id": 35,
+    "puntaje": 2,
+    "comentario": "El plato estaba muy rico",
+    "fecha": "2026-05-18"
+  },
+  {
+    "resena_id": 205,
+    "dni_usuario": 44000041,
+    "restaurante_id": 3,
+    "puntaje": 2,
+    "comentario": "La atención podría mejorar",
+    "fecha": "2026-05-09"
+  },
+  {
+    "resena_id": 206,
+    "dni_usuario": 44000011,
+    "restaurante_id": 34,
+    "puntaje": 1,
+    "comentario": "Buen precio para estudiantes",
+    "fecha": "2026-05-18"
+  },
+  {
+    "resena_id": 207,
+    "dni_usuario": 44000008,
+    "restaurante_id": 6,
+    "puntaje": 2,
+    "comentario": "Ideal para ir después de cursar",
+    "fecha": "2026-05-18"
+  },
+  {
+    "resena_id": 208,
+    "dni_usuario": 44000031,
+    "restaurante_id": 7,
+    "puntaje": 1,
+    "comentario": "La comida llegó rápido",
+    "fecha": "2026-05-13"
+  },
+  {
+    "resena_id": 209,
+    "dni_usuario": 44000068,
+    "restaurante_id": 20,
+    "puntaje": 4,
+    "comentario": "El plato estaba muy rico",
+    "fecha": "2026-05-02"
+  },
+  {
+    "resena_id": 210,
+    "dni_usuario": 44000048,
+    "restaurante_id": 20,
+    "puntaje": 1,
+    "comentario": "Buena relación precio calidad",
+    "fecha": "2026-05-06"
+  },
+  {
+    "resena_id": 211,
+    "dni_usuario": 44000042,
+    "restaurante_id": 29,
+    "puntaje": 1,
+    "comentario": "La atención podría mejorar",
+    "fecha": "2026-05-04"
+  },
+  {
+    "resena_id": 212,
+    "dni_usuario": 44000033,
+    "restaurante_id": 33,
+    "puntaje": 3,
+    "comentario": "El plato estaba muy rico",
+    "fecha": "2026-05-09"
+  },
+  {
+    "resena_id": 213,
+    "dni_usuario": 44000015,
+    "restaurante_id": 35,
+    "puntaje": 1,
+    "comentario": "Excelente promoción",
+    "fecha": "2026-05-13"
+  },
+  {
+    "resena_id": 214,
+    "dni_usuario": 44000008,
+    "restaurante_id": 20,
+    "puntaje": 4,
+    "comentario": "La comida llegó rápido",
+    "fecha": "2026-05-14"
+  },
+  {
+    "resena_id": 215,
+    "dni_usuario": 44000045,
+    "restaurante_id": 2,
+    "puntaje": 5,
+    "comentario": "El lugar estaba lleno pero valió la pena",
+    "fecha": "2026-05-05"
+  },
+  {
+    "resena_id": 216,
+    "dni_usuario": 44000023,
+    "restaurante_id": 4,
+    "puntaje": 3,
+    "comentario": "El lugar estaba lleno pero valió la pena",
+    "fecha": "2026-05-07"
+  },
+  {
+    "resena_id": 217,
+    "dni_usuario": 44000069,
+    "restaurante_id": 37,
+    "puntaje": 1,
+    "comentario": "Volvería con amigos",
+    "fecha": "2026-05-01"
+  },
+  {
+    "resena_id": 218,
+    "dni_usuario": 44000066,
+    "restaurante_id": 25,
+    "puntaje": 5,
+    "comentario": "Ideal para ir después de cursar",
+    "fecha": "2026-05-16"
+  },
+  {
+    "resena_id": 219,
+    "dni_usuario": 44000047,
+    "restaurante_id": 7,
+    "puntaje": 2,
+    "comentario": "Muy buena experiencia",
+    "fecha": "2026-05-13"
+  },
+  {
+    "resena_id": 220,
+    "dni_usuario": 44000053,
+    "restaurante_id": 11,
+    "puntaje": 1,
+    "comentario": "La comida llegó rápido",
+    "fecha": "2026-05-08"
+  },
+  {
+    "resena_id": 221,
+    "dni_usuario": 44000048,
+    "restaurante_id": 35,
+    "puntaje": 2,
+    "comentario": "El plato estaba muy rico",
+    "fecha": "2026-05-10"
+  },
+  {
+    "resena_id": 222,
+    "dni_usuario": 44000076,
+    "restaurante_id": 32,
+    "puntaje": 2,
+    "comentario": "La comida llegó rápido",
+    "fecha": "2026-05-06"
+  },
+  {
+    "resena_id": 223,
+    "dni_usuario": 44000011,
+    "restaurante_id": 36,
+    "puntaje": 4,
+    "comentario": "La porción fue abundante",
+    "fecha": "2026-05-11"
+  },
+  {
+    "resena_id": 224,
+    "dni_usuario": 44000027,
+    "restaurante_id": 33,
+    "puntaje": 4,
+    "comentario": "Me gustó mucho el ambiente",
+    "fecha": "2026-05-02"
+  },
+  {
+    "resena_id": 225,
+    "dni_usuario": 44000024,
+    "restaurante_id": 3,
+    "puntaje": 5,
+    "comentario": "El plato estaba muy rico",
+    "fecha": "2026-05-16"
+  },
+  {
+    "resena_id": 226,
+    "dni_usuario": 44000026,
+    "restaurante_id": 40,
+    "puntaje": 4,
+    "comentario": "El plato estaba muy rico",
+    "fecha": "2026-05-01"
+  },
+  {
+    "resena_id": 227,
+    "dni_usuario": 44000004,
+    "restaurante_id": 19,
+    "puntaje": 1,
+    "comentario": "La comida llegó rápido",
+    "fecha": "2026-05-12"
+  },
+  {
+    "resena_id": 228,
+    "dni_usuario": 44000042,
+    "restaurante_id": 30,
+    "puntaje": 2,
+    "comentario": "Buen precio para estudiantes",
+    "fecha": "2026-05-03"
+  },
+  {
+    "resena_id": 229,
+    "dni_usuario": 44000060,
+    "restaurante_id": 2,
+    "puntaje": 3,
+    "comentario": "Muy buena experiencia",
+    "fecha": "2026-05-06"
+  },
+  {
+    "resena_id": 230,
+    "dni_usuario": 44000035,
+    "restaurante_id": 8,
+    "puntaje": 3,
+    "comentario": "Excelente promoción",
+    "fecha": "2026-05-16"
+  },
+  {
+    "resena_id": 231,
+    "dni_usuario": 44000008,
+    "restaurante_id": 5,
+    "puntaje": 4,
+    "comentario": "Muy buena experiencia",
+    "fecha": "2026-05-10"
+  },
+  {
+    "resena_id": 232,
+    "dni_usuario": 44000053,
+    "restaurante_id": 4,
+    "puntaje": 2,
+    "comentario": "La comida llegó rápido",
+    "fecha": "2026-05-05"
+  },
+  {
+    "resena_id": 233,
+    "dni_usuario": 44000025,
+    "restaurante_id": 38,
+    "puntaje": 4,
+    "comentario": "El plato estaba muy rico",
+    "fecha": "2026-05-15"
+  },
+  {
+    "resena_id": 234,
+    "dni_usuario": 44000063,
+    "restaurante_id": 28,
+    "puntaje": 5,
+    "comentario": "El lugar estaba lleno pero valió la pena",
+    "fecha": "2026-05-12"
+  },
+  {
+    "resena_id": 235,
+    "dni_usuario": 44000044,
+    "restaurante_id": 23,
+    "puntaje": 5,
+    "comentario": "La porción fue abundante",
+    "fecha": "2026-05-17"
+  },
+  {
+    "resena_id": 236,
+    "dni_usuario": 44000025,
+    "restaurante_id": 16,
+    "puntaje": 5,
+    "comentario": "Buena relación precio calidad",
+    "fecha": "2026-05-03"
+  },
+  {
+    "resena_id": 237,
+    "dni_usuario": 44000045,
+    "restaurante_id": 33,
+    "puntaje": 2,
+    "comentario": "Excelente promoción",
+    "fecha": "2026-05-17"
+  },
+  {
+    "resena_id": 238,
+    "dni_usuario": 44000011,
+    "restaurante_id": 26,
+    "puntaje": 4,
+    "comentario": "La comida llegó rápido",
+    "fecha": "2026-05-18"
+  },
+  {
+    "resena_id": 239,
+    "dni_usuario": 44000026,
+    "restaurante_id": 6,
+    "puntaje": 1,
+    "comentario": "Me gustó mucho el ambiente",
+    "fecha": "2026-05-08"
+  },
+  {
+    "resena_id": 240,
+    "dni_usuario": 44000059,
+    "restaurante_id": 33,
+    "puntaje": 2,
+    "comentario": "Volvería con amigos",
+    "fecha": "2026-05-06"
+  },
+  {
+    "resena_id": 241,
+    "dni_usuario": 44000008,
+    "restaurante_id": 5,
+    "puntaje": 5,
+    "comentario": "El plato estaba muy rico",
+    "fecha": "2026-05-06"
+  },
+  {
+    "resena_id": 242,
+    "dni_usuario": 44000006,
+    "restaurante_id": 27,
+    "puntaje": 4,
+    "comentario": "Buena relación precio calidad",
+    "fecha": "2026-05-15"
+  },
+  {
+    "resena_id": 243,
+    "dni_usuario": 44000018,
+    "restaurante_id": 40,
+    "puntaje": 4,
+    "comentario": "Excelente promoción",
+    "fecha": "2026-05-01"
+  },
+  {
+    "resena_id": 244,
+    "dni_usuario": 44000052,
+    "restaurante_id": 30,
+    "puntaje": 2,
+    "comentario": "La porción fue abundante",
+    "fecha": "2026-05-04"
+  },
+  {
+    "resena_id": 245,
+    "dni_usuario": 44000024,
+    "restaurante_id": 4,
+    "puntaje": 5,
+    "comentario": "Me gustó mucho el ambiente",
+    "fecha": "2026-05-15"
+  },
+  {
+    "resena_id": 246,
+    "dni_usuario": 44000058,
+    "restaurante_id": 11,
+    "puntaje": 5,
+    "comentario": "El lugar estaba lleno pero valió la pena",
+    "fecha": "2026-05-08"
+  },
+  {
+    "resena_id": 247,
+    "dni_usuario": 44000068,
+    "restaurante_id": 20,
+    "puntaje": 1,
+    "comentario": "El plato estaba muy rico",
+    "fecha": "2026-05-01"
+  },
+  {
+    "resena_id": 248,
+    "dni_usuario": 44000058,
+    "restaurante_id": 34,
+    "puntaje": 5,
+    "comentario": "La porción fue abundante",
+    "fecha": "2026-05-03"
+  },
+  {
+    "resena_id": 249,
+    "dni_usuario": 44000062,
+    "restaurante_id": 36,
+    "puntaje": 4,
+    "comentario": "Buena relación precio calidad",
+    "fecha": "2026-05-06"
+  },
+  {
+    "resena_id": 250,
+    "dni_usuario": 44000006,
+    "restaurante_id": 37,
+    "puntaje": 2,
+    "comentario": "Volvería con amigos",
+    "fecha": "2026-05-18"
+  }
+]

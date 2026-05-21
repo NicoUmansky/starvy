@@ -2,6 +2,10 @@
 
 from pymongo import MongoClient
 import pandas as pd
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'Redis'))
+from app import crear_sesion
 
 mongo_uri = "mongodb+srv://starvy:UbgjoaVrG4AV3KKJ@starvy.6sncnig.mongodb.net/"
 
@@ -46,6 +50,18 @@ with MongoClient(mongo_uri) as client:
         print("Usuario registrado correctamente.")
 
 
+    def loginUsuario(username, password):         #una vez que el usuario se loguea, se crea una sesion para ese usuario (si el login es exitoso)
+        usuario = usuarios_collection.find_one({  #esto se hace en redis, pero desde el modulo de mongo, porque es el que tiene la info de los usuarios. Si el login es exitoso, se crea una sesion para ese usuario en redis.
+            "username": username,
+            "password": password
+        })
+        if usuario:
+            user_id = str(usuario["_id"])
+            crear_sesion(user_id)
+            return user_id
+        return None
+
+
     def recalcularCalificacionPromedio(restaurante_id):
         resenas_restaurante = list(resenas_collection.find(
             {"restaurante_id": restaurante_id},
@@ -66,7 +82,7 @@ with MongoClient(mongo_uri) as client:
         return promedio
 
 
-    def registrarRestaurante(restaurante_id,nombre,tipo_comida,barrio,direccion):
+    def registrarRestaurante(restaurante_id,nombre,tipo_comida,barrio,direccion): 
         restaurantes_collection.insert_one({
             "restaurante_id": restaurante_id,
             "nombre": nombre,

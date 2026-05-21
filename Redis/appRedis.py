@@ -3,7 +3,7 @@ from redis_client import get_client
 
 r = get_client()
 
-
+# primera funcionalidad = crea sesison + funciones de verificado y cerrado( no se que tan utikes son estas ultimas para lo que hacemos, pero bueno)
 def crear_sesion(user_id, ttl=3600):
     token = str(uuid.uuid4())
     r.setex(f"sesion:{user_id}", ttl, token)
@@ -24,7 +24,7 @@ def cerrar_sesion(user_id):
     r.delete(f"sesion:{user_id}")
     print(f"Sesión cerrada para {user_id}")
 
-
+# segunda funcionalidad, ver sesiones activas.
 def ver_sesiones_activas():
     claves = r.keys("sesion:*")
     if not claves:
@@ -36,3 +36,4 @@ def ver_sesiones_activas():
         ttl = r.ttl(clave)
         user_id = clave.split(":")[1]
         print(f"  Usuario: {user_id} | Token: {token} | Expira en: {ttl}s")
+        

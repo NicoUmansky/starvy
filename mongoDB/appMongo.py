@@ -1,77 +1,48 @@
-import sys
-import os
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'Redis'))
-from appRedis import crear_sesion
+from pymongo.errors import ServerSelectionTimeoutError
 
-from mongo_client import usuarios_collection, restaurantes_collection, resenas_collection
-
-
-def registrarUsuario(dni, nombre, apellido, username, password, mail):
-    usuarios_collection.insert_one({
-        "dni_usuario": dni,
-        "nombre": nombre,
-        "apellido": apellido,
-        "username": username,
-        "password": password,
-        "mail": mail
-    })
-    print("Usuario registrado correctamente.")
-
-
-def loginUsuario(username, password):
-    usuario = usuarios_collection.find_one({
-        "username": username,
-        "password": password
-    })
-    if usuario:
-        user_id = str(usuario["_id"])
-        crear_sesion(user_id)
-        return user_id
-    return None
+from carga_dataset import cargar_dataset, limpiar_colecciones
+from conexion import cerrar_conexion, probar_conexion
+from consultas import (
+    ejecutar_consultas,
+    validar_credenciales,
+    ver_mis_calificaciones,
+    ver_mis_resenas
+)
+from esquema import crear_indices, verificar_esquema
+from escrituras import (
+    ejecutar_escrituras,
+    insertar_calificacion,
+    insertar_resena,
+    login_usuario,
+    recalcular_calificacion_promedio,
+    registrar_restaurante,
+    registrar_usuario
+)
 
 
-def recalcularCalificacionPromedio(restaurante_id):
-    resenas_restaurante = list(resenas_collection.find(
-        {"restaurante_id": restaurante_id},
-        {"_id": 0, "puntaje": 1}
-    ))
+def main():
+    """
+    Orquesta la demo completa de MongoDB: conexion, carga, consultas y escrituras.
+    """
+    print("Conectando Python con MongoDB...")
 
-    if len(resenas_restaurante) == 0:
-        promedio = 0
-    else:
-        total_puntajes = sum(resena["puntaje"] for resena in resenas_restaurante)
-        promedio = round(total_puntajes / len(resenas_restaurante), 1)
+    probar_conexion()
+    limpiar_colecciones()
+    crear_indices()
+    cargar_dataset()
+    verificar_esquema()
 
-    restaurantes_collection.update_one(
-        {"restaurante_id": restaurante_id},
-        {"$set": {"calificacion_promedio": promedio}}
-    )
+    validar_credenciales("VitoNava", "starvy123")
+    ejecutar_consultas(dni_usuario=44000009, restaurante_id=1)
+    # ejecutar_escrituras()
 
-    return promedio
-
-
-def registrarRestaurante(restaurante_id, nombre, tipo_comida, barrio, direccion):
-    restaurantes_collection.insert_one({
-        "restaurante_id": restaurante_id,
-        "nombre": nombre,
-        "tipo_comida": tipo_comida,
-        "barrio": barrio,
-        "direccion": direccion,
-        "calificacion_promedio": 0,
-        "platos": []
-    })
-    print("Restaurante registrado correctamente.")
+    cerrar_conexion()
+    print("\nInicializacion, carga, consultas y escrituras de MongoDB finalizadas correctamente.")
 
 
-def registrarResena(resena_id, dni_usuario, restaurante_id, puntaje, comentario, fecha):
-    resenas_collection.insert_one({
-        "resena_id": resena_id,
-        "dni_usuario": dni_usuario,
-        "restaurante_id": restaurante_id,
-        "puntaje": puntaje,
-        "comentario": comentario,
-        "fecha": fecha
-    })
-
-    promedio = recalcularCalificacionPromedio(restaurante_id)
-    print(f"Resena registrada correctamente. Nueva calificacion promedio: {promedio}")
+if __name__ == "__main__":
+    try:
+        main()
+    except ServerSelectionTimeoutError:
+        print("\nNo se pudo conectar con MongoDB.")
+        print("Verifica MONGO_URI, la conexion a internet y el acceso permitido en MongoDB Atlas.")

@@ -3,3 +3,7 @@ prueba_sesiones.py
 
 .venv/
 Cassandra/app_original.py
+
+__pycache__/
+*.pyc
+Cassandra/__pycache__/

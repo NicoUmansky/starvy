@@ -124,6 +124,10 @@ def registrar_restaurante(restaurante_id, nombre, tipo_comida, barrio, direccion
 
 
 def insertar_calificacion(dni_usuario, restaurante_id, puntaje, comentario="", fecha=None, resena_id=None):
+    """
+    Inserta una calificacion de 1 a 5 estrellas.
+    Si comentario viene informado, tambien queda registrada la resena escrita.
+    """
     usuarios = obtener_coleccion("usuarios")
     restaurantes = obtener_coleccion("restaurantes")
     resenas = obtener_coleccion("resenas")
@@ -156,6 +160,12 @@ def insertar_calificacion(dni_usuario, restaurante_id, puntaje, comentario="", f
         return None
 
     promedio = recalcular_calificacion_promedio(restaurante_id)
+    
+    print(
+        f"\nCalificacion insertada correctamente. "
+        f"Nuevo promedio del restaurante {restaurante_id}: {promedio}"
+    )
+    
     return resena
 
 

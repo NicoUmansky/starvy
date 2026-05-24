@@ -1,4 +1,7 @@
+import importlib.util
+import sys
 from decimal import Decimal
+from pathlib import Path
 
 from conexion import conectar_con_keyspace
 from utilidades import convertir_fecha, convertir_hora, rango_fechas
@@ -9,6 +12,32 @@ from consultas import (
     consultar_historial_visitas_usuario,
     consultar_plato_mas_vendido
 )
+
+
+def actualizar_rankings_redis_si_disponible(restaurante_id, tipo_comida):
+    """
+    Intenta actualizar los rankings de Redis tras insertar una visita en Cassandra.
+    Si Redis no está disponible, lo informa y continúa sin interrumpir el flujo.
+    Usa restaurante_id como identificador porque Cassandra no almacena el nombre.
+    """
+    redis_dir = Path(__file__).resolve().parent.parent / "Redis"
+    redis_consultas = redis_dir / "consultas.py"
+
+    if not redis_consultas.exists():
+        print("No se actualizó Redis: no se encontró Redis/consultas.py.")
+        return
+
+    try:
+        if str(redis_dir) not in sys.path:
+            sys.path.insert(0, str(redis_dir))
+
+        spec = importlib.util.spec_from_file_location("consultas_redis", redis_consultas)
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+
+        mod.registrar_visita(f"restaurante_{restaurante_id}", tipo_comida)
+    except Exception as error:
+        print(f"No se pudo actualizar Redis: {error}")
 
 
 def insertar_nueva_promocion():
@@ -184,6 +213,11 @@ def insertar_nueva_visita():
         f"Restaurante {nueva_visita['restaurante_id']} | "
         f"Plato: {nueva_visita['plato_nombre']} | "
         f"Monto: ${monto}"
+    )
+
+    actualizar_rankings_redis_si_disponible(
+        nueva_visita["restaurante_id"],
+        nueva_visita["tipo_comida"]
     )
 
     session.shutdown()

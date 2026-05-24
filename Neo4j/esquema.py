@@ -5,7 +5,7 @@ def crear_constraints_e_indices():
     """
     Crea restricciones e indices para el grafo de Starvy.
 
-    En defensa: las constraints garantizan identidad unica de nodos y los
+    las constraints garantizan identidad unica de nodos y los
     indices ayudan en busquedas frecuentes para recomendaciones por contenido.
     """
     consultas = [

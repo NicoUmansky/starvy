@@ -1,6 +1,12 @@
 from neo4j import GraphDatabase
 
-from config import NEO4J_DATABASE, NEO4J_PASSWORD, NEO4J_URI, NEO4J_USER
+from config import (
+    NEO4J_CONNECTION_TIMEOUT,
+    NEO4J_DATABASE,
+    NEO4J_PASSWORD,
+    NEO4J_URI,
+    NEO4J_USER,
+)
 
 
 def obtener_driver():
@@ -8,9 +14,19 @@ def obtener_driver():
     Crea el driver oficial de Neo4j.
     El driver mantiene el pool de conexiones hacia el motor.
     """
+    if not NEO4J_PASSWORD:
+        raise RuntimeError(
+            "Falta NEO4J_PASSWORD. Definila en Neo4j/.env o como variable de entorno."
+        )
+    if not NEO4J_USER:
+        raise RuntimeError(
+            "Falta NEO4J_USERNAME o NEO4J_USER. Definila en Neo4j/.env o como variable de entorno."
+        )
+
     return GraphDatabase.driver(
         NEO4J_URI,
-        auth=(NEO4J_USER, NEO4J_PASSWORD)
+        auth=(NEO4J_USER, NEO4J_PASSWORD),
+        connection_timeout=NEO4J_CONNECTION_TIMEOUT,
     )
 
 

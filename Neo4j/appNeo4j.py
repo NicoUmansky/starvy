@@ -1,5 +1,5 @@
 try:
-    from neo4j.exceptions import ServiceUnavailable
+    from neo4j.exceptions import AuthError, ServiceUnavailable
 
     from carga_dataset import cargar_dataset, limpiar_grafo
     from conexion import probar_conexion
@@ -33,6 +33,11 @@ def main():
 if __name__ == "__main__":
     try:
         main()
+    except RuntimeError as error:
+        print(f"\n{error}")
+    except AuthError:
+        print("\nNo se pudo autenticar con Neo4j Aura.")
+        print("Verifica que NEO4J_USERNAME y NEO4J_PASSWORD sean los de la instancia StarvyNeo.")
     except ServiceUnavailable:
         print("\nNo se pudo conectar con Neo4j.")
-        print("Verifica que el motor este iniciado y que NEO4J_URI, NEO4J_USER y NEO4J_PASSWORD sean correctos.")
+        print("Verifica que la instancia Aura este activa y que NEO4J_URI, NEO4J_USERNAME y NEO4J_PASSWORD sean correctos.")

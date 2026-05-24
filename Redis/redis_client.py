@@ -1,8 +1,15 @@
 import redis
 
+# Pool de conexiones compartido entre todos los módulos.
+# Se crea una sola vez (patrón singleton) para reutilizar conexiones TCP
+# en lugar de abrir y cerrar una nueva conexión en cada operación.
 _pool = None
 
 def get_client() -> redis.Redis:
+    """
+    Devuelve un cliente Redis conectado a la instancia compartida en Redis Cloud.
+    decode_responses=True hace que las respuestas lleguen como str en vez de bytes.
+    """
     global _pool
     if _pool is None:
         _pool = redis.ConnectionPool(

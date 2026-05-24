@@ -1,39 +1,39 @@
-import uuid
-from redis_client import get_client
-
-r = get_client()
-
-# primera funcionalidad = crea sesison + funciones de verificado y cerrado( no se que tan utikes son estas ultimas para lo que hacemos, pero bueno)
-def crear_sesion(user_id, ttl=3600):
-    token = str(uuid.uuid4())
-    r.setex(f"sesion:{user_id}", ttl, token)
-    print(f"Sesión creada para {user_id} | Token: {token} | Expira en: {ttl}s")
-    return token
-
-
-def verificar_sesion(user_id):
-    token = r.get(f"sesion:{user_id}")
-    if token:
-        print(f"Sesión activa | Usuario: {user_id} | Token: {token}")
-        return True
-    print(f"Sin sesión activa para {user_id}")
-    return False
+from consultas import (
+    crear_sesion,
+    cerrar_sesion,
+    verificar_sesion,
+    ver_sesiones_activas,
+    registrar_visita,
+    ver_ranking_restaurantes,
+    ver_ranking_tipos_comida,
+    registrar_busqueda,
+    ver_ultimas_busquedas,
+)
 
 
-def cerrar_sesion(user_id):
-    r.delete(f"sesion:{user_id}")
-    print(f"Sesión cerrada para {user_id}")
+def main():
+    print("Conectando Python con Redis...\n")
 
-# segunda funcionalidad, ver sesiones activas.
-def ver_sesiones_activas():
-    claves = r.keys("sesion:*")
-    if not claves:
-        print("No hay sesiones activas")
-        return
-    print(f"{len(claves)} sesión(es) activa(s):")
-    for clave in claves:
-        token = r.get(clave)
-        ttl = r.ttl(clave)
-        user_id = clave.split(":")[1]
-        print(f"  Usuario: {user_id} | Token: {token} | Expira en: {ttl}s")
-        
+    print("=== SESIONES ===")
+    token = crear_sesion("user_001")
+    verificar_sesion("user_001")
+    ver_sesiones_activas()
+    cerrar_sesion("user_001")
+    verificar_sesion("user_001")
+
+    print("\n=== RANKINGS ===")
+    registrar_visita("Burger House", "Americana")
+    registrar_visita("Sushi Palermo", "Japonesa")
+    registrar_visita("Burger House", "Americana")
+    ver_ranking_restaurantes()
+    ver_ranking_tipos_comida()
+
+    print("\n=== BÚSQUEDAS ===")
+    registrar_busqueda("user_001", "sushi palermo")
+    registrar_busqueda("user_001", "burger cerca")
+    registrar_busqueda("user_001", "pizza vegetariana")
+    ver_ultimas_busquedas("user_001")
+
+
+if __name__ == "__main__":
+    main()

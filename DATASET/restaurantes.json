@@ -5,7 +5,7 @@
     "tipo_comida": "Mexicana",
     "barrio": "Flores",
     "direccion": "848 Reed Street",
-    "calificacion_promedio": 3.1
+    "calificacion_promedio": 2.3
   },
   {
     "restaurante_id": 2,
@@ -13,7 +13,7 @@
     "tipo_comida": "Pastas",
     "barrio": "Belgrano",
     "direccion": "724 Clifford Place",
-    "calificacion_promedio": 3.1
+    "calificacion_promedio": 3.5
   },
   {
     "restaurante_id": 3,
@@ -21,7 +21,7 @@
     "tipo_comida": "Hamburguesas",
     "barrio": "San Telmo",
     "direccion": "1771 Euclid Avenue",
-    "calificacion_promedio": 4.4
+    "calificacion_promedio": 3.4
   },
   {
     "restaurante_id": 4,
@@ -29,7 +29,7 @@
     "tipo_comida": "Cafetería",
     "barrio": "Almagro",
     "direccion": "1472 Cypress Avenue",
-    "calificacion_promedio": 4.5
+    "calificacion_promedio": 3.4
   },
   {
     "restaurante_id": 5,
@@ -37,7 +37,7 @@
     "tipo_comida": "Hamburguesas",
     "barrio": "Recoleta",
     "direccion": "1117 Homecrest Avenue",
-    "calificacion_promedio": 4.1
+    "calificacion_promedio": 4.2
   },
   {
     "restaurante_id": 6,
@@ -45,7 +45,7 @@
     "tipo_comida": "Vegano",
     "barrio": "Núñez",
     "direccion": "2595 Auburn Place",
-    "calificacion_promedio": 4.2
+    "calificacion_promedio": 2.8
   },
   {
     "restaurante_id": 7,
@@ -53,7 +53,7 @@
     "tipo_comida": "Pastas",
     "barrio": "Flores",
     "direccion": "1443 Wyckoff Avenue",
-    "calificacion_promedio": 4.7
+    "calificacion_promedio": 3.0
   },
   {
     "restaurante_id": 8,
@@ -61,7 +61,7 @@
     "tipo_comida": "Pizza",
     "barrio": "Núñez",
     "direccion": "1049 Benson Avenue",
-    "calificacion_promedio": 3.9
+    "calificacion_promedio": 3.4
   },
   {
     "restaurante_id": 9,
@@ -69,7 +69,7 @@
     "tipo_comida": "Vegano",
     "barrio": "Núñez",
     "direccion": "2589 Kent Street",
-    "calificacion_promedio": 4.3
+    "calificacion_promedio": 3.3
   },
   {
     "restaurante_id": 10,
@@ -77,7 +77,7 @@
     "tipo_comida": "Mexicana",
     "barrio": "Villa Crespo",
     "direccion": "534 Macon Street",
-    "calificacion_promedio": 4
+    "calificacion_promedio": 4.3
   },
   {
     "restaurante_id": 11,
@@ -85,7 +85,7 @@
     "tipo_comida": "Parrilla",
     "barrio": "Belgrano",
     "direccion": "1205 Cumberland Walk",
-    "calificacion_promedio": 3.9
+    "calificacion_promedio": 2.7
   },
   {
     "restaurante_id": 12,
@@ -93,7 +93,7 @@
     "tipo_comida": "Helados",
     "barrio": "Recoleta",
     "direccion": "3033 Oceanic Avenue",
-    "calificacion_promedio": 3.8
+    "calificacion_promedio": 4.2
   },
   {
     "restaurante_id": 13,
@@ -101,7 +101,7 @@
     "tipo_comida": "Pastas",
     "barrio": "Recoleta",
     "direccion": "2844 Bergen Street",
-    "calificacion_promedio": 3.8
+    "calificacion_promedio": 3.3
   },
   {
     "restaurante_id": 14,
@@ -109,7 +109,7 @@
     "tipo_comida": "Vegano",
     "barrio": "Almagro",
     "direccion": "1567 Bartlett Place",
-    "calificacion_promedio": 3.1
+    "calificacion_promedio": 2.6
   },
   {
     "restaurante_id": 15,
@@ -117,7 +117,7 @@
     "tipo_comida": "Parrilla",
     "barrio": "Palermo",
     "direccion": "1203 Hampton Place",
-    "calificacion_promedio": 5
+    "calificacion_promedio": 3.0
   },
   {
     "restaurante_id": 16,
@@ -125,7 +125,7 @@
     "tipo_comida": "Pastas",
     "barrio": "Núñez",
     "direccion": "342 Kimball Street",
-    "calificacion_promedio": 3.3
+    "calificacion_promedio": 4.2
   },
   {
     "restaurante_id": 17,
@@ -133,7 +133,7 @@
     "tipo_comida": "Cafetería",
     "barrio": "Belgrano",
     "direccion": "538 Kossuth Place",
-    "calificacion_promedio": 3.6
+    "calificacion_promedio": 1.8
   },
   {
     "restaurante_id": 18,
@@ -141,7 +141,7 @@
     "tipo_comida": "Milanesas",
     "barrio": "Almagro",
     "direccion": "2155 Brigham Street",
-    "calificacion_promedio": 3.5
+    "calificacion_promedio": 3.0
   },
   {
     "restaurante_id": 19,
@@ -149,7 +149,7 @@
     "tipo_comida": "Cafetería",
     "barrio": "Caballito",
     "direccion": "317 Elliott Place",
-    "calificacion_promedio": 3.3
+    "calificacion_promedio": 1.9
   },
   {
     "restaurante_id": 20,
@@ -157,7 +157,7 @@
     "tipo_comida": "Pastas",
     "barrio": "Almagro",
     "direccion": "3010 Manor Court",
-    "calificacion_promedio": 3.2
+    "calificacion_promedio": 2.9
   },
   {
     "restaurante_id": 21,
@@ -165,7 +165,7 @@
     "tipo_comida": "Hamburguesas",
     "barrio": "Villa Crespo",
     "direccion": "1055 Hendrix Street",
-    "calificacion_promedio": 3.9
+    "calificacion_promedio": 2.8
   },
   {
     "restaurante_id": 22,
@@ -173,7 +173,7 @@
     "tipo_comida": "Sushi",
     "barrio": "Núñez",
     "direccion": "3202 Tillary Street",
-    "calificacion_promedio": 3.5
+    "calificacion_promedio": 4.0
   },
   {
     "restaurante_id": 23,
@@ -181,7 +181,7 @@
     "tipo_comida": "Sushi",
     "barrio": "Núñez",
     "direccion": "3510 Evans Street",
-    "calificacion_promedio": 3.1
+    "calificacion_promedio": 4.0
   },
   {
     "restaurante_id": 24,
@@ -189,7 +189,7 @@
     "tipo_comida": "Helados",
     "barrio": "Flores",
     "direccion": "969 Cyrus Avenue",
-    "calificacion_promedio": 5
+    "calificacion_promedio": 3.2
   },
   {
     "restaurante_id": 25,
@@ -197,7 +197,7 @@
     "tipo_comida": "Pizza",
     "barrio": "Puerto Madero",
     "direccion": "2190 Bragg Court",
-    "calificacion_promedio": 4.4
+    "calificacion_promedio": 3.6
   },
   {
     "restaurante_id": 26,
@@ -205,7 +205,7 @@
     "tipo_comida": "Cafetería",
     "barrio": "Almagro",
     "direccion": "2666 Pierrepont Street",
-    "calificacion_promedio": 4.7
+    "calificacion_promedio": 3.0
   },
   {
     "restaurante_id": 27,
@@ -213,7 +213,7 @@
     "tipo_comida": "Parrilla",
     "barrio": "Villa Crespo",
     "direccion": "1055 Varick Avenue",
-    "calificacion_promedio": 3.6
+    "calificacion_promedio": 2.8
   },
   {
     "restaurante_id": 28,
@@ -221,7 +221,7 @@
     "tipo_comida": "Pizza",
     "barrio": "Belgrano",
     "direccion": "3715 Madeline Court",
-    "calificacion_promedio": 4.9
+    "calificacion_promedio": 3.3
   },
   {
     "restaurante_id": 29,
@@ -229,7 +229,7 @@
     "tipo_comida": "Cafetería",
     "barrio": "Flores",
     "direccion": "634 Jackson Street",
-    "calificacion_promedio": 3.2
+    "calificacion_promedio": 2.7
   },
   {
     "restaurante_id": 30,
@@ -237,7 +237,7 @@
     "tipo_comida": "Helados",
     "barrio": "Palermo",
     "direccion": "2234 Court Street",
-    "calificacion_promedio": 3.8
+    "calificacion_promedio": 2.5
   },
   {
     "restaurante_id": 31,
@@ -245,7 +245,7 @@
     "tipo_comida": "Parrilla",
     "barrio": "San Telmo",
     "direccion": "568 Laurel Avenue",
-    "calificacion_promedio": 4.7
+    "calificacion_promedio": 2.5
   },
   {
     "restaurante_id": 32,
@@ -253,7 +253,7 @@
     "tipo_comida": "Hamburguesas",
     "barrio": "Almagro",
     "direccion": "2256 Seeley Street",
-    "calificacion_promedio": 4.3
+    "calificacion_promedio": 2.2
   },
   {
     "restaurante_id": 33,
@@ -261,7 +261,7 @@
     "tipo_comida": "Pastas",
     "barrio": "Villa Crespo",
     "direccion": "3029 Central Avenue",
-    "calificacion_promedio": 3.6
+    "calificacion_promedio": 3.0
   },
   {
     "restaurante_id": 34,
@@ -269,7 +269,7 @@
     "tipo_comida": "Helados",
     "barrio": "Núñez",
     "direccion": "1498 Langham Street",
-    "calificacion_promedio": 4.2
+    "calificacion_promedio": 3.3
   },
   {
     "restaurante_id": 35,
@@ -277,7 +277,7 @@
     "tipo_comida": "Hamburguesas",
     "barrio": "Palermo",
     "direccion": "3255 Richardson Street",
-    "calificacion_promedio": 3.3
+    "calificacion_promedio": 2.0
   },
   {
     "restaurante_id": 36,
@@ -285,7 +285,7 @@
     "tipo_comida": "Milanesas",
     "barrio": "Puerto Madero",
     "direccion": "2737 Etna Street",
-    "calificacion_promedio": 3.9
+    "calificacion_promedio": 3.0
   },
   {
     "restaurante_id": 37,
@@ -293,7 +293,7 @@
     "tipo_comida": "Cafetería",
     "barrio": "Caballito",
     "direccion": "619 Lincoln Road",
-    "calificacion_promedio": 4.5
+    "calificacion_promedio": 3.6
   },
   {
     "restaurante_id": 38,
@@ -301,7 +301,7 @@
     "tipo_comida": "Hamburguesas",
     "barrio": "Almagro",
     "direccion": "3816 Olive Street",
-    "calificacion_promedio": 3.3
+    "calificacion_promedio": 3.0
   },
   {
     "restaurante_id": 39,
@@ -309,7 +309,7 @@
     "tipo_comida": "Pastas",
     "barrio": "San Telmo",
     "direccion": "2310 Debevoise Avenue",
-    "calificacion_promedio": 3.5
+    "calificacion_promedio": 2.2
   },
   {
     "restaurante_id": 40,
@@ -317,6 +317,6 @@
     "tipo_comida": "Mexicana",
     "barrio": "Villa Crespo",
     "direccion": "3380 Minna Street",
-    "calificacion_promedio": 3.9
+    "calificacion_promedio": 3.1
   }
 ]

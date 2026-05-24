@@ -8,7 +8,7 @@
     "fecha_inicio": "2026-05-08",
     "fecha_fin": "2026-05-17",
     "estado": "PROGRAMADA",
-    "barrio": "Flores"
+    "barrio": "Villa Crespo"
   },
   {
     "promocion_id": 2,
@@ -19,7 +19,7 @@
     "fecha_inicio": "2026-05-11",
     "fecha_fin": "2026-05-23",
     "estado": "PROGRAMADA",
-    "barrio": "Puerto Madero"
+    "barrio": "Almagro"
   },
   {
     "promocion_id": 3,
@@ -30,7 +30,7 @@
     "fecha_inicio": "2026-05-04",
     "fecha_fin": "2026-05-17",
     "estado": "PROGRAMADA",
-    "barrio": "Almagro"
+    "barrio": "Belgrano"
   },
   {
     "promocion_id": 4,
@@ -41,7 +41,7 @@
     "fecha_inicio": "2026-05-06",
     "fecha_fin": "2026-05-18",
     "estado": "ACTIVA",
-    "barrio": "Caballito"
+    "barrio": "Almagro"
   },
   {
     "promocion_id": 5,
@@ -63,7 +63,7 @@
     "fecha_inicio": "2026-05-12",
     "fecha_fin": "2026-05-20",
     "estado": "ACTIVA",
-    "barrio": "Almagro"
+    "barrio": "Villa Crespo"
   },
   {
     "promocion_id": 7,
@@ -74,7 +74,7 @@
     "fecha_inicio": "2026-05-10",
     "fecha_fin": "2026-05-26",
     "estado": "ACTIVA",
-    "barrio": "Almagro"
+    "barrio": "Palermo"
   },
   {
     "promocion_id": 8,
@@ -85,7 +85,7 @@
     "fecha_inicio": "2026-05-08",
     "fecha_fin": "2026-05-30",
     "estado": "ACTIVA",
-    "barrio": "Palermo"
+    "barrio": "San Telmo"
   },
   {
     "promocion_id": 9,
@@ -107,7 +107,7 @@
     "fecha_inicio": "2026-05-13",
     "fecha_fin": "2026-05-21",
     "estado": "PROGRAMADA",
-    "barrio": "Caballito"
+    "barrio": "Recoleta"
   },
   {
     "promocion_id": 11,
@@ -118,7 +118,7 @@
     "fecha_inicio": "2026-05-14",
     "fecha_fin": "2026-05-20",
     "estado": "ACTIVA",
-    "barrio": "Palermo"
+    "barrio": "Puerto Madero"
   },
   {
     "promocion_id": 12,
@@ -129,7 +129,7 @@
     "fecha_inicio": "2026-05-15",
     "fecha_fin": "2026-05-16",
     "estado": "ACTIVA",
-    "barrio": "Núñez"
+    "barrio": "Belgrano"
   },
   {
     "promocion_id": 13,
@@ -140,7 +140,7 @@
     "fecha_inicio": "2026-05-10",
     "fecha_fin": "2026-05-23",
     "estado": "ACTIVA",
-    "barrio": "San Telmo"
+    "barrio": "Caballito"
   },
   {
     "promocion_id": 14,
@@ -151,7 +151,7 @@
     "fecha_inicio": "2026-05-12",
     "fecha_fin": "2026-05-29",
     "estado": "ACTIVA",
-    "barrio": "Núñez"
+    "barrio": "Villa Crespo"
   },
   {
     "promocion_id": 15,
@@ -162,7 +162,7 @@
     "fecha_inicio": "2026-05-13",
     "fecha_fin": "2026-05-31",
     "estado": "ACTIVA",
-    "barrio": "Almagro"
+    "barrio": "San Telmo"
   },
   {
     "promocion_id": 16,
@@ -184,7 +184,7 @@
     "fecha_inicio": "2026-05-05",
     "fecha_fin": "2026-05-30",
     "estado": "ACTIVA",
-    "barrio": "Villa Crespo"
+    "barrio": "Palermo"
   },
   {
     "promocion_id": 18,
@@ -195,7 +195,7 @@
     "fecha_inicio": "2026-05-08",
     "fecha_fin": "2026-05-16",
     "estado": "PROGRAMADA",
-    "barrio": "Núñez"
+    "barrio": "Almagro"
   },
   {
     "promocion_id": 19,
@@ -206,7 +206,7 @@
     "fecha_inicio": "2026-05-06",
     "fecha_fin": "2026-05-31",
     "estado": "ACTIVA",
-    "barrio": "Almagro"
+    "barrio": "Núñez"
   },
   {
     "promocion_id": 20,
@@ -217,7 +217,7 @@
     "fecha_inicio": "2026-05-14",
     "fecha_fin": "2026-05-30",
     "estado": "ACTIVA",
-    "barrio": "Caballito"
+    "barrio": "Núñez"
   },
   {
     "promocion_id": 21,
@@ -239,7 +239,7 @@
     "fecha_inicio": "2026-05-03",
     "fecha_fin": "2026-05-21",
     "estado": "ACTIVA",
-    "barrio": "Almagro"
+    "barrio": "Belgrano"
   },
   {
     "promocion_id": 23,
@@ -250,7 +250,7 @@
     "fecha_inicio": "2026-05-05",
     "fecha_fin": "2026-05-16",
     "estado": "PROGRAMADA",
-    "barrio": "Flores"
+    "barrio": "Núñez"
   },
   {
     "promocion_id": 24,
@@ -261,7 +261,7 @@
     "fecha_inicio": "2026-05-12",
     "fecha_fin": "2026-05-26",
     "estado": "PROGRAMADA",
-    "barrio": "Recoleta"
+    "barrio": "Flores"
   },
   {
     "promocion_id": 25,
@@ -272,7 +272,7 @@
     "fecha_inicio": "2026-05-03",
     "fecha_fin": "2026-05-26",
     "estado": "PROGRAMADA",
-    "barrio": "Recoleta"
+    "barrio": "Puerto Madero"
   },
   {
     "promocion_id": 26,
@@ -283,7 +283,7 @@
     "fecha_inicio": "2026-05-08",
     "fecha_fin": "2026-05-26",
     "estado": "ACTIVA",
-    "barrio": "San Telmo"
+    "barrio": "Puerto Madero"
   },
   {
     "promocion_id": 27,
@@ -294,7 +294,7 @@
     "fecha_inicio": "2026-05-01",
     "fecha_fin": "2026-05-20",
     "estado": "PROGRAMADA",
-    "barrio": "Caballito"
+    "barrio": "Villa Crespo"
   },
   {
     "promocion_id": 28,
@@ -305,7 +305,7 @@
     "fecha_inicio": "2026-05-11",
     "fecha_fin": "2026-05-20",
     "estado": "PROGRAMADA",
-    "barrio": "Palermo"
+    "barrio": "San Telmo"
   },
   {
     "promocion_id": 29,
@@ -316,7 +316,7 @@
     "fecha_inicio": "2026-05-06",
     "fecha_fin": "2026-05-31",
     "estado": "ACTIVA",
-    "barrio": "Núñez"
+    "barrio": "Belgrano"
   },
   {
     "promocion_id": 30,
@@ -327,7 +327,7 @@
     "fecha_inicio": "2026-05-03",
     "fecha_fin": "2026-05-25",
     "estado": "ACTIVA",
-    "barrio": "Flores"
+    "barrio": "Puerto Madero"
   },
   {
     "promocion_id": 31,
@@ -338,7 +338,7 @@
     "fecha_inicio": "2026-05-04",
     "fecha_fin": "2026-05-18",
     "estado": "ACTIVA",
-    "barrio": "Belgrano"
+    "barrio": "Palermo"
   },
   {
     "promocion_id": 32,
@@ -349,7 +349,7 @@
     "fecha_inicio": "2026-05-07",
     "fecha_fin": "2026-05-28",
     "estado": "PROGRAMADA",
-    "barrio": "San Telmo"
+    "barrio": "Recoleta"
   },
   {
     "promocion_id": 33,
@@ -360,7 +360,7 @@
     "fecha_inicio": "2026-05-13",
     "fecha_fin": "2026-05-18",
     "estado": "ACTIVA",
-    "barrio": "Villa Crespo"
+    "barrio": "San Telmo"
   },
   {
     "promocion_id": 34,
@@ -371,7 +371,7 @@
     "fecha_inicio": "2026-05-01",
     "fecha_fin": "2026-05-24",
     "estado": "ACTIVA",
-    "barrio": "Belgrano"
+    "barrio": "Núñez"
   },
   {
     "promocion_id": 35,
@@ -382,7 +382,7 @@
     "fecha_inicio": "2026-05-03",
     "fecha_fin": "2026-05-16",
     "estado": "PROGRAMADA",
-    "barrio": "Recoleta"
+    "barrio": "Núñez"
   },
   {
     "promocion_id": 36,
@@ -393,7 +393,7 @@
     "fecha_inicio": "2026-05-02",
     "fecha_fin": "2026-05-30",
     "estado": "ACTIVA",
-    "barrio": "Palermo"
+    "barrio": "Núñez"
   },
   {
     "promocion_id": 37,
@@ -415,7 +415,7 @@
     "fecha_inicio": "2026-05-11",
     "fecha_fin": "2026-05-21",
     "estado": "PROGRAMADA",
-    "barrio": "Villa Crespo"
+    "barrio": "Flores"
   },
   {
     "promocion_id": 39,
@@ -448,7 +448,7 @@
     "fecha_inicio": "2026-05-04",
     "fecha_fin": "2026-05-29",
     "estado": "ACTIVA",
-    "barrio": "Recoleta"
+    "barrio": "Flores"
   },
   {
     "promocion_id": 42,
@@ -459,7 +459,7 @@
     "fecha_inicio": "2026-05-03",
     "fecha_fin": "2026-05-26",
     "estado": "PROGRAMADA",
-    "barrio": "Núñez"
+    "barrio": "Puerto Madero"
   },
   {
     "promocion_id": 43,
@@ -470,7 +470,7 @@
     "fecha_inicio": "2026-05-05",
     "fecha_fin": "2026-05-28",
     "estado": "PROGRAMADA",
-    "barrio": "Almagro"
+    "barrio": "Núñez"
   },
   {
     "promocion_id": 44,
@@ -481,7 +481,7 @@
     "fecha_inicio": "2026-05-12",
     "fecha_fin": "2026-05-26",
     "estado": "ACTIVA",
-    "barrio": "San Telmo"
+    "barrio": "Caballito"
   },
   {
     "promocion_id": 45,
@@ -492,7 +492,7 @@
     "fecha_inicio": "2026-05-11",
     "fecha_fin": "2026-05-30",
     "estado": "PROGRAMADA",
-    "barrio": "Belgrano"
+    "barrio": "Flores"
   },
   {
     "promocion_id": 46,
@@ -503,7 +503,7 @@
     "fecha_inicio": "2026-05-13",
     "fecha_fin": "2026-05-17",
     "estado": "PROGRAMADA",
-    "barrio": "Caballito"
+    "barrio": "Núñez"
   },
   {
     "promocion_id": 47,
@@ -514,7 +514,7 @@
     "fecha_inicio": "2026-05-04",
     "fecha_fin": "2026-05-20",
     "estado": "ACTIVA",
-    "barrio": "Palermo"
+    "barrio": "Núñez"
   },
   {
     "promocion_id": 48,
@@ -525,7 +525,7 @@
     "fecha_inicio": "2026-05-14",
     "fecha_fin": "2026-05-16",
     "estado": "ACTIVA",
-    "barrio": "Palermo"
+    "barrio": "Núñez"
   },
   {
     "promocion_id": 49,
@@ -536,7 +536,7 @@
     "fecha_inicio": "2026-05-07",
     "fecha_fin": "2026-05-17",
     "estado": "ACTIVA",
-    "barrio": "Núñez"
+    "barrio": "Recoleta"
   },
   {
     "promocion_id": 50,
@@ -547,7 +547,7 @@
     "fecha_inicio": "2026-05-05",
     "fecha_fin": "2026-05-20",
     "estado": "ACTIVA",
-    "barrio": "Puerto Madero"
+    "barrio": "Recoleta"
   },
   {
     "promocion_id": 51,
@@ -558,7 +558,7 @@
     "fecha_inicio": "2026-05-13",
     "fecha_fin": "2026-05-29",
     "estado": "ACTIVA",
-    "barrio": "Belgrano"
+    "barrio": "Villa Crespo"
   },
   {
     "promocion_id": 52,
@@ -569,7 +569,7 @@
     "fecha_inicio": "2026-05-03",
     "fecha_fin": "2026-05-27",
     "estado": "ACTIVA",
-    "barrio": "Belgrano"
+    "barrio": "Núñez"
   },
   {
     "promocion_id": 53,
@@ -580,7 +580,7 @@
     "fecha_inicio": "2026-05-02",
     "fecha_fin": "2026-05-26",
     "estado": "ACTIVA",
-    "barrio": "Flores"
+    "barrio": "Núñez"
   },
   {
     "promocion_id": 54,
@@ -591,7 +591,7 @@
     "fecha_inicio": "2026-05-13",
     "fecha_fin": "2026-05-28",
     "estado": "ACTIVA",
-    "barrio": "Recoleta"
+    "barrio": "Villa Crespo"
   },
   {
     "promocion_id": 55,
@@ -613,7 +613,7 @@
     "fecha_inicio": "2026-05-13",
     "fecha_fin": "2026-05-22",
     "estado": "ACTIVA",
-    "barrio": "Belgrano"
+    "barrio": "San Telmo"
   },
   {
     "promocion_id": 57,
@@ -624,7 +624,7 @@
     "fecha_inicio": "2026-05-12",
     "fecha_fin": "2026-05-24",
     "estado": "ACTIVA",
-    "barrio": "Flores"
+    "barrio": "Villa Crespo"
   },
   {
     "promocion_id": 58,
@@ -635,7 +635,7 @@
     "fecha_inicio": "2026-05-07",
     "fecha_fin": "2026-05-16",
     "estado": "ACTIVA",
-    "barrio": "Caballito"
+    "barrio": "Palermo"
   },
   {
     "promocion_id": 59,
@@ -646,7 +646,7 @@
     "fecha_inicio": "2026-05-03",
     "fecha_fin": "2026-05-21",
     "estado": "ACTIVA",
-    "barrio": "Almagro"
+    "barrio": "Núñez"
   },
   {
     "promocion_id": 60,
@@ -657,7 +657,7 @@
     "fecha_inicio": "2026-05-10",
     "fecha_fin": "2026-05-16",
     "estado": "ACTIVA",
-    "barrio": "San Telmo"
+    "barrio": "Núñez"
   },
   {
     "promocion_id": 61,
@@ -668,7 +668,7 @@
     "fecha_inicio": "2026-05-06",
     "fecha_fin": "2026-05-31",
     "estado": "ACTIVA",
-    "barrio": "Belgrano"
+    "barrio": "Almagro"
   },
   {
     "promocion_id": 62,
@@ -679,7 +679,7 @@
     "fecha_inicio": "2026-05-02",
     "fecha_fin": "2026-05-25",
     "estado": "PROGRAMADA",
-    "barrio": "Flores"
+    "barrio": "Recoleta"
   },
   {
     "promocion_id": 63,
@@ -690,7 +690,7 @@
     "fecha_inicio": "2026-05-10",
     "fecha_fin": "2026-05-19",
     "estado": "ACTIVA",
-    "barrio": "San Telmo"
+    "barrio": "Núñez"
   },
   {
     "promocion_id": 64,
@@ -701,7 +701,7 @@
     "fecha_inicio": "2026-05-01",
     "fecha_fin": "2026-05-29",
     "estado": "ACTIVA",
-    "barrio": "Almagro"
+    "barrio": "Núñez"
   },
   {
     "promocion_id": 65,
@@ -712,7 +712,7 @@
     "fecha_inicio": "2026-05-15",
     "fecha_fin": "2026-05-29",
     "estado": "PROGRAMADA",
-    "barrio": "Flores"
+    "barrio": "Núñez"
   },
   {
     "promocion_id": 66,
@@ -723,7 +723,7 @@
     "fecha_inicio": "2026-05-01",
     "fecha_fin": "2026-05-30",
     "estado": "ACTIVA",
-    "barrio": "Belgrano"
+    "barrio": "Recoleta"
   },
   {
     "promocion_id": 67,
@@ -734,7 +734,7 @@
     "fecha_inicio": "2026-05-10",
     "fecha_fin": "2026-05-20",
     "estado": "PROGRAMADA",
-    "barrio": "Recoleta"
+    "barrio": "Palermo"
   },
   {
     "promocion_id": 68,
@@ -745,7 +745,7 @@
     "fecha_inicio": "2026-05-06",
     "fecha_fin": "2026-05-18",
     "estado": "ACTIVA",
-    "barrio": "Caballito"
+    "barrio": "Recoleta"
   },
   {
     "promocion_id": 69,
@@ -756,7 +756,7 @@
     "fecha_inicio": "2026-05-14",
     "fecha_fin": "2026-05-31",
     "estado": "PROGRAMADA",
-    "barrio": "Palermo"
+    "barrio": "Puerto Madero"
   },
   {
     "promocion_id": 70,
@@ -767,7 +767,7 @@
     "fecha_inicio": "2026-05-02",
     "fecha_fin": "2026-05-17",
     "estado": "ACTIVA",
-    "barrio": "Caballito"
+    "barrio": "Villa Crespo"
   },
   {
     "promocion_id": 71,
@@ -778,7 +778,7 @@
     "fecha_inicio": "2026-05-05",
     "fecha_fin": "2026-05-18",
     "estado": "PROGRAMADA",
-    "barrio": "Belgrano"
+    "barrio": "Villa Crespo"
   },
   {
     "promocion_id": 72,
@@ -789,7 +789,7 @@
     "fecha_inicio": "2026-05-10",
     "fecha_fin": "2026-05-30",
     "estado": "ACTIVA",
-    "barrio": "Villa Crespo"
+    "barrio": "Puerto Madero"
   },
   {
     "promocion_id": 73,
@@ -800,7 +800,7 @@
     "fecha_inicio": "2026-05-04",
     "fecha_fin": "2026-05-17",
     "estado": "ACTIVA",
-    "barrio": "Puerto Madero"
+    "barrio": "Almagro"
   },
   {
     "promocion_id": 74,
@@ -811,7 +811,7 @@
     "fecha_inicio": "2026-05-02",
     "fecha_fin": "2026-05-30",
     "estado": "ACTIVA",
-    "barrio": "Caballito"
+    "barrio": "Núñez"
   },
   {
     "promocion_id": 75,
@@ -822,7 +822,7 @@
     "fecha_inicio": "2026-05-09",
     "fecha_fin": "2026-05-16",
     "estado": "ACTIVA",
-    "barrio": "Recoleta"
+    "barrio": "Flores"
   },
   {
     "promocion_id": 76,
@@ -833,7 +833,7 @@
     "fecha_inicio": "2026-05-09",
     "fecha_fin": "2026-05-23",
     "estado": "ACTIVA",
-    "barrio": "Belgrano"
+    "barrio": "Villa Crespo"
   },
   {
     "promocion_id": 77,
@@ -855,7 +855,7 @@
     "fecha_inicio": "2026-05-07",
     "fecha_fin": "2026-05-29",
     "estado": "ACTIVA",
-    "barrio": "Flores"
+    "barrio": "Villa Crespo"
   },
   {
     "promocion_id": 79,
@@ -866,7 +866,7 @@
     "fecha_inicio": "2026-05-13",
     "fecha_fin": "2026-05-23",
     "estado": "ACTIVA",
-    "barrio": "Almagro"
+    "barrio": "San Telmo"
   },
   {
     "promocion_id": 80,
@@ -877,6 +877,6 @@
     "fecha_inicio": "2026-05-12",
     "fecha_fin": "2026-05-19",
     "estado": "ACTIVA",
-    "barrio": "Caballito"
+    "barrio": "Almagro"
   }
 ]

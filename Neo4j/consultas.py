@@ -96,6 +96,60 @@ def consultar_seguidores(username):
     )
 
 
+def buscar_usuarios(termino_busqueda, limite=10):
+    consulta = """
+        MATCH (u:Usuario)
+        WHERE u.username CONTAINS $termino 
+           OR toLower(u.nombre) CONTAINS toLower($termino)
+           OR toLower(u.apellido) CONTAINS toLower($termino)
+        RETURN u.username AS username, 
+               u.nombre AS nombre, 
+               u.apellido AS apellido
+        LIMIT $limite
+    """
+
+    return ejecutar_consulta(
+        f"Buscar usuario (termino: {termino_busqueda})",
+        consulta,
+        {"termino": termino_busqueda, "limite": limite}
+    )
+
+
+def consultar_visitas_amigos(username, limite=10):
+    consulta = """
+        MATCH (yo:Usuario {username: $username})-[:SIGUE]->(amigo:Usuario)-[v:VISITO]->(r:Restaurante)
+        RETURN amigo.username AS amigo,
+               r.nombre AS restaurante,
+               v.fecha AS fecha
+        ORDER BY v.fecha DESC, amigo
+        LIMIT $limite
+    """
+
+    return ejecutar_consulta(
+        f"Restaurantes que visitaron los amigos de {username}",
+        consulta,
+        {"username": username, "limite": limite}
+    )
+
+
+def consultar_calificaciones_amigos(username, limite=10):
+    consulta = """
+        MATCH (yo:Usuario {username: $username})-[:SIGUE]->(amigo:Usuario)-[c:CALIFICO]->(r:Restaurante)
+        RETURN amigo.username AS amigo,
+               r.nombre AS restaurante,
+               c.puntaje AS puntaje,
+               c.comentario AS comentario
+        ORDER BY c.fecha DESC, c.puntaje DESC
+        LIMIT $limite
+    """
+
+    return ejecutar_consulta(
+        f"Calificaciones hechas por los amigos de {username}",
+        consulta,
+        {"username": username, "limite": limite}
+    )
+
+
 def sugerir_usuarios_para_seguir(username, limite=5):
     consulta = """
         MATCH (yo:Usuario {username: $username})-[:SIGUE]->(:Usuario)-[:SIGUE]->(sugerido:Usuario)
@@ -259,6 +313,12 @@ def ejecutar_consultas(username=USERNAME_DEMO):
     consultar_perfil_usuario(username)
     consultar_usuarios_que_sigue(username)
     consultar_seguidores(username)
+    
+    # Nuevas funciones de busqueda e interacciones
+    buscar_usuarios("val", 5)
+    consultar_visitas_amigos(username)
+    consultar_calificaciones_amigos(username)
+
     sugerir_usuarios_para_seguir(username)
     recomendar_visitados_por_amigos(username)
     recomendar_bien_calificados_por_amigos(username)

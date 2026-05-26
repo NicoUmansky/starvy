@@ -11,10 +11,8 @@ def obtener_cliente():
     Crea y reutiliza un unico cliente MongoClient para toda la ejecucion.
     """
     global _client
-
     if _client is None:
-        _client = MongoClient(MONGO_URI)
-
+        _client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=5000)
     return _client
 
 

@@ -19,21 +19,21 @@ def crear_sesion_si_redis_esta_disponible(user_id):
     Intenta crear sesion en Redis despues del login, sin cortar Mongo si Redis falla.
     """
     redis_dir = Path(__file__).resolve().parent.parent / "Redis"
-    redis_app = redis_dir / "appRedis.py"
+    redis_consultas = redis_dir / "consultas.py"
 
-    if not redis_app.exists():
-        print("No se creo sesion Redis porque no se encontro Redis/appRedis.py.")
+    if not redis_consultas.exists():
+        print("No se creo sesion Redis porque no se encontro Redis/consultas.py.")
         return None
 
     try:
         if str(redis_dir) not in sys.path:
-            sys.path.append(str(redis_dir))
+            sys.path.insert(0, str(redis_dir))
 
-        spec = importlib.util.spec_from_file_location("appRedis", redis_app)
-        app_redis = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(app_redis)
+        spec = importlib.util.spec_from_file_location("redis_consultas", redis_consultas)
+        redis_modulo = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(redis_modulo)
 
-        return app_redis.crear_sesion(user_id)
+        return redis_modulo.crear_sesion(user_id)
     except Exception as error:
         print(f"No se pudo crear sesion en Redis: {error}")
         return None
@@ -137,10 +137,11 @@ def insertar_calificacion(dni_usuario, restaurante_id, puntaje, comentario="", f
     puntaje = validar_puntaje(puntaje)
 
     # Validamos que el usuario y restaurante existan antes de insertar
-    if usuarios.count_documents({"dni_usuario": dni_usuario}) == 0:
+    if usuarios.find_one({"dni_usuario": dni_usuario}, {"_id": 1}) is None:
         print(f"\nNo existe el usuario con DNI {dni_usuario}.")
         return None
-    if restaurantes.count_documents({"restaurante_id": restaurante_id}) == 0:
+
+    if restaurantes.find_one({"restaurante_id": restaurante_id}, {"_id": 1}) is None:
         print(f"\nNo existe el restaurante {restaurante_id}.")
         return None
 

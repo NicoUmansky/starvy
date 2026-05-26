@@ -23,6 +23,8 @@ def crear_indices():
     resenas.create_index([("resena_id", ASCENDING)], unique=True)
     resenas.create_index([("dni_usuario", ASCENDING)])
     resenas.create_index([("restaurante_id", ASCENDING)])
+    resenas.create_index([("dni_usuario", ASCENDING), ("fecha", ASCENDING)])
+    resenas.create_index([("restaurante_id", ASCENDING), ("fecha", ASCENDING)])
 
     print("Indices de MongoDB creados/verificados correctamente.")
 

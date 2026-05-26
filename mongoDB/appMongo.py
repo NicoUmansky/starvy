@@ -34,9 +34,8 @@ def main():
 
     validar_credenciales("VitoNava", "starvy123")
     ejecutar_consultas(dni_usuario=44000009, restaurante_id=1)
-    # ejecutar_escrituras()
+    ejecutar_escrituras()
 
-    cerrar_conexion()
     print("\nInicializacion, carga, consultas y escrituras de MongoDB finalizadas correctamente.")
 
 
@@ -46,3 +45,5 @@ if __name__ == "__main__":
     except ServerSelectionTimeoutError:
         print("\nNo se pudo conectar con MongoDB.")
         print("Verifica MONGO_URI, la conexion a internet y el acceso permitido en MongoDB Atlas.")
+    finally:
+        cerrar_conexion()

@@ -74,6 +74,27 @@ Ejemplo de estructura de restaurante:
   \]  
 }
 
+Para cubrir las operaciones del catálogo, se implementó la función buscar\_restaurantes\_por\_filtros, que consulta la colección restaurantes usando find y permite filtrar por tipo\_comida, calificacion\_promedio mínima y barrio/zona. Los filtros son opcionales, por lo que se puede buscar por uno solo de esos criterios o combinarlos. Los resultados se ordenan por calificación promedio de mayor a menor.
+
+Ejemplo de búsqueda por filtros:
+
+buscar\_restaurantes\_por\_filtros(  
+  tipo\_comida="Mexicana",  
+  calificacion\_minima=3,  
+  barrio="Flores"  
+)
+
+También se implementó la función agregar\_plato\_a\_restaurante, que permite agregar un nuevo plato dentro del arreglo platos del restaurante correspondiente. Esta operación se realiza internamente desde el motor, sin mostrarse en el front, y utiliza $push para mantener el modelo documental donde los platos quedan anidados en el documento del restaurante.
+
+Ejemplo de agregado de plato:
+
+agregar\_plato\_a\_restaurante(  
+  restaurante\_id=1,  
+  plato\_nombre="Enchiladas verdes",  
+  tipo\_comida="Mexicana",  
+  precio=8200  
+)
+
 La colección resenas almacena las reseñas y calificaciones realizadas por los usuarios sobre los restaurantes. Cada reseña contiene resena\_id, dni\_usuario, restaurante\_id, puntaje, comentario y fecha. Esta colección se mantiene separada porque relaciona a usuarios con restaurantes y permite consultar las opiniones o calificaciones de forma independiente.
 
 También se implementó una función llamada recalcularCalificacionPromedio(restaurante\_id), que busca todas las reseñas asociadas a un restaurante, calcula el promedio de los puntajes y actualiza el campo calificacion\_promedio dentro del documento correspondiente en la colección restaurantes.

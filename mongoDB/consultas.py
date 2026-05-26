@@ -1,3 +1,5 @@
+import re
+
 from conexion import obtener_coleccion
 from utilidades import imprimir_documentos
 
@@ -24,6 +26,39 @@ def validar_credenciales(username, password):
 
     print(f"\nLogin invalido para {username}.")
     return None
+
+
+def buscar_restaurantes_por_filtros(tipo_comida=None, calificacion_minima=None, barrio=None, limite=10):
+    """
+    Busca restaurantes aplicando filtros opcionales por tipo de comida,
+    calificacion minima y barrio/zona.
+    """
+    filtro = {}
+
+    if tipo_comida:
+        filtro["tipo_comida"] = {"$regex": f"^{re.escape(tipo_comida)}$", "$options": "i"}
+
+    if calificacion_minima is not None:
+        filtro["calificacion_promedio"] = {"$gte": float(calificacion_minima)}
+
+    if barrio:
+        filtro["barrio"] = {"$regex": f"^{re.escape(barrio)}$", "$options": "i"}
+
+    restaurantes = obtener_coleccion("restaurantes").find(
+        filtro,
+        {
+            "_id": 0,
+            "restaurante_id": 1,
+            "nombre": 1,
+            "tipo_comida": 1,
+            "barrio": 1,
+            "direccion": 1,
+            "calificacion_promedio": 1,
+            "platos": 1
+        }
+    ).sort("calificacion_promedio", -1).limit(limite)
+
+    return imprimir_documentos("Restaurantes encontrados por filtros", restaurantes)
 
 
 def ver_mis_resenas(dni_usuario, limite=10):
@@ -154,6 +189,11 @@ def ejecutar_consultas(dni_usuario=44000001, restaurante_id=1):
     print("EJECUCION DE CONSULTAS MONGODB")
     print("==============================")
 
+    buscar_restaurantes_por_filtros(
+        tipo_comida="Mexicana",
+        calificacion_minima=3,
+        barrio="Flores"
+    )
     ver_mis_resenas(dni_usuario)
     ver_mis_calificaciones(dni_usuario)
     ver_calificacion_restaurante(restaurante_id)

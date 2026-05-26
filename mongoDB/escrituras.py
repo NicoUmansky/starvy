@@ -123,6 +123,56 @@ def registrar_restaurante(restaurante_id, nombre, tipo_comida, barrio, direccion
     return restaurante
 
 
+def _obtener_siguiente_plato_id(restaurantes):
+    """
+    Busca el mayor plato_id dentro de los platos anidados y devuelve el siguiente.
+    """
+    resultado = list(restaurantes.aggregate([
+        {"$unwind": "$platos"},
+        {"$group": {"_id": None, "ultimo_plato_id": {"$max": "$platos.plato_id"}}}
+    ]))
+
+    if not resultado:
+        return 1
+
+    return int(resultado[0]["ultimo_plato_id"]) + 1
+
+
+def agregar_plato_a_restaurante(restaurante_id, plato_nombre, tipo_comida, precio, disponible=True, plato_id=None):
+    """
+    Agrega un plato al arreglo platos de un restaurante usando $push.
+    No se expone en front; queda como operacion interna del motor MongoDB.
+    """
+    restaurantes = obtener_coleccion("restaurantes")
+    restaurante_id = int(restaurante_id)
+    plato_id = int(plato_id) if plato_id else _obtener_siguiente_plato_id(restaurantes)
+
+    if restaurantes.find_one({"restaurante_id": restaurante_id}, {"_id": 1}) is None:
+        print(f"\nNo existe el restaurante {restaurante_id}.")
+        return None
+
+    if restaurantes.find_one({"platos.plato_id": plato_id}, {"_id": 1}) is not None:
+        print(f"\nNo se pudo agregar el plato {plato_id}: id ya existente.")
+        return None
+
+    plato = {
+        "plato_id": plato_id,
+        "restaurante_id": restaurante_id,
+        "plato_nombre": plato_nombre,
+        "tipo_comida": tipo_comida,
+        "precio": float(precio),
+        "disponible": bool(disponible)
+    }
+
+    restaurantes.update_one(
+        {"restaurante_id": restaurante_id},
+        {"$push": {"platos": plato}}
+    )
+
+    print(f"\nPlato agregado correctamente al restaurante {restaurante_id}: {plato_nombre}")
+    return plato
+
+
 def insertar_calificacion(dni_usuario, restaurante_id, puntaje, comentario="", fecha=None, resena_id=None):
     """
     Inserta una calificacion de 1 a 5 estrellas.
@@ -202,6 +252,13 @@ def ejecutar_escrituras():
     )
 
     login_usuario("DemoMongo", "starvy123")
+
+    agregar_plato_a_restaurante(
+        restaurante_id=1,
+        plato_nombre="Enchiladas verdes",
+        tipo_comida="Mexicana",
+        precio=8200
+    )
 
     dni_usuario = usuario["dni_usuario"] if usuario else 44999999
     insertar_resena(

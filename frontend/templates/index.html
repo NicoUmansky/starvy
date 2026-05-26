@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>STARVY — Panel de Base de Datos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <style>
+    :root {
+      --bg:        #0b1e2d;
+      --surface:   #112436;
+      --surface2:  #173047;
+      --border:    #1e3f57;
+      --text:      #e8f4f0;
+      --muted:     #7eb8a4;
+      --brand:     #00c5a0;
+      --brand2:    #ffd336;
+      --brand-dim: rgba(0,197,160,.13);
+      --brand2-dim:rgba(255,211,54,.13);
+      --mongo:  #00ed64; --mongo-dim:  rgba(0,237,100,.12);
+      --neo4j:  #4184c4; --neo4j-dim:  rgba(65,132,196,.12);
+      --cass:   #e56c18; --cass-dim:   rgba(229,108,24,.12);
+      --redis:  #dc382d; --redis-dim:  rgba(220,56,45,.12);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow: hidden;
+    }
+
+    /* ── Topbar ── */
+    .topbar {
+      display: flex; align-items: center; gap: 12px;
+      padding: 0 20px; height: 60px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+      box-shadow: 0 2px 20px rgba(0,0,0,.35);
+    }
+    .logo-img-wrap {
+      width: 42px; height: 42px; flex-shrink: 0;
+      border-radius: 50%; overflow: hidden;
+      box-shadow: 0 0 16px rgba(0,197,160,.45);
+      animation: pulse-logo 2.5s ease-in-out infinite;
+      background: #00A896;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .logo-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
+    }
+    .logo-emoji { font-size: 24px; }
+    @keyframes pulse-logo {
+      0%,100% { box-shadow: 0 0 14px rgba(0,197,160,.4); }
+      50%      { box-shadow: 0 0 26px rgba(0,197,160,.75); }
+    }
+    .logo-text-wrap { display: flex; flex-direction: column; }
+    .logo-text { font-size: 23px; font-weight: 900; letter-spacing: -.3px; line-height: 1; }
+    .logo-text .star { color: var(--brand2); }
+    .logo-text .vy   { color: var(--brand);  }
+    .logo-sub { font-size: 10.5px; color: var(--muted); margin-top: 2px; font-weight: 500; }
+    .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+    .conn-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--brand); animation: blink 1.6s ease-in-out infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.25} }
+    .conn-label { font-size: 11px; color: var(--muted); font-weight: 600; }
+    .badge-db {
+      padding: 4px 13px; border-radius: 20px; font-size: 11px; font-weight: 800;
+      background: var(--brand-dim); color: var(--brand);
+      border: 1px solid rgba(0,197,160,.25); transition: all .3s; letter-spacing: .3px;
+    }
+
+    /* ── Layout ── */
+    .app { display: flex; flex-direction: column; height: 100vh; }
+    .layout {
+      display: grid;
+      grid-template-columns: 215px 285px 1fr;
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      background: var(--surface); border-right: 1px solid var(--border);
+      padding: 16px 10px; display: flex; flex-direction: column; gap: 4px;
+      overflow-y: auto;
+    }
+    .sidebar-title {
+      font-size: 9.5px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 1.5px; color: var(--muted); padding: 0 8px 12px;
+    }
+    .db-btn {
+      display: flex; align-items: center; gap: 10px; padding: 10px 12px;
+      border-radius: 11px; cursor: pointer; border: 1.5px solid transparent;
+      background: transparent; color: var(--muted); font-size: 13px; font-weight: 600;
+      font-family: inherit; transition: all .2s; text-align: left;
+    }
+    .db-btn:hover { background: var(--surface2); color: var(--text); transform: translateX(2px); }
+    .db-btn.active { color: var(--text); transform: translateX(3px); }
+    .db-btn.active.mongo  { background: var(--mongo-dim);  border-color: var(--mongo);  }
+    .db-btn.active.neo4j  { background: var(--neo4j-dim);  border-color: var(--neo4j);  }
+    .db-btn.active.cass   { background: var(--cass-dim);   border-color: var(--cass);   }
+    .db-btn.active.redis  { background: var(--redis-dim);  border-color: var(--redis);  }
+    .db-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+    .mongo .db-dot { background: var(--mongo); }
+    .neo4j .db-dot { background: var(--neo4j); }
+    .cass  .db-dot { background: var(--cass); }
+    .redis .db-dot { background: var(--redis); }
+    .db-label-wrap { flex: 1; }
+    .db-name { font-weight: 700; font-size: 13px; }
+    .db-type { font-size: 10px; color: var(--muted); margin-top: 1px; }
+    .sidebar-divider { height: 1px; background: var(--border); margin: 10px 8px; }
+    .sidebar-stats {
+      padding: 10px 12px; background: var(--brand-dim); border-radius: 10px;
+      border: 1px solid rgba(0,197,160,.2); margin-top: auto;
+    }
+    .sidebar-stats-title { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--brand); margin-bottom: 8px; }
+    .stat-row { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 5px; }
+    .stat-key { color: var(--muted); font-weight: 600; }
+    .stat-val { color: var(--text); font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+
+    /* ── Ops Panel ── */
+    .ops-panel {
+      border-right: 1px solid var(--border); padding: 14px 12px;
+      overflow-y: auto; display: flex; flex-direction: column; gap: 5px;
+    }
+    .ops-panel::-webkit-scrollbar { width: 3px; }
+    .ops-panel::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    .ops-title { font-size: 9.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); padding: 4px 4px 12px; }
+    .op-card {
+      padding: 10px 12px; border-radius: 10px; cursor: pointer;
+      border: 1.5px solid transparent; background: var(--surface2); transition: all .18s;
+      position: relative; overflow: hidden;
+    }
+    .op-card::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:transparent; transition:background .2s; }
+    .op-card:hover { border-color: var(--border); transform: translateX(2px); }
+    .op-card:hover::before { background: var(--brand); }
+    .op-card.active { border-color: var(--brand); background: var(--brand-dim); }
+    .op-card.active::before { background: var(--brand); }
+    .op-card-title { font-size: 12.5px; font-weight: 700; margin-bottom: 3px; }
+    .op-card-desc  { font-size: 10.5px; color: var(--muted); line-height: 1.4; }
+    .op-method { display:inline-block; font-size:9px; font-weight:800; padding:1px 6px; border-radius:4px; margin-bottom:4px; letter-spacing:.5px; }
+    .method-get  { background: rgba(0,197,160,.15); color: var(--brand); }
+    .method-post { background: rgba(255,211,54,.15); color: var(--brand2); }
+
+    /* ── Main ── */
+    .main { display: flex; flex-direction: column; overflow: hidden; min-height: 0; }
+
+    /* ── Params bar ── */
+    .params-bar {
+      padding: 10px 18px; background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 10px;
+      flex-wrap: wrap; min-height: 52px; flex-shrink: 0;
+    }
+    .param-group { display: flex; align-items: center; gap: 6px; }
+    .params-bar label { font-size: 10.5px; color: var(--muted); font-weight: 700; white-space: nowrap; }
+    .params-bar input {
+      background: var(--bg); border: 1px solid var(--border); color: var(--text);
+      border-radius: 7px; padding: 5px 10px; font-size: 12px;
+      font-family: 'JetBrains Mono', monospace; outline: none; width: 150px;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .params-bar input:focus { border-color: var(--brand); box-shadow: 0 0 0 3px rgba(0,197,160,.12); }
+    .run-btn {
+      margin-left: auto; padding: 7px 20px;
+      background: linear-gradient(135deg, var(--brand), #00a882);
+      color: #fff; border: none; border-radius: 9px; font-size: 13px;
+      font-weight: 800; cursor: pointer; font-family: inherit; transition: all .2s;
+      display: flex; align-items: center; gap: 7px;
+      box-shadow: 0 4px 14px rgba(0,197,160,.3);
+    }
+    .run-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 22px rgba(0,197,160,.45); }
+    .run-btn:active { transform: translateY(0); }
+    .run-btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+    /* ── Content split ── */
+    .content-split {
+      display: grid; grid-template-rows: 1fr 1fr;
+      flex: 1; min-height: 0; overflow: hidden;
+    }
+
+    /* ── Panels ── */
+    .query-panel { border-bottom: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; min-height: 0; }
+    .results-panel { display: flex; flex-direction: column; overflow: hidden; min-height: 0; }
+    .panel-header {
+      display: flex; align-items: center; gap: 8px; padding: 8px 18px;
+      background: var(--surface); border-bottom: 1px solid var(--border); flex-shrink: 0;
+    }
+    .panel-icon { font-size: 13px; }
+    .panel-header-title { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.2px; color: var(--muted); }
+    .lang-pill { font-size: 9.5px; font-weight: 800; padding: 2px 8px; border-radius: 10px; letter-spacing: .3px; }
+    .lang-javascript { background: rgba(255,211,54,.15); color: var(--brand2); }
+    .lang-cypher     { background: rgba(65,132,196,.15); color: var(--neo4j); }
+    .lang-sql        { background: rgba(229,108,24,.15); color: var(--cass); }
+    .lang-redis      { background: rgba(220,56,45,.15);  color: var(--redis); }
+
+    .query-code { flex: 1; overflow: auto; min-height: 0; }
+    .query-code::-webkit-scrollbar { width: 3px; }
+    .query-code::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    .query-code pre { margin: 0; }
+    .query-code pre code {
+      font-family: 'JetBrains Mono', monospace !important;
+      font-size: 12px !important; line-height: 1.65 !important;
+      padding: 14px 18px !important; background: #091825 !important; display: block;
+    }
+
+    .results-body { flex: 1; overflow: auto; padding: 12px 16px; min-height: 0; }
+    .results-body::-webkit-scrollbar { width: 3px; }
+    .results-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    /* ── Table ── */
+    .results-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+    .results-table th {
+      text-align: left; padding: 7px 12px; background: var(--surface);
+      color: var(--brand); font-size: 9.5px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: .8px; border-bottom: 1px solid var(--border); white-space: nowrap; position: sticky; top: 0; z-index: 1;
+    }
+    .results-table td {
+      padding: 8px 12px; border-bottom: 1px solid rgba(30,63,87,.5);
+      vertical-align: middle; max-width: 260px; word-break: break-word;
+    }
+    .results-table tbody tr { animation: row-in .22s ease both; }
+    @keyframes row-in { from { opacity:0; transform:translateY(5px); } to { opacity:1; transform:translateY(0); } }
+    .results-table tr:hover td { background: var(--surface2); }
+    .results-table tr:last-child td { border-bottom: none; }
+    .stars { color: var(--brand2); letter-spacing: 1px; }
+
+    /* ── States ── */
+    .state-empty {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      height: 100%; gap: 10px; color: var(--muted); font-size: 13px; text-align: center; padding: 20px;
+    }
+    .state-empty .icon { font-size: 32px; opacity: .7; }
+    .spinner { width: 18px; height: 18px; border: 2.5px solid rgba(0,197,160,.2); border-top-color: var(--brand); border-radius: 50%; animation: spin .65s linear infinite; flex-shrink: 0; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .error-box {
+      margin: 12px 0; padding: 12px 16px; background: rgba(220,56,45,.1);
+      border: 1px solid rgba(220,56,45,.3); border-radius: 9px; color: #fca5a5;
+      font-size: 12px; font-family: 'JetBrains Mono', monospace; line-height: 1.6;
+    }
+    .count-pill { font-size: 10px; padding: 2px 8px; border-radius: 10px; background: var(--brand-dim); color: var(--brand); font-weight: 800; border: 1px solid rgba(0,197,160,.2); }
+
+    /* ── Welcome ── */
+    .welcome {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      height: 100%; gap: 12px; color: var(--muted); text-align: center; padding: 30px;
+    }
+    .welcome-logo { font-size: 48px; animation: float 3s ease-in-out infinite; }
+    @keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
+    .welcome h2 { font-size: 19px; color: var(--text); font-weight: 800; }
+    .welcome h2 span { color: var(--brand); }
+    .welcome p { font-size: 12.5px; max-width: 320px; line-height: 1.7; }
+    .welcome-chips { display: flex; gap: 7px; flex-wrap: wrap; justify-content: center; margin-top: 4px; }
+    .chip { padding: 3px 11px; border-radius: 20px; font-size: 11px; font-weight: 700; border: 1px solid; }
+    .chip-teal  { background: var(--brand-dim); color: var(--brand); border-color: rgba(0,197,160,.3); }
+    .chip-blue  { background: var(--neo4j-dim); color: var(--neo4j); border-color: rgba(65,132,196,.3); }
+    .chip-orange{ background: var(--cass-dim);  color: var(--cass);  border-color: rgba(229,108,24,.3); }
+    .chip-red   { background: var(--redis-dim); color: var(--redis); border-color: rgba(220,56,45,.3); }
+
+    /* ── Redis session card ── */
+    .session-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
+    .session-card {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 14px 16px;
+      animation: row-in .25s ease both;
+    }
+    .session-card.active-session { border-color: var(--brand); background: var(--brand-dim); }
+    .session-top { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .session-avatar {
+      width: 36px; height: 36px; border-radius: 50%; background: var(--surface);
+      display: flex; align-items: center; justify-content: center; font-size: 16px;
+      border: 2px solid var(--brand); flex-shrink: 0;
+    }
+    .session-username { font-weight: 700; font-size: 13px; }
+    .session-status { font-size: 10px; color: var(--brand); font-weight: 700; }
+    .session-info { display: flex; flex-direction: column; gap: 5px; }
+    .session-row { display: flex; justify-content: space-between; font-size: 11px; }
+    .session-label { color: var(--muted); font-weight: 600; }
+    .session-val { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text); }
+    .ttl-bar-wrap { margin-top: 8px; }
+    .ttl-bar-bg { height: 4px; background: var(--border); border-radius: 4px; overflow: hidden; }
+    .ttl-bar { height: 100%; background: linear-gradient(90deg, var(--brand), var(--brand2)); border-radius: 4px; transition: width .4s; }
+
+    code.inline { font-family: 'JetBrains Mono', monospace; font-size: 11px; background: var(--surface2); padding: 1px 5px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+<div class="app">
+
+<!-- Topbar -->
+<header class="topbar">
+  <div class="logo-img-wrap">
+    <img src="/static/logo.png" alt="Starvy"
+         onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='flex'">
+    <span id="logo-fallback" class="logo-emoji" style="display:none">⭐</span>
+  </div>
+  <div class="logo-text-wrap">
+    <div class="logo-text"><span class="star">Star</span><span class="vy">vy</span></div>
+    <div class="logo-sub">Panel de Administración · Ingeniería de Datos II</div>
+  </div>
+  <div class="topbar-right">
+    <div class="conn-dot"></div>
+    <span class="conn-label">Conectado</span>
+    <span class="badge-db" id="badge-db">Seleccioná una BD</span>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-title">Base de Datos</div>
+    <button class="db-btn mongo" onclick="selectDB('mongo')">
+      <span class="db-dot"></span>
+      <div class="db-label-wrap"><div class="db-name">MongoDB</div><div class="db-type">Documentos · Atlas</div></div>
+    </button>
+    <button class="db-btn neo4j" onclick="selectDB('neo4j')">
+      <span class="db-dot"></span>
+      <div class="db-label-wrap"><div class="db-name">Neo4j</div><div class="db-type">Grafos · Aura</div></div>
+    </button>
+    <button class="db-btn cass" onclick="selectDB('cass')">
+      <span class="db-dot"></span>
+      <div class="db-label-wrap"><div class="db-name">Cassandra</div><div class="db-type">Columnas · Local</div></div>
+    </button>
+    <button class="db-btn redis" onclick="selectDB('redis')">
+      <span class="db-dot"></span>
+      <div class="db-label-wrap"><div class="db-name">Redis</div><div class="db-type">En Memoria · Cloud</div></div>
+    </button>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-stats">
+      <div class="sidebar-stats-title">📊 Stats de sesión</div>
+      <div class="stat-row"><span class="stat-key">Queries ejecutadas</span><span class="stat-val" id="stat-queries">0</span></div>
+      <div class="stat-row"><span class="stat-key">BD activa</span><span class="stat-val" id="stat-db">—</span></div>
+      <div class="stat-row"><span class="stat-key">Última op.</span><span class="stat-val" id="stat-last">—</span></div>
+    </div>
+  </aside>
+
+  <!-- Ops -->
+  <div class="ops-panel" id="ops-panel">
+    <div class="ops-title">Operaciones</div>
+    <div class="state-empty" style="height:180px;">
+      <span class="icon">🗄️</span>Seleccioná una base de datos
+    </div>
+  </div>
+
+  <!-- Main -->
+  <main class="main">
+    <div class="params-bar" id="params-bar">
+      <span style="color:var(--muted);font-size:13px;font-weight:600;">← Elegí una operación del panel</span>
+    </div>
+
+    <div class="content-split">
+
+      <div class="query-panel">
+        <div class="panel-header">
+          <span class="panel-icon">🔍</span>
+          <span class="panel-header-title">Query ejecutada</span>
+          <span class="lang-pill" id="lang-pill"></span>
+          <span style="margin-left:auto;font-size:10px;color:var(--muted);font-weight:700;" id="exec-time"></span>
+        </div>
+        <div class="query-code" id="query-code">
+          <div class="welcome">
+            <div class="welcome-logo">⭐</div>
+            <h2>Bienvenida a <span>Starvy</span></h2>
+            <p>Seleccioná una base de datos y una operación para ver la query y sus resultados en tiempo real.</p>
+            <div class="welcome-chips">
+              <span class="chip chip-teal">MongoDB</span>
+              <span class="chip chip-blue">Neo4j</span>
+              <span class="chip chip-orange">Cassandra</span>
+              <span class="chip chip-red">Redis</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="results-panel">
+        <div class="panel-header">
+          <span class="panel-icon">📊</span>
+          <span class="panel-header-title">Resultados</span>
+          <span class="count-pill" id="count-pill" style="display:none"></span>
+        </div>
+        <div class="results-body" id="results-body">
+          <div class="state-empty"><span class="icon">📋</span>Los resultados aparecerán acá</div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+</div>
+
+<script>
+const OPS = {
+  mongo: [
+    { id:'login', title:'Login de usuario', method:'POST',
+      desc:'Valida username y contraseña (findOne)', endpoint:'/api/mongo/login',
+      params:[{key:'username',label:'Username',default:'VitoNava'},{key:'password',label:'Contraseña',default:'starvy123',type:'password'}],
+      body:(p)=>({username:p.username,password:p.password}) },
+    { id:'mis-resenas', title:'Mis reseñas', method:'GET',
+      desc:'Reseñas del usuario con $lookup de restaurantes', endpoint:'/api/mongo/mis-resenas',
+      params:[{key:'dni',label:'DNI usuario',default:'44000009'}] },
+    { id:'mis-calificaciones', title:'Mis calificaciones', method:'GET',
+      desc:'Calificaciones 1–5 estrellas del usuario', endpoint:'/api/mongo/mis-calificaciones',
+      params:[{key:'dni',label:'DNI usuario',default:'44000009'}] },
+    { id:'buscar-restaurantes', title:'Buscar restaurantes', method:'GET',
+      desc:'Filtra por tipo, barrio y calificación mínima', endpoint:'/api/mongo/buscar-restaurantes',
+      params:[{key:'tipo',label:'Tipo comida',default:''},{key:'barrio',label:'Barrio',default:''},{key:'min_calificacion',label:'Cal. mínima',default:'0'}] },
+    { id:'resenas-restaurante', title:'Reseñas de restaurante', method:'GET',
+      desc:'Lista reseñas con username del autor ($lookup)', endpoint:'/api/mongo/resenas-restaurante',
+      params:[{key:'restaurante_id',label:'Restaurante ID',default:'1'}] },
+    { id:'insertar-resena', title:'Insertar reseña ✍️', method:'POST',
+      desc:'Escribe tu reseña y guardala en MongoDB (insertOne)', endpoint:'/api/mongo/insertar-resena',
+      params:[{key:'dni_usuario',label:'DNI',default:'44000001'},{key:'restaurante_id',label:'Rest. ID',default:'1'},{key:'puntaje',label:'Puntaje (1-5)',default:'5'},{key:'comentario',label:'Tu reseña',default:'Excelente lugar!'}],
+      body:(p)=>p },
+  ],
+  neo4j: [
+    { id:'perfil', title:'Perfil social', method:'GET',
+      desc:'Siguiendo, seguidores, visitas y reseñas', endpoint:'/api/neo4j/perfil',
+      params:[{key:'username',label:'Username',default:'VitoNava'}] },
+    { id:'siguiendo', title:'A quién sigue', method:'GET',
+      desc:'Usuarios con relación [:SIGUE] saliente', endpoint:'/api/neo4j/siguiendo',
+      params:[{key:'username',label:'Username',default:'VitoNava'}] },
+    { id:'seguidores', title:'Seguidores', method:'GET',
+      desc:'Usuarios con relación [:SIGUE] entrante', endpoint:'/api/neo4j/seguidores',
+      params:[{key:'username',label:'Username',default:'VitoNava'}] },
+    { id:'buscar-usuarios', title:'Buscar usuarios', method:'GET',
+      desc:'Busca por username, nombre o apellido', endpoint:'/api/neo4j/buscar-usuarios',
+      params:[{key:'termino',label:'Término',default:'val'}] },
+    { id:'visitas-amigos', title:'Visitas de amigos', method:'GET',
+      desc:'Restaurantes donde fueron las personas que seguís', endpoint:'/api/neo4j/visitas-amigos',
+      params:[{key:'username',label:'Username',default:'VitoNava'}] },
+    { id:'recomendacion-colaborativa', title:'Recomendación colaborativa', method:'GET',
+      desc:'Lugares ≥4★ por amigos que no visitaste', endpoint:'/api/neo4j/recomendacion-colaborativa',
+      params:[{key:'username',label:'Username',default:'VitoNava'}] },
+    { id:'recomendacion-contenido', title:'Recomendación por contenido', method:'GET',
+      desc:'Lugares similares a lo que te gustó antes', endpoint:'/api/neo4j/recomendacion-contenido',
+      params:[{key:'username',label:'Username',default:'VitoNava'}] },
+    { id:'seguir', title:'Seguir usuario', method:'POST',
+      desc:'Crea relación [:SIGUE] con MERGE', endpoint:'/api/neo4j/seguir',
+      params:[{key:'follower',label:'Yo (follower)',default:'VitoNava'},{key:'followed',label:'A seguir',default:'LuisRam'}],
+      body:(p)=>p },
+  ],
+  cass: [
+    { id:'promociones-restaurante', title:'Promociones activas', method:'GET',
+      desc:'Promos activas de un restaurante (partition key)', endpoint:'/api/cassandra/promociones-restaurante',
+      params:[{key:'restaurante_id',label:'Restaurante ID',default:'1'}] },
+    { id:'promociones-fecha-barrio', title:'Promos por fecha y barrio', method:'GET',
+      desc:'Promociones vigentes un día y barrio específicos', endpoint:'/api/cassandra/promociones-fecha-barrio',
+      params:[{key:'dia',label:'Fecha (YYYY-MM-DD)',default:'2025-05-15'},{key:'barrio',label:'Barrio',default:'Palermo'}] },
+    { id:'visitas-restaurante-dia', title:'Visitas por día', method:'GET',
+      desc:'Visitas registradas en un restaurante una fecha dada', endpoint:'/api/cassandra/visitas-restaurante-dia',
+      params:[{key:'restaurante_id',label:'Restaurante ID',default:'1'},{key:'fecha',label:'Fecha (YYYY-MM-DD)',default:'2025-05-15'}] },
+    { id:'insertar-visita', title:'Insertar visita', method:'POST',
+      desc:'Registra nueva visita con timestamp automático (INSERT)', endpoint:'/api/cassandra/insertar-visita',
+      params:[{key:'dni_usuario',label:'DNI',default:'44000001'},{key:'restaurante_id',label:'Rest. ID',default:'1'},{key:'plato_nombre',label:'Plato',default:'Milanesa napolitana'},{key:'monto',label:'Monto ($)',default:'1500'}],
+      body:(p)=>p },
+    { id:'metricas-dia', title:'Métricas del día', method:'GET',
+      desc:'Total visitas, ingresos y plato más pedido', endpoint:'/api/cassandra/metricas-dia',
+      params:[{key:'restaurante_id',label:'Restaurante ID',default:'1'},{key:'fecha',label:'Fecha (YYYY-MM-DD)',default:'2025-05-15'}] },
+  ],
+  redis: [
+    { id:'sesiones-activas', title:'Sesiones activas', method:'GET',
+      desc:'Usuarios logueados ahora mismo (KEYS + GET + TTL)', endpoint:'/api/redis/sesiones-activas', params:[], special:'sessions' },
+    { id:'verificar-sesion', title:'Verificar sesión', method:'GET',
+      desc:'Chequea si un usuario está logueado y cuánto le queda', endpoint:'/api/redis/verificar-sesion',
+      params:[{key:'user_id',label:'User ID (DNI)',default:'44000009'}], special:'session-single' },
+    { id:'ranking-restaurantes', title:'Ranking restaurantes 🏆', method:'GET',
+      desc:'Top N más visitados (ZREVRANGE Sorted Set)', endpoint:'/api/redis/ranking-restaurantes',
+      params:[{key:'top',label:'Top N',default:'10'}] },
+    { id:'ranking-tipos-comida', title:'Ranking tipos de comida 🍕', method:'GET',
+      desc:'Top N tipos más pedidos (ZREVRANGE Sorted Set)', endpoint:'/api/redis/ranking-tipos-comida',
+      params:[{key:'top',label:'Top N',default:'10'}] },
+    { id:'ultimas-busquedas', title:'Últimas búsquedas', method:'GET',
+      desc:'Historial reciente del usuario (LRANGE)', endpoint:'/api/redis/ultimas-busquedas',
+      params:[{key:'user_id',label:'User ID (DNI)',default:'44000009'}] },
+    { id:'registrar-busqueda', title:'Registrar búsqueda', method:'POST',
+      desc:'LPUSH + LTRIM: agrega al historial del usuario', endpoint:'/api/redis/registrar-busqueda',
+      params:[{key:'user_id',label:'User ID',default:'44000009'},{key:'termino',label:'Término',default:'pizza'}],
+      body:(p)=>p },
+  ]
+};
+
+const DB_META = {
+  mongo: {label:'MongoDB',   color:'#00ed64'},
+  neo4j: {label:'Neo4j',     color:'#4184c4'},
+  cass:  {label:'Cassandra', color:'#e56c18'},
+  redis: {label:'Redis',     color:'#dc382d'}
+};
+
+let currentDB=null, currentOp=null, loading=false, queryCount=0;
+
+function hexToRgb(hex){ const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16); return `${r},${g},${b}`; }
+function escHtml(str){ return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function selectDB(db){
+  currentDB=db; currentOp=null;
+  document.querySelectorAll('.db-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelector(`.db-btn.${db}`).classList.add('active');
+  const meta=DB_META[db];
+  const badge=document.getElementById('badge-db');
+  badge.textContent=meta.label;
+  badge.style.background=`rgba(${hexToRgb(meta.color)},.13)`;
+  badge.style.color=meta.color;
+  badge.style.borderColor=`rgba(${hexToRgb(meta.color)},.3)`;
+  document.getElementById('stat-db').textContent=meta.label;
+  const panel=document.getElementById('ops-panel');
+  panel.innerHTML='<div class="ops-title">Operaciones</div>';
+  OPS[db].forEach(op=>{
+    const card=document.createElement('div');
+    card.className='op-card'; card.id=`op-${op.id}`;
+    card.innerHTML=`<span class="op-method ${op.method==='GET'?'method-get':'method-post'}">${op.method}</span>
+      <div class="op-card-title">${op.title}</div>
+      <div class="op-card-desc">${op.desc}</div>`;
+    card.onclick=()=>selectOp(op);
+    panel.appendChild(card);
+  });
+  resetMain();
+}
+
+function selectOp(op){
+  currentOp=op;
+  document.querySelectorAll('.op-card').forEach(c=>c.classList.remove('active'));
+  document.getElementById(`op-${op.id}`).classList.add('active');
+  const bar=document.getElementById('params-bar');
+  bar.innerHTML='';
+  op.params.forEach(p=>{
+    const g=document.createElement('div'); g.className='param-group';
+    const lbl=document.createElement('label'); lbl.textContent=p.label+':';
+    const inp=document.createElement('input');
+    inp.type=p.type||'text'; inp.value=p.default||'';
+    inp.id=`param-${p.key}`; inp.placeholder=p.default||'';
+    inp.addEventListener('keydown',e=>{if(e.key==='Enter')runOp();});
+    g.appendChild(lbl); g.appendChild(inp); bar.appendChild(g);
+  });
+  const btn=document.createElement('button');
+  btn.className='run-btn'; btn.id='run-btn';
+  btn.innerHTML='▶ Ejecutar'; btn.onclick=runOp;
+  bar.appendChild(btn);
+  setQueryPlaceholder();
+  setResultsEmpty();
+}
+
+async function runOp(){
+  if(!currentOp||loading)return;
+  loading=true;
+  const btn=document.getElementById('run-btn');
+  if(btn){btn.disabled=true;btn.innerHTML='<div class="spinner"></div> Ejecutando...';}
+  const params={};
+  currentOp.params.forEach(p=>{const el=document.getElementById(`param-${p.key}`);if(el)params[p.key]=el.value;});
+  const t0=Date.now();
+  try{
+    let response;
+    if(currentOp.method==='POST'){
+      const body=currentOp.body?currentOp.body(params):params;
+      response=await fetch(currentOp.endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    }else{
+      const qs=new URLSearchParams(params).toString();
+      response=await fetch(`${currentOp.endpoint}${qs?'?'+qs:''}`);
+    }
+    const data=await response.json();
+    const ms=Date.now()-t0;
+    document.getElementById('exec-time').textContent=`⏱ ${ms}ms`;
+    renderQuery(data.query,data.lenguaje);
+    if(data.error){ renderError(data.error); }
+    else{ renderResults(data.resultado||[], currentOp.special); }
+    queryCount++;
+    document.getElementById('stat-queries').textContent=queryCount;
+    const lastStr=currentOp.title.replace(/[⭐🏆🍕✍️]/g,'').trim();
+    document.getElementById('stat-last').textContent=lastStr.slice(0,13)+(lastStr.length>13?'…':'');
+  }catch(err){
+    renderError('No se pudo conectar con Flask. Verificá que python app.py esté corriendo en la terminal.');
+  }finally{
+    loading=false;
+    if(btn){btn.disabled=false;btn.innerHTML='▶ Ejecutar';}
+  }
+}
+
+function setQueryPlaceholder(){
+  const langMap={mongo:'javascript',neo4j:'cypher',cass:'sql',redis:'redis'};
+  setLangPill(langMap[currentDB]||'plaintext');
+  document.getElementById('query-code').innerHTML=`<div class="state-empty"><span class="icon">⏳</span>Presioná <strong>Ejecutar</strong> para ver la query</div>`;
+  document.getElementById('exec-time').textContent='';
+}
+function setResultsEmpty(){
+  document.getElementById('count-pill').style.display='none';
+  document.getElementById('results-body').innerHTML=`<div class="state-empty"><span class="icon">📋</span>Los resultados aparecerán acá</div>`;
+}
+function resetMain(){
+  document.getElementById('params-bar').innerHTML='<span style="color:var(--muted);font-size:13px;font-weight:600;">← Seleccioná una operación del panel</span>';
+  document.getElementById('query-code').innerHTML=`<div class="welcome"><div class="welcome-logo">⭐</div><h2>Elegí una operación</h2><p>Hacé clic en cualquier operación del panel para ver la query que se ejecuta en la base de datos.</p></div>`;
+  document.getElementById('lang-pill').textContent='';
+  document.getElementById('lang-pill').className='lang-pill';
+  document.getElementById('exec-time').textContent='';
+  setResultsEmpty();
+}
+function setLangPill(lang){
+  const pill=document.getElementById('lang-pill');
+  const labels={javascript:'MongoDB JS',cypher:'Cypher',sql:'CQL',redis:'Redis CLI',plaintext:''};
+  pill.textContent=labels[lang]||lang;
+  pill.className=`lang-pill lang-${lang}`;
+}
+function renderQuery(queryText,lang){
+  setLangPill(lang);
+  const hlLang=lang==='cypher'?'cypher':lang==='sql'?'sql':lang==='redis'?'bash':'javascript';
+  const highlighted=hljs.highlight(queryText||'',{language:hlLang,ignoreIllegals:true}).value;
+  document.getElementById('query-code').innerHTML=`<pre><code class="hljs language-${hlLang}">${highlighted}</code></pre>`;
+}
+function renderError(msg){
+  document.getElementById('count-pill').style.display='none';
+  document.getElementById('results-body').innerHTML=`<div class="error-box">❌ ${escHtml(msg)}</div>`;
+}
+
+function renderResults(rows, special){
+  const pill=document.getElementById('count-pill');
+  pill.textContent=`${rows.length} resultado${rows.length!==1?'s':''}`;
+  pill.style.display='';
+  const body=document.getElementById('results-body');
+  if(!rows.length){
+    body.innerHTML=`<div class="state-empty"><span class="icon">🔍</span>Sin resultados para estos parámetros<br><span style="font-size:11px;margin-top:4px;">Probá con otros valores</span></div>`;
+    return;
+  }
+
+  // ── Sesiones activas: tarjetas visuales ──
+  if(special==='sessions'||special==='session-single'){
+    const TTL_MAX=3600;
+    let html='<div class="session-grid">';
+    rows.forEach((row,i)=>{
+      const token=row.token||'—';
+      const ttl=row.ttl_segundos||0;
+      const activa=row.sesion_activa!==false && token!=='—' && token!=='sin sesion';
+      const usuario=row.usuario||'Usuario';
+      const min=Math.floor(ttl/60), seg=ttl%60;
+      const pct=Math.min(100,Math.round((ttl/TTL_MAX)*100));
+      const tokenCorto=token.length>20?token.slice(0,8)+'…'+token.slice(-8):token;
+      html+=`<div class="session-card ${activa?'active-session':''}" style="animation-delay:${i*60}ms">
+        <div class="session-top">
+          <div class="session-avatar">👤</div>
+          <div>
+            <div class="session-username">Usuario ${escHtml(String(usuario).slice(0,12))}</div>
+            <div class="session-status">${activa?'🟢 Sesión activa':'🔴 Sin sesión'}</div>
+          </div>
+        </div>
+        <div class="session-info">
+          <div class="session-row"><span class="session-label">🔑 Token</span><span class="session-val">${escHtml(tokenCorto)}</span></div>
+          <div class="session-row"><span class="session-label">⏳ Tiempo restante</span><span class="session-val">${activa?`${min}min ${seg}seg`:'Expirada'}</span></div>
+        </div>
+        ${activa?`<div class="ttl-bar-wrap"><div class="ttl-bar-bg"><div class="ttl-bar" style="width:${pct}%"></div></div></div>`:''}
+      </div>`;
+    });
+    html+='</div>';
+    body.innerHTML=html;
+    return;
+  }
+
+  // ── Tabla general ──
+  const keys=Object.keys(rows[0]);
+  let html=`<table class="results-table"><thead><tr>`;
+  keys.forEach(k=>{html+=`<th>${escHtml(k)}</th>`;});
+  html+=`</tr></thead><tbody>`;
+  rows.forEach((row,i)=>{
+    html+=`<tr style="animation-delay:${i*35}ms">`;
+    keys.forEach(k=>{
+      let val=row[k];
+      if(val===null||val===undefined)val='—';
+      if(k==='puntaje'&&typeof val==='number'){
+        const s='★'.repeat(val)+'☆'.repeat(5-val);
+        html+=`<td><span class="stars">${s}</span> <span style="color:var(--muted);font-size:11px;">(${val})</span></td>`;
+      }else if(Array.isArray(val)){
+        html+=`<td>${val.map(v=>`<code class="inline">${escHtml(String(v))}</code>`).join(' ')}</td>`;
+      }else if(typeof val==='boolean'){
+        html+=`<td><span style="color:${val?'var(--brand)':'#ef4444'};font-weight:700;">${val?'✓ Sí':'✗ No'}</span></td>`;
+      }else if(k==='posicion'){
+        const medals=['🥇','🥈','🥉'];
+        html+=`<td style="font-weight:700;">${medals[val-1]||('#'+val)}</td>`;
+      }else if(k==='ttl_segundos'&&typeof val==='number'){
+        const m=Math.floor(val/60),s=val%60;
+        html+=`<td style="font-family:'JetBrains Mono',monospace;font-size:11px;">${m}min ${s}seg</td>`;
+      }else if(k==='token'&&String(val).length>20){
+        const t=String(val);
+        html+=`<td style="font-family:'JetBrains Mono',monospace;font-size:11px;">${escHtml(t.slice(0,8))}…${escHtml(t.slice(-8))}</td>`;
+      }else{
+        html+=`<td>${escHtml(String(val))}</td>`;
+      }
+    });
+    html+='</tr>';
+  });
+  html+='</tbody></table>';
+  body.innerHTML=html;
+}
+</script>
+</body>
+</html>

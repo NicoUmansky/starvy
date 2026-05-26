@@ -1,0 +1,6 @@
+flask
+flask-cors
+pymongo
+neo4j
+redis
+cassandra-driver

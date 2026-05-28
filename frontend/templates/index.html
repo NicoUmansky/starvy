@@ -8,7 +8,55 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+ 
   <style>
+  .star-param {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 12px;
+    min-height: 38px;
+    border-radius: 12px;
+    background: rgba(8, 26, 40, .72);
+    border: 1px solid rgba(0, 197, 160, .28);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.02);
+  }
+
+  .star-param input {
+    display: none;
+  }
+
+  .star-btn {
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    font-size: 24px;
+    line-height: 1;
+    color: rgba(255, 211, 54, .28);
+    filter: drop-shadow(0 0 0 transparent);
+    transform: translateY(0) scale(1);
+    transition: transform .15s ease, color .15s ease, filter .15s ease;
+    padding: 0;
+  }
+
+  .star-btn:hover {
+    transform: translateY(-2px) scale(1.13);
+    color: #ffd336;
+    filter: drop-shadow(0 0 8px rgba(255, 211, 54, .45));
+  }
+
+  .star-btn.active {
+    color: #ffd336;
+    filter: drop-shadow(0 0 7px rgba(255, 211, 54, .35));
+  }
+
+  .star-value {
+    margin-left: 6px;
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 900;
+    white-space: nowrap;
+  }
     :root {
       --bg:        #0b1e2d;
       --surface:   #112436;
@@ -79,11 +127,28 @@
     .app { display: flex; flex-direction: column; height: 100vh; }
     .layout {
       display: grid;
-      grid-template-columns: 215px 285px 1fr;
+      grid-template-columns: 215px 315px 1fr;
       flex: 1;
       min-height: 0;
       overflow: hidden;
+      transition: grid-template-columns .22s ease;
     }
+    .layout.sidebar-collapsed { grid-template-columns: 62px 315px 1fr; }
+    .layout.sidebar-collapsed .sidebar { padding-left: 8px; padding-right: 8px; }
+    .layout.sidebar-collapsed .sidebar-title,
+    .layout.sidebar-collapsed .db-label-wrap,
+    .layout.sidebar-collapsed .sidebar-divider,
+    .layout.sidebar-collapsed .sidebar-stats { display: none; }
+    .layout.sidebar-collapsed .db-btn { justify-content: center; padding: 14px 0; }
+    .layout.sidebar-collapsed .db-btn:hover { transform: none; }
+    .sidebar-toggle {
+      width: 34px; height: 34px; border-radius: 10px;
+      border: 1px solid var(--border); background: var(--bg); color: var(--muted);
+      cursor: pointer; font-size: 18px; font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .2s; margin-right: 2px;
+    }
+    .sidebar-toggle:hover { color: var(--brand); border-color: rgba(0,197,160,.45); background: var(--brand-dim); }
 
     /* ── Sidebar ── */
     .sidebar {
@@ -134,17 +199,25 @@
     .ops-panel::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
     .ops-title { font-size: 9.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); padding: 4px 4px 12px; }
     .op-card {
-      padding: 10px 12px; border-radius: 10px; cursor: pointer;
+      padding: 12px 14px; border-radius: 12px; cursor: pointer;
       border: 1.5px solid transparent; background: var(--surface2); transition: all .18s;
-      position: relative; overflow: hidden;
+      position: relative; overflow: visible;
+      min-height: 92px;
     }
     .op-card::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:transparent; transition:background .2s; }
     .op-card:hover { border-color: var(--border); transform: translateX(2px); }
     .op-card:hover::before { background: var(--brand); }
     .op-card.active { border-color: var(--brand); background: var(--brand-dim); }
     .op-card.active::before { background: var(--brand); }
-    .op-card-title { font-size: 12.5px; font-weight: 700; margin-bottom: 3px; }
-    .op-card-desc  { font-size: 10.5px; color: var(--muted); line-height: 1.4; }
+    .op-card-title { font-size: 13px; font-weight: 800; margin-bottom: 4px; line-height: 1.2; }
+    .op-card-desc  {
+      font-size: 11px; color: var(--muted); line-height: 1.35;
+      display: block;
+      overflow: visible;
+      overflow-wrap: anywhere;
+    }
+    .op-card.active .op-card-desc,
+    .op-card:hover .op-card-desc { color: #9be3d0; }
     .op-method { display:inline-block; font-size:9px; font-weight:800; padding:1px 6px; border-radius:4px; margin-bottom:4px; letter-spacing:.5px; }
     .method-get  { background: rgba(0,197,160,.15); color: var(--brand); }
     .method-post { background: rgba(255,211,54,.15); color: var(--brand2); }
@@ -182,12 +255,35 @@
 
     /* ── Content split ── */
     .content-split {
-      display: grid; grid-template-rows: 1fr 1fr;
+      display: grid;
+      grid-template-rows: minmax(120px, 44%) 8px minmax(230px, 1fr);
       flex: 1; min-height: 0; overflow: hidden;
     }
+    .main.results-max .params-bar,
+    .main.results-max .query-panel,
+    .main.results-max .splitter { display: none; }
+    .main.results-max .content-split { display: flex; }
+    .main.results-max .results-panel { flex: 1; }
 
     /* ── Panels ── */
     .query-panel { border-bottom: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; min-height: 0; }
+    .splitter {
+      height: 8px;
+      cursor: row-resize;
+      touch-action: none;
+      background: linear-gradient(90deg, transparent, rgba(0,197,160,.42), transparent);
+      border-top: 1px solid rgba(30,63,87,.65);
+      border-bottom: 1px solid rgba(30,63,87,.65);
+      position: relative;
+      flex-shrink: 0;
+    }
+    .splitter::after {
+      content: '⋯';
+      position: absolute; left: 50%; top: 50%; transform: translate(-50%, -58%);
+      color: var(--muted); letter-spacing: 4px; font-weight: 900; font-size: 15px;
+    }
+    .splitter:hover { background: linear-gradient(90deg, transparent, rgba(0,197,160,.72), transparent); }
+    body.resizing { user-select: none; cursor: row-resize; }
     .results-panel { display: flex; flex-direction: column; overflow: hidden; min-height: 0; }
     .panel-header {
       display: flex; align-items: center; gap: 8px; padding: 8px 18px;
@@ -216,7 +312,7 @@
     .results-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
     /* ── Table ── */
-    .results-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+    .results-table { width: 100%; min-width: 760px; border-collapse: collapse; font-size: 12.5px; }
     .results-table th {
       text-align: left; padding: 7px 12px; background: var(--surface);
       color: var(--brand); font-size: 9.5px; font-weight: 800; text-transform: uppercase;
@@ -224,7 +320,8 @@
     }
     .results-table td {
       padding: 8px 12px; border-bottom: 1px solid rgba(30,63,87,.5);
-      vertical-align: middle; max-width: 260px; word-break: break-word;
+      vertical-align: middle; max-width: 360px; white-space: nowrap;
+      overflow: hidden; text-overflow: ellipsis;
     }
     .results-table tbody tr { animation: row-in .22s ease both; }
     @keyframes row-in { from { opacity:0; transform:translateY(5px); } to { opacity:1; transform:translateY(0); } }
@@ -288,6 +385,241 @@
     .ttl-bar-bg { height: 4px; background: var(--border); border-radius: 4px; overflow: hidden; }
     .ttl-bar { height: 100%; background: linear-gradient(90deg, var(--brand), var(--brand2)); border-radius: 4px; transition: width .4s; }
 
+
+    /* ── Redis ranking / búsqueda cards ── */
+    .redis-ranking-wrap { display: flex; flex-direction: column; gap: 14px; }
+    .redis-podium {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px;
+      align-items: end; max-width: 1080px; margin: 0 auto 16px auto;
+    }
+    .podium-card {
+      position: relative; border-radius: 20px; padding: 18px 18px 16px;
+      border: 1px solid rgba(220,56,45,.38);
+      background: linear-gradient(180deg, rgba(220,56,45,.18), rgba(17,36,54,.95));
+      min-height: 158px; box-shadow: 0 14px 28px rgba(0,0,0,.25);
+      animation: row-in .25s ease both; overflow: hidden;
+    }
+    .podium-card.first {
+      min-height: 210px;
+      border-color: rgba(255,211,54,.70);
+      background: linear-gradient(180deg, rgba(255,211,54,.22), rgba(17,36,54,.98));
+      transform: translateY(-12px);
+    }
+    .podium-card.second { min-height: 178px; border-color: rgba(190,200,210,.60); background: linear-gradient(180deg, rgba(180,190,205,.18), rgba(17,36,54,.96)); }
+    .podium-card.third { min-height: 168px; border-color: rgba(229,108,24,.58); background: linear-gradient(180deg, rgba(229,108,24,.18), rgba(17,36,54,.96)); }
+    .podium-card.empty {
+      opacity: .72; border-style: dashed; border-color: var(--border);
+      background: rgba(17,36,54,.55); box-shadow: none;
+    }
+    .podium-rank { font-size: 34px; line-height: 1; margin-bottom: 10px; }
+    .podium-position {
+      position:absolute; top:12px; right:14px; width:36px; height:36px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center; font-weight:1000;
+      background: rgba(9,24,37,.78); border:1px solid var(--border); color: var(--brand2);
+      font-family:'JetBrains Mono', monospace;
+    }
+    .podium-title { font-size: 20px; font-weight: 1000; line-height: 1.1; word-break: normal; overflow-wrap: anywhere; padding-right:38px; }
+    .podium-score { margin-top: 12px; display: inline-flex; gap: 6px; align-items: center; padding: 7px 12px; border-radius: 999px; background: rgba(9,24,37,.72); border: 1px solid var(--border); color: var(--brand); font-weight: 1000; }
+    .podium-empty-title { font-size: 16px; font-weight: 900; color: var(--muted); line-height:1.2; }
+    .redis-list-title { margin: 6px 0 8px; color: var(--muted); font-weight: 900; letter-spacing: .8px; text-transform: uppercase; font-size: 11px; }
+    .redis-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
+    .redis-rank-row {
+      display: grid; grid-template-columns: 42px 1fr auto; gap: 10px; align-items: center;
+      padding: 12px 14px; border-radius: 14px; background: var(--surface2); border: 1px solid var(--border);
+      animation: row-in .25s ease both;
+    }
+    .redis-rank-num { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: var(--redis-dim); color: var(--redis); font-weight: 900; }
+    .redis-rank-name { font-weight: 900; overflow-wrap: anywhere; }
+    .redis-rank-score { color: var(--brand); font-family: 'JetBrains Mono', monospace; font-weight: 900; }
+    .search-timeline { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: 10px; }
+    .search-card { padding: 14px 16px; border-radius: 16px; background: var(--surface2); border: 1px solid var(--border); animation: row-in .22s ease both; }
+    .search-card strong { display: block; color: var(--text); font-size: 16px; overflow-wrap: anywhere; }
+    .search-card span { color: var(--muted); font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .8px; }
+
+
+    /* ── Cassandra cards ── */
+    .cass-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
+      gap: 12px;
+      align-items: start;
+    }
+    .cass-card {
+      background: linear-gradient(180deg, rgba(229,108,24,.13), rgba(17,36,54,.96));
+      border: 1px solid rgba(229,108,24,.36);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,.22);
+      animation: row-in .25s ease both;
+      position: relative;
+      overflow: hidden;
+    }
+    .cass-card::before {
+      content: '';
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--cass), var(--brand2));
+    }
+    .cass-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+    .cass-title {
+      font-size: 19px;
+      line-height: 1.15;
+      font-weight: 900;
+      color: var(--text);
+      letter-spacing: -.2px;
+      word-break: break-word;
+    }
+    .cass-subtitle { margin-top: 5px; color: var(--muted); font-size: 12px; font-weight: 700; }
+    .cass-badge {
+      flex-shrink: 0;
+      background: rgba(255,211,54,.14);
+      color: var(--brand2);
+      border: 1px solid rgba(255,211,54,.32);
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-weight: 900;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+    .cass-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin: 12px 0;
+    }
+    .cass-mini {
+      background: rgba(9,24,37,.66);
+      border: 1px solid rgba(30,63,87,.85);
+      border-radius: 12px;
+      padding: 9px 10px;
+      min-height: 54px;
+    }
+    .cass-mini span { display: block; color: var(--muted); font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .6px; }
+    .cass-mini strong { display: block; margin-top: 4px; color: var(--text); font-size: 13px; word-break: break-word; }
+    .cass-details {
+      margin-top: 10px;
+      border-top: 1px solid rgba(229,108,24,.25);
+      padding-top: 10px;
+    }
+    .cass-details summary {
+      cursor: pointer;
+      color: var(--cass);
+      font-weight: 900;
+      font-size: 12px;
+      list-style: none;
+    }
+    .cass-details summary::-webkit-details-marker { display: none; }
+    .cass-details summary::after { content: '  +'; color: var(--brand2); }
+    .cass-details[open] summary::after { content: '  –'; }
+    .cass-detail-row {
+      display: grid;
+      grid-template-columns: 125px 1fr;
+      gap: 8px;
+      margin-top: 8px;
+      font-size: 12px;
+      line-height: 1.35;
+    }
+    .cass-detail-row span:first-child { color: var(--muted); font-weight: 800; text-transform: uppercase; font-size: 10px; letter-spacing: .5px; }
+    .cass-detail-row span:last-child { color: var(--text); word-break: break-word; }
+
+
+    /* ── Vista tabla / grafo ── */
+    .view-toggle {
+      margin-left: auto;
+      display: none;
+      gap: 6px;
+      align-items: center;
+    }
+    .view-btn {
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-family: inherit;
+      font-size: 10px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .view-btn:hover { border-color: var(--brand); color: var(--text); }
+    .view-btn.active {
+      background: var(--brand-dim);
+      color: var(--brand);
+      border-color: rgba(0,197,160,.45);
+      box-shadow: 0 0 14px rgba(0,197,160,.14);
+    }
+    .expand-btn {
+      margin-left: 6px;
+      border-color: rgba(0,197,160,.25);
+    }
+    .main.results-max .expand-btn {
+      background: var(--brand-dim);
+      color: var(--brand);
+      border-color: rgba(0,197,160,.45);
+    }
+    .graph-shell {
+      height: 100%;
+      min-height: 320px;
+      display: grid;
+      grid-template-columns: 1fr 230px;
+      gap: 12px;
+    }
+    .graph-canvas {
+      width: 100%; height: 100%; min-height: 320px;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(0,197,160,.08), transparent 45%),
+        #091825;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .graph-side {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--surface);
+      padding: 12px;
+      overflow: auto;
+    }
+    .graph-side h3 {
+      font-size: 12px;
+      color: var(--brand);
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      margin-bottom: 10px;
+    }
+    .graph-side p { color: var(--muted); font-size: 11px; line-height: 1.55; }
+    .graph-side .graph-kv {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 6px;
+      font-size: 11px;
+      margin-bottom: 6px;
+    }
+    .graph-side .graph-kv span:first-child { color: var(--muted); font-weight: 800; }
+    .graph-side .graph-kv span:last-child { color: var(--text); word-break: break-word; }
+    .graph-link { stroke: rgba(126,184,164,.5); stroke-width: 1.7; }
+    .graph-link-label { fill: var(--muted); font-size: 9px; font-family: 'JetBrains Mono', monospace; }
+    .graph-node { cursor: pointer; transition: transform .15s; }
+    .graph-node circle { stroke-width: 2.3; filter: drop-shadow(0 0 8px rgba(0,0,0,.35)); }
+    .graph-node:hover circle { stroke: var(--brand2); stroke-width: 3; }
+    .graph-node-label { fill: var(--text); font-size: 10.5px; font-weight: 800; pointer-events: none; }
+    .graph-node-sub { fill: var(--muted); font-size: 8.5px; pointer-events: none; }
+    .node-user circle { fill: rgba(65,132,196,.45); stroke: #68a7e6; }
+    .node-restaurant circle { fill: rgba(0,197,160,.33); stroke: var(--brand); }
+    .node-metric circle { fill: rgba(255,211,54,.28); stroke: var(--brand2); }
+    .node-search circle { fill: rgba(229,108,24,.30); stroke: var(--cass); }
+    .node-content circle { fill: rgba(220,56,45,.28); stroke: var(--redis); }
+
+    @media (max-width: 1180px) {
+      .layout { grid-template-columns: 195px 285px 1fr; }
+      .layout.sidebar-collapsed { grid-template-columns: 58px 285px 1fr; }
+      .graph-shell { grid-template-columns: 1fr; }
+      .graph-side { min-height: 120px; }
+    }
+
+
     code.inline { font-family: 'JetBrains Mono', monospace; font-size: 11px; background: var(--surface2); padding: 1px 5px; border-radius: 4px; }
   </style>
 </head>
@@ -296,6 +628,7 @@
 
 <!-- Topbar -->
 <header class="topbar">
+  <button class="sidebar-toggle" onclick="toggleSidebar()" title="Mostrar/Ocultar bases de datos">☰</button>
   <div class="logo-img-wrap">
     <img src="/static/logo.png" alt="Starvy"
          onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='flex'">
@@ -312,24 +645,24 @@
   </div>
 </header>
 
-<div class="layout">
+<div class="layout" id="layout">
 
   <!-- Sidebar -->
-  <aside class="sidebar">
+  <aside class="sidebar" id="sidebar">
     <div class="sidebar-title">Base de Datos</div>
-    <button class="db-btn mongo" onclick="selectDB('mongo')">
+    <button class="db-btn mongo" onclick="selectDB('mongo')" title="MongoDB">
       <span class="db-dot"></span>
       <div class="db-label-wrap"><div class="db-name">MongoDB</div><div class="db-type">Documentos · Atlas</div></div>
     </button>
-    <button class="db-btn neo4j" onclick="selectDB('neo4j')">
+    <button class="db-btn neo4j" onclick="selectDB('neo4j')" title="Neo4j">
       <span class="db-dot"></span>
       <div class="db-label-wrap"><div class="db-name">Neo4j</div><div class="db-type">Grafos · Aura</div></div>
     </button>
-    <button class="db-btn cass" onclick="selectDB('cass')">
+    <button class="db-btn cass" onclick="selectDB('cass')" title="Cassandra">
       <span class="db-dot"></span>
       <div class="db-label-wrap"><div class="db-name">Cassandra</div><div class="db-type">Columnas · Local</div></div>
     </button>
-    <button class="db-btn redis" onclick="selectDB('redis')">
+    <button class="db-btn redis" onclick="selectDB('redis')" title="Redis">
       <span class="db-dot"></span>
       <div class="db-label-wrap"><div class="db-name">Redis</div><div class="db-type">En Memoria · Cloud</div></div>
     </button>
@@ -356,7 +689,7 @@
       <span style="color:var(--muted);font-size:13px;font-weight:600;">← Elegí una operación del panel</span>
     </div>
 
-    <div class="content-split">
+    <div class="content-split" id="content-split">
 
       <div class="query-panel">
         <div class="panel-header">
@@ -380,11 +713,18 @@
         </div>
       </div>
 
+      <div class="splitter" id="splitter" title="Arrastrá para agrandar o achicar resultados"></div>
+
       <div class="results-panel">
         <div class="panel-header">
           <span class="panel-icon">📊</span>
           <span class="panel-header-title">Resultados</span>
           <span class="count-pill" id="count-pill" style="display:none"></span>
+          <div class="view-toggle" id="view-toggle">
+            <button class="view-btn active" id="view-table" onclick="setResultsView('table')">▦ Tabla</button>
+            <button class="view-btn" id="view-graph" onclick="setResultsView('graph')">◎ Grafo</button>
+          </div>
+          <button class="view-btn expand-btn" id="expand-results" onclick="toggleResultsMax()">⛶ Ampliar</button>
         </div>
         <div class="results-body" id="results-body">
           <div class="state-empty"><span class="icon">📋</span>Los resultados aparecerán acá</div>
@@ -415,10 +755,16 @@ const OPS = {
     { id:'resenas-restaurante', title:'Reseñas de restaurante', method:'GET',
       desc:'Lista reseñas con username del autor ($lookup)', endpoint:'/api/mongo/resenas-restaurante',
       params:[{key:'restaurante_id',label:'Restaurante ID',default:'1'}] },
-    { id:'insertar-resena', title:'Insertar reseña ✍️', method:'POST',
-      desc:'Escribe tu reseña y guardala en MongoDB (insertOne)', endpoint:'/api/mongo/insertar-resena',
-      params:[{key:'dni_usuario',label:'DNI',default:'44000001'},{key:'restaurante_id',label:'Rest. ID',default:'1'},{key:'puntaje',label:'Puntaje (1-5)',default:'5'},{key:'comentario',label:'Tu reseña',default:'Excelente lugar!'}],
-      body:(p)=>p },
+      { id:'insertar-resena', title:'Insertar reseña ⭐', method:'POST',
+  desc:'Calificá con estrellas y guardá la reseña en MongoDB (insertOne)',
+  endpoint:'/api/mongo/insertar-resena',
+  params:[
+    {key:'dni_usuario',label:'DNI',default:'44000001'},
+    {key:'restaurante_id',label:'Rest. ID',default:'1'},
+    {key:'puntaje',label:'Calificación',default:'5',type:'stars'},
+    {key:'comentario',label:'Tu reseña',default:'Excelente lugar!'}
+  ],
+  body:(p)=>p },
   ],
   neo4j: [
     { id:'perfil', title:'Perfil social', method:'GET',
@@ -453,17 +799,17 @@ const OPS = {
       params:[{key:'restaurante_id',label:'Restaurante ID',default:'1'}] },
     { id:'promociones-fecha-barrio', title:'Promos por fecha y barrio', method:'GET',
       desc:'Promociones vigentes un día y barrio específicos', endpoint:'/api/cassandra/promociones-fecha-barrio',
-      params:[{key:'dia',label:'Fecha (YYYY-MM-DD)',default:'2025-05-15'},{key:'barrio',label:'Barrio',default:'Palermo'}] },
+      params:[{key:'dia',label:'Fecha (YYYY-MM-DD)',default:'2026-05-15'},{key:'barrio',label:'Barrio',default:'Palermo'}] },
     { id:'visitas-restaurante-dia', title:'Visitas por día', method:'GET',
       desc:'Visitas registradas en un restaurante una fecha dada', endpoint:'/api/cassandra/visitas-restaurante-dia',
-      params:[{key:'restaurante_id',label:'Restaurante ID',default:'1'},{key:'fecha',label:'Fecha (YYYY-MM-DD)',default:'2025-05-15'}] },
+      params:[{key:'restaurante_id',label:'Restaurante ID',default:'1'},{key:'fecha',label:'Fecha (YYYY-MM-DD)',default:'2026-05-15'}] },
     { id:'insertar-visita', title:'Insertar visita', method:'POST',
       desc:'Registra nueva visita con timestamp automático (INSERT)', endpoint:'/api/cassandra/insertar-visita',
       params:[{key:'dni_usuario',label:'DNI',default:'44000001'},{key:'restaurante_id',label:'Rest. ID',default:'1'},{key:'plato_nombre',label:'Plato',default:'Milanesa napolitana'},{key:'monto',label:'Monto ($)',default:'1500'}],
       body:(p)=>p },
     { id:'metricas-dia', title:'Métricas del día', method:'GET',
       desc:'Total visitas, ingresos y plato más pedido', endpoint:'/api/cassandra/metricas-dia',
-      params:[{key:'restaurante_id',label:'Restaurante ID',default:'1'},{key:'fecha',label:'Fecha (YYYY-MM-DD)',default:'2025-05-15'}] },
+      params:[{key:'restaurante_id',label:'Restaurante ID',default:'1'},{key:'fecha',label:'Fecha (YYYY-MM-DD)',default:'2026-05-15'}] },
   ],
   redis: [
     { id:'sesiones-activas', title:'Sesiones activas', method:'GET',
@@ -495,12 +841,76 @@ const DB_META = {
 };
 
 let currentDB=null, currentOp=null, loading=false, queryCount=0;
+let currentRows=[], currentSpecial=null, currentView='table', lastParams={}, resultsMax=false;
+let currentGraphData=null;
+let sidebarCollapsed=false;
 
+function toggleSidebar(){
+  sidebarCollapsed = !sidebarCollapsed;
+  document.getElementById('layout').classList.toggle('sidebar-collapsed', sidebarCollapsed);
+  setTimeout(()=>{
+    if(currentRows.length && currentDB === 'neo4j' && currentView === 'graph') renderResults(currentRows, currentSpecial);
+  }, 260);
+}
 function hexToRgb(hex){ const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16); return `${r},${g},${b}`; }
 function escHtml(str){ return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function formatDateValue(key, val){
+  if(val === null || val === undefined) return val;
+  if(/fecha|date|dia/i.test(String(key)) && typeof val === 'string'){
+    const m = val.match(/^(\d{4}-\d{2}-\d{2})/);
+    if(m) return m[1];
+  }
+  return val;
+}
+function toggleResultsMax(){
+  resultsMax = !resultsMax;
+  const main = document.querySelector('.main');
+  main.classList.toggle('results-max', resultsMax);
+  const btn = document.getElementById('expand-results');
+  if(btn) btn.textContent = resultsMax ? '↙ Reducir' : '⛶ Ampliar';
+  if(currentRows.length && currentDB === 'neo4j' && currentView === 'graph') renderResults(currentRows, currentSpecial);
+}
+function initResizableResults(){
+  const split = document.getElementById('content-split');
+  const handle = document.getElementById('splitter');
+  if(!split || !handle) return;
+  let active = false;
+
+  const begin = (clientY, e)=>{
+    if(resultsMax) return;
+    active = true;
+    document.body.classList.add('resizing');
+    if(e) e.preventDefault();
+  };
+  const move = (clientY)=>{
+    if(!active) return;
+    const rect = split.getBoundingClientRect();
+    let top = clientY - rect.top;
+    const minTop = 85;
+    const minBottom = 260;
+    top = Math.max(minTop, Math.min(top, rect.height - minBottom));
+    split.style.gridTemplateRows = `${top}px 8px minmax(${minBottom}px, 1fr)`;
+    if(currentRows.length && currentDB === 'neo4j' && currentView === 'graph') {
+      window.clearTimeout(window.__graphResizeTimer);
+      window.__graphResizeTimer = window.setTimeout(()=>renderResults(currentRows, currentSpecial), 80);
+    }
+  };
+  const stop = ()=>{
+    if(active){ active = false; document.body.classList.remove('resizing'); }
+  };
+
+  handle.addEventListener('pointerdown', e=>{ handle.setPointerCapture?.(e.pointerId); begin(e.clientY, e); });
+  window.addEventListener('pointermove', e=>move(e.clientY));
+  window.addEventListener('pointerup', stop);
+  handle.addEventListener('mousedown', e=>begin(e.clientY, e));
+  window.addEventListener('mousemove', e=>move(e.clientY));
+  window.addEventListener('mouseup', stop);
+}
+
 
 function selectDB(db){
-  currentDB=db; currentOp=null;
+  currentDB=db; currentOp=null; currentRows=[]; currentView='table'; currentGraphData=null;
+  if(resultsMax) toggleResultsMax();
   document.querySelectorAll('.db-btn').forEach(b=>b.classList.remove('active'));
   document.querySelector(`.db-btn.${db}`).classList.add('active');
   const meta=DB_META[db];
@@ -525,24 +935,89 @@ function selectDB(db){
 }
 
 function selectOp(op){
-  currentOp=op;
+  currentOp=op; 
+  currentRows=[]; 
+  currentView='table'; 
+  currentGraphData=null;
+
   document.querySelectorAll('.op-card').forEach(c=>c.classList.remove('active'));
   document.getElementById(`op-${op.id}`).classList.add('active');
+
   const bar=document.getElementById('params-bar');
   bar.innerHTML='';
+
   op.params.forEach(p=>{
-    const g=document.createElement('div'); g.className='param-group';
-    const lbl=document.createElement('label'); lbl.textContent=p.label+':';
-    const inp=document.createElement('input');
-    inp.type=p.type||'text'; inp.value=p.default||'';
-    inp.id=`param-${p.key}`; inp.placeholder=p.default||'';
-    inp.addEventListener('keydown',e=>{if(e.key==='Enter')runOp();});
-    g.appendChild(lbl); g.appendChild(inp); bar.appendChild(g);
+    const g=document.createElement('div'); 
+    g.className='param-group';
+
+    const lbl=document.createElement('label'); 
+    lbl.textContent=p.label+':';
+
+    g.appendChild(lbl);
+
+    if(p.type === 'stars' || p.key === 'puntaje'){
+      const wrap=document.createElement('div');
+      wrap.className='star-param';
+
+      const hidden=document.createElement('input');
+      hidden.type='hidden';
+      hidden.id=`param-${p.key}`;
+      hidden.value=p.default || '5';
+
+      const valueText=document.createElement('span');
+      valueText.className='star-value';
+      valueText.textContent=`${hidden.value}/5`;
+
+      function pintarEstrellas(valor){
+        wrap.querySelectorAll('.star-btn').forEach(btn=>{
+          const n=Number(btn.dataset.value);
+          btn.classList.toggle('active', n <= Number(valor));
+        });
+        valueText.textContent=`${valor}/5`;
+      }
+
+      for(let i=1; i<=5; i++){
+        const star=document.createElement('button');
+        star.type='button';
+        star.className='star-btn';
+        star.dataset.value=i;
+        star.innerHTML='★';
+        star.title=`${i} estrella${i>1?'s':''}`;
+
+        star.onclick=()=>{
+          hidden.value=String(i);
+          pintarEstrellas(i);
+        };
+
+        wrap.appendChild(star);
+      }
+
+      wrap.appendChild(hidden);
+      wrap.appendChild(valueText);
+      g.appendChild(wrap);
+
+      setTimeout(()=>pintarEstrellas(hidden.value), 0);
+    } else {
+      const inp=document.createElement('input');
+      inp.type=p.type||'text'; 
+      inp.value=p.default||'';
+      inp.id=`param-${p.key}`; 
+      inp.placeholder=p.default||'';
+      inp.addEventListener('keydown',e=>{if(e.key==='Enter')runOp();});
+      g.appendChild(inp);
+    }
+
+    bar.appendChild(g);
   });
+
   const btn=document.createElement('button');
-  btn.className='run-btn'; btn.id='run-btn';
-  btn.innerHTML='▶ Ejecutar'; btn.onclick=runOp;
+  btn.className='run-btn'; 
+  btn.id='run-btn';
+  btn.innerHTML='▶ Ejecutar'; 
+  btn.onclick=runOp;
+
   bar.appendChild(btn);
+
   setQueryPlaceholder();
   setResultsEmpty();
 }
@@ -554,6 +1029,7 @@ async function runOp(){
   if(btn){btn.disabled=true;btn.innerHTML='<div class="spinner"></div> Ejecutando...';}
   const params={};
   currentOp.params.forEach(p=>{const el=document.getElementById(`param-${p.key}`);if(el)params[p.key]=el.value;});
+  lastParams=params;
   const t0=Date.now();
   try{
     let response;
@@ -565,6 +1041,7 @@ async function runOp(){
       response=await fetch(`${currentOp.endpoint}${qs?'?'+qs:''}`);
     }
     const data=await response.json();
+    currentGraphData = data.grafo || null;
     const ms=Date.now()-t0;
     document.getElementById('exec-time').textContent=`⏱ ${ms}ms`;
     renderQuery(data.query,data.lenguaje);
@@ -575,6 +1052,7 @@ async function runOp(){
     const lastStr=currentOp.title.replace(/[⭐🏆🍕✍️]/g,'').trim();
     document.getElementById('stat-last').textContent=lastStr.slice(0,13)+(lastStr.length>13?'…':'');
   }catch(err){
+    currentGraphData = null;
     renderError('No se pudo conectar con Flask. Verificá que python app.py esté corriendo en la terminal.');
   }finally{
     loading=false;
@@ -590,6 +1068,7 @@ function setQueryPlaceholder(){
 }
 function setResultsEmpty(){
   document.getElementById('count-pill').style.display='none';
+  const toggle=document.getElementById('view-toggle'); if(toggle) toggle.style.display='none';
   document.getElementById('results-body').innerHTML=`<div class="state-empty"><span class="icon">📋</span>Los resultados aparecerán acá</div>`;
 }
 function resetMain(){
@@ -606,60 +1085,219 @@ function setLangPill(lang){
   pill.textContent=labels[lang]||lang;
   pill.className=`lang-pill lang-${lang}`;
 }
-function renderQuery(queryText,lang){
+function renderQuery(queryText, lang) {
   setLangPill(lang);
-  const hlLang=lang==='cypher'?'cypher':lang==='sql'?'sql':lang==='redis'?'bash':'javascript';
-  const highlighted=hljs.highlight(queryText||'',{language:hlLang,ignoreIllegals:true}).value;
+  const langMap = { cypher:'plaintext', sql:'sql', redis:'bash', javascript:'javascript' };
+  const hlLang = langMap[lang] || 'plaintext';
+  const safeQuery = queryText || '';
+  let highlighted;
+  try {
+    highlighted = hlLang === 'plaintext'
+      ? escHtml(safeQuery)
+      : hljs.highlight(safeQuery, { language: hlLang, ignoreIllegals: true }).value;
+  } catch (e) {
+    highlighted = escHtml(safeQuery);
+  }
   document.getElementById('query-code').innerHTML=`<pre><code class="hljs language-${hlLang}">${highlighted}</code></pre>`;
 }
 function renderError(msg){
   document.getElementById('count-pill').style.display='none';
+  const toggle=document.getElementById('view-toggle'); if(toggle) toggle.style.display='none';
   document.getElementById('results-body').innerHTML=`<div class="error-box">❌ ${escHtml(msg)}</div>`;
 }
 
 function renderResults(rows, special){
+  currentRows = rows || [];
+  currentSpecial = special || null;
+
   const pill=document.getElementById('count-pill');
-  pill.textContent=`${rows.length} resultado${rows.length!==1?'s':''}`;
+  pill.textContent=`${currentRows.length} resultado${currentRows.length!==1?'s':''}`;
   pill.style.display='';
-  const body=document.getElementById('results-body');
-  if(!rows.length){
-    body.innerHTML=`<div class="state-empty"><span class="icon">🔍</span>Sin resultados para estos parámetros<br><span style="font-size:11px;margin-top:4px;">Probá con otros valores</span></div>`;
+
+  const toggle=document.getElementById('view-toggle');
+  const canGraph = currentDB === 'neo4j' && currentRows.length > 0 && !currentSpecial;
+  if(toggle){
+    toggle.style.display = canGraph ? 'flex' : 'none';
+    document.getElementById('view-table').classList.toggle('active', currentView === 'table');
+    document.getElementById('view-graph').classList.toggle('active', currentView === 'graph');
+  }
+
+  if(!currentRows.length){
+    document.getElementById('results-body').innerHTML=`<div class="state-empty"><span class="icon">🔍</span>Sin resultados para estos parámetros<br><span style="font-size:11px;margin-top:4px;">Probá con otros valores</span></div>`;
     return;
   }
 
-  // ── Sesiones activas: tarjetas visuales ──
-  if(special==='sessions'||special==='session-single'){
-    const TTL_MAX=3600;
-    let html='<div class="session-grid">';
-    rows.forEach((row,i)=>{
-      const token=row.token||'—';
-      const ttl=row.ttl_segundos||0;
-      const activa=row.sesion_activa!==false && token!=='—' && token!=='sin sesion';
-      const usuario=row.usuario||'Usuario';
-      const min=Math.floor(ttl/60), seg=ttl%60;
-      const pct=Math.min(100,Math.round((ttl/TTL_MAX)*100));
-      const tokenCorto=token.length>20?token.slice(0,8)+'…'+token.slice(-8):token;
-      html+=`<div class="session-card ${activa?'active-session':''}" style="animation-delay:${i*60}ms">
-        <div class="session-top">
-          <div class="session-avatar">👤</div>
-          <div>
-            <div class="session-username">Usuario ${escHtml(String(usuario).slice(0,12))}</div>
-            <div class="session-status">${activa?'🟢 Sesión activa':'🔴 Sin sesión'}</div>
-          </div>
+  if(currentSpecial==='sessions'||currentSpecial==='session-single') renderSessionCards(currentRows);
+  else if(currentDB === 'redis' && (currentOp?.id || '').startsWith('ranking-')) renderRedisRanking(currentRows);
+  else if(currentDB === 'redis' && (currentOp?.id || '') === 'ultimas-busquedas') renderSearchCards(currentRows);
+  else if(currentDB === 'cass') renderCassandraCards(currentRows);
+  else if(canGraph && currentView === 'graph') renderGraphResults(currentRows);
+  else renderTableResults(currentRows);
+}
+
+function setResultsView(view){
+  currentView = view;
+  document.getElementById('view-table').classList.toggle('active', view === 'table');
+  document.getElementById('view-graph').classList.toggle('active', view === 'graph');
+  renderResults(currentRows, currentSpecial);
+}
+
+function renderSessionCards(rows){
+  const body=document.getElementById('results-body');
+  const TTL_MAX=3600;
+  let html='<div class="session-grid">';
+  rows.forEach((row,i)=>{
+    const token=row.token||'—';
+    const ttl=row.ttl_segundos||0;
+    const activa=row.sesion_activa!==false && token!=='—' && token!=='sin sesion';
+    const usuario=row.usuario||'Usuario';
+    const min=Math.floor(ttl/60), seg=ttl%60;
+    const pct=Math.min(100,Math.round((ttl/TTL_MAX)*100));
+    const tokenCorto=token.length>20?token.slice(0,8)+'…'+token.slice(-8):token;
+    html+=`<div class="session-card ${activa?'active-session':''}" style="animation-delay:${i*60}ms">
+      <div class="session-top">
+        <div class="session-avatar">👤</div>
+        <div>
+          <div class="session-username">Usuario ${escHtml(String(usuario).slice(0,12))}</div>
+          <div class="session-status">${activa?'🟢 Sesión activa':'🔴 Sin sesión'}</div>
         </div>
-        <div class="session-info">
-          <div class="session-row"><span class="session-label">🔑 Token</span><span class="session-val">${escHtml(tokenCorto)}</span></div>
-          <div class="session-row"><span class="session-label">⏳ Tiempo restante</span><span class="session-val">${activa?`${min}min ${seg}seg`:'Expirada'}</span></div>
-        </div>
-        ${activa?`<div class="ttl-bar-wrap"><div class="ttl-bar-bg"><div class="ttl-bar" style="width:${pct}%"></div></div></div>`:''}
+      </div>
+      <div class="session-info">
+        <div class="session-row"><span class="session-label">🔑 Token</span><span class="session-val">${escHtml(tokenCorto)}</span></div>
+        <div class="session-row"><span class="session-label">⏳ Tiempo restante</span><span class="session-val">${activa?`${min}min ${seg}seg`:'Expirada'}</span></div>
+      </div>
+      ${activa?`<div class="ttl-bar-wrap"><div class="ttl-bar-bg"><div class="ttl-bar" style="width:${pct}%"></div></div></div>`:''}
+    </div>`;
+  });
+  html+='</div>';
+  body.innerHTML=html;
+}
+
+
+function renderRedisRanking(rows){
+  const body=document.getElementById('results-body');
+  const isFood = currentOp?.id === 'ranking-tipos-comida';
+  const nameKey = isFood ? 'tipo_comida' : 'restaurante';
+  const scoreKey = isFood ? 'pedidos' : 'visitas';
+  const label = isFood ? 'pedidos' : 'visitas';
+  const medals = ['🥇','🥈','🥉'];
+  const podiumClass = {1:'first', 2:'second', 3:'third'};
+
+  // Siempre dibujamos los 3 lugares del podio. Orden visual: 2° | 1° | 3°
+  const byPosition = {};
+  rows.forEach((row, idx)=>{
+    const pos = Number(row.posicion || idx + 1);
+    if(pos <= 3) byPosition[pos] = row;
+  });
+
+  let html = '<div class="redis-ranking-wrap">';
+  html += '<div class="redis-podium">';
+
+  [2,1,3].forEach((pos, visualIdx)=>{
+    const row = byPosition[pos];
+    const cls = podiumClass[pos] || '';
+    if(row){
+      html += `<article class="podium-card ${cls}" style="animation-delay:${visualIdx*70}ms">
+        <div class="podium-position">#${pos}</div>
+        <div class="podium-rank">${medals[pos-1]}</div>
+        <div class="podium-title">${escHtml(row[nameKey] || '—')}</div>
+        <div class="podium-score">${escHtml(row[scoreKey] ?? 0)} ${label}</div>
+      </article>`;
+    } else {
+      html += `<article class="podium-card ${cls} empty" style="animation-delay:${visualIdx*70}ms">
+        <div class="podium-position">#${pos}</div>
+        <div class="podium-rank">${medals[pos-1]}</div>
+        <div class="podium-empty-title">Todavía no hay datos para este puesto</div>
+        <div class="podium-score">0 ${label}</div>
+      </article>`;
+    }
+  });
+
+  html += '</div>';
+
+  const rest = rows.filter((row, idx)=>Number(row.posicion || idx + 1) > 3);
+  if(rest.length){
+    html += '<div class="redis-list-title">Resto del ranking</div>';
+    html += '<div class="redis-list">';
+    rest.forEach((row,i)=>{
+      const pos = Number(row.posicion || i + 4);
+      html += `<div class="redis-rank-row" style="animation-delay:${i*40}ms">
+        <div class="redis-rank-num">#${escHtml(pos)}</div>
+        <div class="redis-rank-name">${escHtml(row[nameKey] || '—')}</div>
+        <div class="redis-rank-score">${escHtml(row[scoreKey] ?? 0)} ${label}</div>
       </div>`;
     });
-    html+='</div>';
-    body.innerHTML=html;
-    return;
+    html += '</div>';
   }
 
-  // ── Tabla general ──
+  html += '</div>';
+  body.innerHTML = html;
+}
+
+function renderSearchCards(rows){
+  const body=document.getElementById('results-body');
+  let html='<div class="search-timeline">';
+  rows.forEach((row,i)=>{
+    html += `<div class="search-card" style="animation-delay:${i*45}ms"><span>#${escHtml(row.posicion || i+1)} búsqueda reciente</span><strong>${escHtml(row.termino || '—')}</strong></div>`;
+  });
+  html+='</div>';
+  body.innerHTML=html;
+}
+
+function cassLabel(key){
+  return String(key).replace(/_/g,' ').replace(/\b\w/g, c => c.toUpperCase());
+}
+function cassTitle(row){
+  return row.titulo || row.plato_nombre || row.tipo_comida || row.restaurante || `Registro ${row.promocion_id || row.visita_id || row.restaurante_id || ''}`;
+}
+function cassBadge(row){
+  if(row.descuento !== undefined) return `${row.descuento}% OFF`;
+  if(row.cantidad_vendida !== undefined) return `${row.cantidad_vendida} vendidos`;
+  if(row.monto !== undefined) return `$${row.monto}`;
+  if(row.estado) return row.estado;
+  return 'Cassandra';
+}
+function cassSubtitle(row){
+  const parts=[];
+  if(row.barrio) parts.push(row.barrio);
+  if(row.tipo_comida) parts.push(row.tipo_comida);
+  if(row.fecha) parts.push(formatDateValue('fecha', row.fecha));
+  if(row.fecha_inicio || row.fecha_fin) parts.push(`${formatDateValue('fecha_inicio', row.fecha_inicio || '')} → ${formatDateValue('fecha_fin', row.fecha_fin || '')}`);
+  if(row.restaurante_id !== undefined) parts.push(`Rest. #${row.restaurante_id}`);
+  return parts.filter(Boolean).join(' · ') || 'Modelo por consulta';
+}
+function renderCassandraCards(rows){
+  const body=document.getElementById('results-body');
+  let html='<div class="cass-grid">';
+  rows.forEach((row,i)=>{
+    const entries = Object.entries(row).map(([k,v]) => [k, formatDateValue(k,v)]);
+    const minis = entries.filter(([k]) => ['estado','fecha','fecha_inicio','fecha_fin','dia_vigencia','descuento','monto','cantidad_vendida','total_ingresos','dni_usuario','restaurante_id'].includes(k)).slice(0,4);
+    html += `<article class="cass-card" style="animation-delay:${i*45}ms">
+      <div class="cass-top">
+        <div>
+          <h3 class="cass-title">${escHtml(cassTitle(row))}</h3>
+          <div class="cass-subtitle">${escHtml(cassSubtitle(row))}</div>
+        </div>
+        <span class="cass-badge">${escHtml(cassBadge(row))}</span>
+      </div>`;
+    if(row.descripcion){ html += `<p style="color:var(--text);font-size:13px;line-height:1.45;margin:8px 0 10px;">${escHtml(row.descripcion)}</p>`; }
+    if(minis.length){
+      html += '<div class="cass-metrics">';
+      minis.forEach(([k,v])=>{ html += `<div class="cass-mini"><span>${escHtml(cassLabel(k))}</span><strong>${escHtml(v ?? '—')}</strong></div>`; });
+      html += '</div>';
+    }
+    html += `<details class="cass-details"><summary>Ver detalle completo</summary>`;
+    entries.forEach(([k,v])=>{
+      html += `<div class="cass-detail-row"><span>${escHtml(cassLabel(k))}</span><span>${escHtml(v ?? '—')}</span></div>`;
+    });
+    html += `</details></article>`;
+  });
+  html += '</div>';
+  body.innerHTML=html;
+}
+
+function renderTableResults(rows){
+  const body=document.getElementById('results-body');
   const keys=Object.keys(rows[0]);
   let html=`<table class="results-table"><thead><tr>`;
   keys.forEach(k=>{html+=`<th>${escHtml(k)}</th>`;});
@@ -668,6 +1306,7 @@ function renderResults(rows, special){
     html+=`<tr style="animation-delay:${i*35}ms">`;
     keys.forEach(k=>{
       let val=row[k];
+      val = formatDateValue(k, val);
       if(val===null||val===undefined)val='—';
       if(k==='puntaje'&&typeof val==='number'){
         const s='★'.repeat(val)+'☆'.repeat(5-val);
@@ -694,6 +1333,220 @@ function renderResults(rows, special){
   html+='</tbody></table>';
   body.innerHTML=html;
 }
+
+function addNode(graph, id, label, type='user', sub=''){
+  if(!id || graph.nodeMap.has(id)) return;
+  graph.nodeMap.set(id, { id, label:String(label), type, sub:String(sub||'') });
+}
+function addLink(graph, source, target, label=''){
+  if(!source || !target || source === target) return;
+  const key = `${source}->${target}:${label}`;
+  if(graph.linkSet.has(key)) return;
+  graph.linkSet.add(key);
+  graph.links.push({source, target, label});
+}
+function getParamValue(key, fallback='VitoNava'){
+  return lastParams[key] || fallback;
+}
+function buildGraphFromRows(rows){
+  if(currentGraphData && Array.isArray(currentGraphData.nodes) && Array.isArray(currentGraphData.links)){
+    return {
+      nodes: currentGraphData.nodes.map(n=>({...n})),
+      links: currentGraphData.links.map(l=>({...l}))
+    };
+  }
+  const graph = { nodeMap:new Map(), linkSet:new Set(), links:[] };
+  const opId = currentOp?.id || '';
+  const username = getParamValue('username', rows[0]?.username || getParamValue('follower','VitoNava'));
+  const centerId = `user:${username}`;
+
+  if(['perfil','siguiendo','seguidores','visitas-amigos','recomendacion-colaborativa','recomendacion-contenido'].includes(opId)){
+    addNode(graph, centerId, username, 'user', 'usuario actual');
+  }
+
+  if(opId === 'perfil'){
+    const r = rows[0] || {};
+    const siguiendoLista = r.siguiendo_usuarios || r.siguiendo_detalle || [];
+    const seguidoresLista = r.seguidores_usuarios || r.seguidores_detalle || [];
+    const visitasLista = r.visitas_restaurantes || r.visitas_detalle || [];
+    const resenasLista = r.resenas_restaurantes || r.resenas_detalle || [];
+
+    siguiendoLista.forEach(u=>{
+      const uname = u.username || u.nombre || u;
+      const id = `user:${uname}`;
+      addNode(graph, id, uname, 'user', u.nombre || 'seguido');
+      addLink(graph, centerId, id, 'SIGUE');
+    });
+    seguidoresLista.forEach(u=>{
+      const uname = u.username || u.nombre || u;
+      const id = `user:${uname}`;
+      addNode(graph, id, uname, 'user', u.nombre || 'seguidor');
+      addLink(graph, id, centerId, 'SIGUE');
+    });
+    visitasLista.forEach(v=>{
+      const rest = v.restaurante || v.nombre || v;
+      const id = `rest:${rest}`;
+      addNode(graph, id, rest, 'restaurant', `${v.tipo_comida || ''} ${v.barrio ? '· '+v.barrio : ''}`.trim());
+      addLink(graph, centerId, id, v.fecha ? `VISITÓ ${formatDateValue('fecha', v.fecha)}` : 'VISITÓ');
+    });
+    resenasLista.forEach(c=>{
+      const rest = c.restaurante || c.nombre || c;
+      const id = `rest:${rest}`;
+      addNode(graph, id, rest, 'restaurant', c.puntaje ? `★ ${c.puntaje}` : 'calificado');
+      addLink(graph, centerId, id, c.puntaje ? `CALIFICÓ ${c.puntaje}` : 'CALIFICÓ');
+    });
+
+    if(graph.nodeMap.size <= 1){
+      [['siguiendo','SIGUE A'],['seguidores','LO SIGUEN'],['visitas','VISITÓ'],['resenas','CALIFICÓ']].forEach(([k,label])=>{
+        const id=`metric:${k}`;
+        addNode(graph, id, `${label}\n${r[k] ?? 0}`, 'metric', 'sin detalle');
+        addLink(graph, centerId, id, k.toUpperCase());
+      });
+    }
+  } else if(opId === 'siguiendo'){
+    rows.forEach(r=>{
+      const id=`user:${r.username}`;
+      addNode(graph, id, r.username, 'user', r.nombre || 'usuario');
+      addLink(graph, centerId, id, 'SIGUE');
+    });
+  } else if(opId === 'seguidores'){
+    rows.forEach(r=>{
+      const id=`user:${r.username}`;
+      addNode(graph, id, r.username, 'user', r.nombre || 'usuario');
+      addLink(graph, id, centerId, 'SIGUE');
+    });
+  } else if(opId === 'buscar-usuarios'){
+    const term = getParamValue('termino', 'búsqueda');
+    const searchId = `search:${term}`;
+    addNode(graph, searchId, `Búsqueda\n${term}`, 'search', 'filtro');
+    rows.forEach(r=>{
+      const id=`user:${r.username}`;
+      addNode(graph, id, r.username, 'user', `${r.nombre || ''} ${r.apellido || ''}`.trim());
+      addLink(graph, searchId, id, 'MATCH');
+    });
+  } else if(opId === 'visitas-amigos'){
+    rows.forEach(r=>{
+      const amigoId=`user:${r.amigo}`;
+      const restId=`rest:${r.restaurante}`;
+      addNode(graph, amigoId, r.amigo, 'user', 'amigo');
+      addNode(graph, restId, r.restaurante, 'restaurant', r.fecha || 'restaurante');
+      addLink(graph, centerId, amigoId, 'SIGUE');
+      addLink(graph, amigoId, restId, 'VISITÓ');
+    });
+  } else if(opId === 'recomendacion-colaborativa'){
+    rows.forEach(r=>{
+      const restId=`rest:${r.restaurante}`;
+      addNode(graph, restId, r.restaurante, 'restaurant', `${r.tipo_comida || ''} · ${r.barrio || ''}`);
+      addLink(graph, centerId, restId, 'RECOMENDADO');
+      (r.amigos || []).forEach(a=>{
+        const amigoId=`user:${a}`;
+        addNode(graph, amigoId, a, 'user', 'amigo');
+        addLink(graph, centerId, amigoId, 'SIGUE');
+        addLink(graph, amigoId, restId, `★ ${r.puntaje_amigos ?? ''}`.trim());
+      });
+    });
+  } else if(opId === 'recomendacion-contenido'){
+    rows.forEach(r=>{
+      const restId=`rest:${r.restaurante}`;
+      addNode(graph, restId, r.restaurante, 'restaurant', `${r.tipo_comida || ''} · ${r.barrio || ''}`);
+      addLink(graph, centerId, restId, 'SIMILAR');
+      (r.basado_en || []).forEach(base=>{
+        const baseId=`content:${base}`;
+        addNode(graph, baseId, base, 'content', 'gustado antes');
+        addLink(graph, baseId, restId, 'MISMO TIPO/ZONA');
+      });
+    });
+  } else if(opId === 'seguir'){
+    rows.forEach(r=>{
+      const aId=`user:${r.de}`;
+      const bId=`user:${r.a}`;
+      addNode(graph, aId, r.de, 'user', 'origen');
+      addNode(graph, bId, r.a, 'user', 'destino');
+      addLink(graph, aId, bId, 'SIGUE');
+    });
+  }
+
+  return { nodes:Array.from(graph.nodeMap.values()).slice(0, 40), links:graph.links.slice(0, 60) };
+}
+
+function nodeClass(type){
+  if(type === 'restaurant') return 'node-restaurant';
+  if(type === 'metric') return 'node-metric';
+  if(type === 'search') return 'node-search';
+  if(type === 'content') return 'node-content';
+  return 'node-user';
+}
+function shorten(str, max=18){
+  str=String(str||'');
+  return str.length>max ? str.slice(0,max-1)+'…' : str;
+}
+function renderGraphResults(rows){
+  const body=document.getElementById('results-body');
+  const graph=buildGraphFromRows(rows);
+  if(!graph.nodes.length){ renderTableResults(rows); return; }
+
+  const w=Math.max(720, body.clientWidth - 260);
+  const h=Math.max(360, body.clientHeight - 8);
+  const cx=w/2, cy=h/2;
+  const centerIndex = graph.nodes.findIndex(n => n.sub === 'usuario actual');
+  const center = centerIndex >= 0 ? graph.nodes.splice(centerIndex,1)[0] : graph.nodes.shift();
+  const placed=[center, ...graph.nodes];
+  const radius=Math.min(w,h)*0.34;
+  const positions={ [center.id]: {x:cx, y:cy} };
+
+  graph.nodes.forEach((n,i)=>{
+    const angle=(Math.PI*2*i)/Math.max(1,graph.nodes.length) - Math.PI/2;
+    const jitter = (i%2)*26;
+    positions[n.id]={x:cx+Math.cos(angle)*(radius+jitter), y:cy+Math.sin(angle)*(radius+jitter)};
+  });
+
+  let svg=`<svg class="graph-canvas" viewBox="0 0 ${w} ${h}" role="img" aria-label="Visualización de grafo Neo4j">`;
+  svg+=`<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L7,3 z" fill="rgba(126,184,164,.65)" /></marker></defs>`;
+
+  graph.links.forEach(l=>{
+    const a=positions[l.source], b=positions[l.target];
+    if(!a||!b) return;
+    const mx=(a.x+b.x)/2, my=(a.y+b.y)/2;
+    svg+=`<line class="graph-link" x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" marker-end="url(#arrow)"></line>`;
+    svg+=`<text class="graph-link-label" x="${mx}" y="${my-5}" text-anchor="middle">${escHtml(l.label)}</text>`;
+  });
+
+  placed.forEach(n=>{
+    const p=positions[n.id];
+    const isCenter=n.id===center.id;
+    const r=isCenter?34:28;
+    svg+=`<g class="graph-node ${nodeClass(n.type)}" data-id="${escHtml(n.id)}" data-label="${escHtml(n.label)}" data-type="${escHtml(n.type)}" data-sub="${escHtml(n.sub)}" transform="translate(${p.x},${p.y})">`;
+    svg+=`<circle r="${r}"></circle>`;
+    const lines=String(n.label).split('\n');
+    if(lines.length>1){
+      svg+=`<text class="graph-node-label" text-anchor="middle" y="-3">${escHtml(shorten(lines[0],14))}</text>`;
+      svg+=`<text class="graph-node-sub" text-anchor="middle" y="12">${escHtml(shorten(lines[1],14))}</text>`;
+    } else {
+      svg+=`<text class="graph-node-label" text-anchor="middle" y="4">${escHtml(shorten(n.label,16))}</text>`;
+    }
+    svg+=`</g>`;
+  });
+  svg+='</svg>';
+
+  body.innerHTML=`<div class="graph-shell">${svg}<aside class="graph-side" id="graph-info"><h3>Grafo Neo4j</h3><p>Esta vista muestra entidades reales devueltas por Neo4j como nodos y relaciones. Tocá un nodo para ver su detalle.</p><br><p><strong>Nodos:</strong> usuarios reales, restaurantes y recomendaciones.<br><strong>Flechas:</strong> SIGUE, VISITÓ, CALIFICÓ o recomendación.</p></aside></div>`;
+
+  document.querySelectorAll('.graph-node').forEach(node=>{
+    node.addEventListener('click',()=>{
+      document.getElementById('graph-info').innerHTML=`
+        <h3>Detalle del nodo</h3>
+        <div class="graph-kv"><span>Nombre</span><span>${escHtml(node.dataset.label)}</span></div>
+        <div class="graph-kv"><span>Tipo</span><span>${escHtml(node.dataset.type)}</span></div>
+        <div class="graph-kv"><span>Dato</span><span>${escHtml(node.dataset.sub || '—')}</span></div>
+        <p style="margin-top:10px;">Operación activa: <strong>${escHtml(currentOp?.title || 'Neo4j')}</strong></p>`;
+    });
+  });
+}
+
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  initResizableResults();
+  selectDB('mongo');
+});
 </script>
 </body>
 </html>

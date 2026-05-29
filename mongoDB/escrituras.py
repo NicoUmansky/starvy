@@ -73,7 +73,7 @@ def login_usuario(username, password):
     if usuario is None:
         return None
 
-    user_id = str(usuario["_id"])
+    user_id = str(usuario["dni_usuario"])
     crear_sesion_si_redis_esta_disponible(user_id)
     return user_id
 

@@ -494,7 +494,20 @@ def cass_insertar_visita():
 
         # Consistencia: la visita también queda disponible en el grafo para recomendaciones sociales.
         sync_neo4j = motor_call("neo4j", "escrituras", "sincronizar_visita_desde_cassandra", **resultado_cassandra)
-        resultado = [{**limpiar_docs(resultado_cassandra), "sincronizado_neo4j": bool(sync_neo4j)}]
+
+        # Si el módulo de Cassandra no pudo actualizar Redis, lo hacemos desde acá.
+        # Esto actualiza ranking:restaurante y ranking:tipoComida en una sola llamada.
+        sync_redis = resultado_cassandra.get("sincronizado_redis", False)
+        if not sync_redis:
+            try:
+                docs = motor_call("mongo", "consultas", "ver_calificacion_restaurante", visita["restaurante_id"])
+                nombre = docs[0]["nombre"] if docs else f"restaurante_{visita['restaurante_id']}"
+                motor_call("redis", "consultas", "registrar_visita", nombre, visita["tipo_comida"])
+                sync_redis = True
+            except Exception:
+                sync_redis = False
+
+        resultado = [{**limpiar_docs(resultado_cassandra), "sincronizado_neo4j": bool(sync_neo4j), "sincronizado_redis": sync_redis}]
         return ok_response(query, "sql", resultado, exito=True)
     except Exception as e:
         return error_response(query, str(e), lenguaje="sql")

@@ -257,7 +257,8 @@ def mongo_insertar_resena():
         nid    = (max_id.get("resena_id") or 0) + 1
         doc    = {"resena_id": nid, "dni_usuario": dni,
                   "restaurante_id": restaurante_id, "puntaje": puntaje,
-                  "comentario": comentario, "fecha": fecha_hoy}
+                  "comentario": comentario, "fecha": fecha_hoy,
+                  "synced_neo4j": False}
         res = db.resenas.insert_one(doc)
 
         # Mantiene consistente el promedio del restaurante después de insertar.
@@ -271,12 +272,54 @@ def mongo_insertar_resena():
                 {"$set": {"calificacion_promedio": round(promedio[0]["promedio"], 1)}}
             )
 
+        # Intentar escribir también en Neo4j (dual-write). Si falla, la reseña queda marcada
+        # con "synced_neo4j": False para reintentos posteriores por un reconciler.
+        cypher = """
+MERGE (u:Usuario {dni_usuario: $dni})
+MERGE (r:Restaurante {restaurante_id: $rid})
+MERGE (u)-[c:CALIFICO {resena_id: $id}]->(r)
+SET c.puntaje = $puntaje, c.comentario = $comentario, c.fecha = date($fecha)
+"""
+        import time
+
+        success_neo = False
+        last_err = None
+        for attempt in range(3):
+            try:
+                neo4j_run(cypher, {
+                    "dni": dni,
+                    "rid": restaurante_id,
+                    "id": nid,
+                    "puntaje": puntaje,
+                    "comentario": comentario,
+                    "fecha": fecha_hoy,
+                })
+                success_neo = True
+                break
+            except Exception as e:
+                last_err = str(e)
+                time.sleep(1)
+
+        if success_neo:
+            db.resenas.update_one({"resena_id": nid}, {"$set": {"synced_neo4j": True}})
+            return jsonify({"query": query, "lenguaje": "javascript",
+                            "resultado": [{"inserted_id": str(res.inserted_id),
+                                           "resena_id": nid,
+                                           "fecha": fecha_hoy,
+                                           "promedio_recalculado": True,
+                                           "sync_neo4j": True}],
+                            "exito": True})
+
+        # Si no se pudo sincronizar con Neo4j, registrar error y devolver aviso 202 (aceptado parcial)
+        db.resenas.update_one({"resena_id": nid}, {"$set": {"synced_neo4j": False, "sync_error": last_err}})
         return jsonify({"query": query, "lenguaje": "javascript",
+                        "warning": "No se pudo sincronizar con Neo4j; reseña marcada para reintento",
                         "resultado": [{"inserted_id": str(res.inserted_id),
                                        "resena_id": nid,
                                        "fecha": fecha_hoy,
-                                       "promedio_recalculado": True}],
-                        "exito": True})
+                                       "promedio_recalculado": True,
+                                       "sync_neo4j": False}],
+                        "exito": True}), 202
     except Exception as e:
         return jsonify({"query": query, "error": str(e), "resultado": []}), 500
 

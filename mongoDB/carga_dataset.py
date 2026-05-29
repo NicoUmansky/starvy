@@ -2,7 +2,7 @@ import json
 
 from config import DATASET_DIR
 from conexion import obtener_coleccion
-from escrituras import recalcular_calificacion_promedio
+from mongoDB.escrituras import recalcular_calificacion_promedio
 
 
 def _leer_json(nombre_archivo):

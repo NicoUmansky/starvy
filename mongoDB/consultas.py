@@ -32,19 +32,20 @@ def buscar_restaurantes_por_filtros(tipo_comida=None, calificacion_minima=None, 
     """
     Busca restaurantes aplicando filtros opcionales por tipo de comida,
     calificacion minima y barrio/zona.
+
+    Esta función queda como fuente del frontend. Por eso el filtro textual es
+    flexible (CONTAINS mediante regex) y el filtro de calificación es robusto:
+    si se pide 5, acepta valores >= 4.95 para evitar problemas de redondeo visual.
     """
     filtro = {}
 
     if tipo_comida:
-        filtro["tipo_comida"] = {"$regex": f"^{re.escape(tipo_comida)}$", "$options": "i"}
-
-    if calificacion_minima is not None:
-        filtro["calificacion_promedio"] = {"$gte": float(calificacion_minima)}
+        filtro["tipo_comida"] = {"$regex": re.escape(str(tipo_comida)), "$options": "i"}
 
     if barrio:
-        filtro["barrio"] = {"$regex": f"^{re.escape(barrio)}$", "$options": "i"}
+        filtro["barrio"] = {"$regex": re.escape(str(barrio)), "$options": "i"}
 
-    restaurantes = obtener_coleccion("restaurantes").find(
+    documentos = list(obtener_coleccion("restaurantes").find(
         filtro,
         {
             "_id": 0,
@@ -56,9 +57,22 @@ def buscar_restaurantes_por_filtros(tipo_comida=None, calificacion_minima=None, 
             "calificacion_promedio": 1,
             "platos": 1
         }
-    ).sort("calificacion_promedio", -1).limit(limite)
+    ))
 
-    return imprimir_documentos("Restaurantes encontrados por filtros", restaurantes)
+    def rating_num(doc):
+        try:
+            return float(doc.get("calificacion_promedio", 0) or 0)
+        except Exception:
+            return 0.0
+
+    if calificacion_minima is not None:
+        calificacion_minima = float(calificacion_minima)
+        umbral = 4.95 if calificacion_minima >= 5 else calificacion_minima
+        documentos = [doc for doc in documentos if rating_num(doc) >= umbral]
+
+    documentos.sort(key=rating_num, reverse=True)
+    documentos = documentos[:limite]
+    return imprimir_documentos("Restaurantes encontrados por filtros", documentos)
 
 
 def ver_mis_resenas(dni_usuario, limite=10):
@@ -68,7 +82,7 @@ def ver_mis_resenas(dni_usuario, limite=10):
     pipeline = [
         {"$match": {"dni_usuario": int(dni_usuario), "comentario": {"$ne": ""}}},
         {"$sort": {"fecha": -1, "resena_id": -1}},
-        {"$limit": limite},
+        {"$limit": int(limite)},
         {
             "$lookup": {
                 "from": "restaurantes",
@@ -102,7 +116,7 @@ def ver_mis_calificaciones(dni_usuario, limite=10):
     pipeline = [
         {"$match": {"dni_usuario": int(dni_usuario)}},
         {"$sort": {"fecha": -1, "resena_id": -1}},
-        {"$limit": limite},
+        {"$limit": int(limite)},
         {
             "$lookup": {
                 "from": "restaurantes",
@@ -135,7 +149,7 @@ def ver_resenas_de_restaurante(restaurante_id, limite=10):
     pipeline = [
         {"$match": {"restaurante_id": int(restaurante_id)}},
         {"$sort": {"fecha": -1, "resena_id": -1}},
-        {"$limit": limite},
+        {"$limit": int(limite)},
         {
             "$lookup": {
                 "from": "usuarios",
@@ -198,6 +212,7 @@ def ejecutar_consultas(dni_usuario=44000001, restaurante_id=1):
     ver_mis_calificaciones(dni_usuario)
     ver_calificacion_restaurante(restaurante_id)
     ver_resenas_de_restaurante(restaurante_id)
+
 
 def main():
     ver_mis_resenas(dni_usuario=44000001)

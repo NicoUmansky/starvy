@@ -165,3 +165,98 @@ def ejecutar_escrituras(username="VitoNava"):
     consultar_perfil_usuario(username)
     consultar_usuarios_que_sigue(username)
     recomendar_bien_calificados_por_amigos(username)
+
+
+def sincronizar_resena_desde_mongo(dni_usuario, restaurante_id, resena_id, puntaje, comentario, fecha):
+    """
+    Mantiene consistencia MongoDB -> Neo4j.
+    Cuando MongoDB inserta una reseña/calificación, Neo4j crea o actualiza
+    la relación (:Usuario)-[:CALIFICO]->(:Restaurante) con el mismo resena_id.
+    """
+    consulta = """
+        MATCH (u:Usuario {dni_usuario: toInteger($dni_usuario)})
+        MATCH (r:Restaurante {restaurante_id: toInteger($restaurante_id)})
+        MERGE (u)-[c:CALIFICO {resena_id: toInteger($resena_id)}]->(r)
+        SET c.puntaje = toInteger($puntaje),
+            c.comentario = $comentario,
+            c.fecha = date($fecha),
+            c.origen = 'sync_mongodb_frontend'
+        RETURN u.username AS usuario,
+               r.nombre AS restaurante,
+               c.resena_id AS resena_id,
+               c.puntaje AS puntaje,
+               c.fecha AS fecha
+    """
+    driver = obtener_driver()
+    try:
+        with obtener_session(driver) as session:
+            fila = session.run(consulta, {
+                "dni_usuario": dni_usuario,
+                "restaurante_id": restaurante_id,
+                "resena_id": resena_id,
+                "puntaje": puntaje,
+                "comentario": comentario,
+                "fecha": fecha,
+            }).single()
+    finally:
+        driver.close()
+
+    registro = fila.data() if fila else None
+    _imprimir_registro("Sync MongoDB -> Neo4j: reseña/calificación", registro)
+    return registro
+
+
+def sincronizar_visita_desde_cassandra(**visita):
+    """
+    Mantiene consistencia Cassandra -> Neo4j.
+    Cuando Cassandra registra una visita, Neo4j crea/actualiza VISITO y PIDIO
+    para que las recomendaciones sociales vean la misma interacción.
+    """
+    consulta = """
+        MATCH (u:Usuario {dni_usuario: toInteger($dni_usuario)})
+        MATCH (r:Restaurante {restaurante_id: toInteger($restaurante_id)})
+        MERGE (p:Plato {plato_id: toInteger($plato_id)})
+        SET p.nombre = $plato_nombre,
+            p.plato_nombre = $plato_nombre,
+            p.tipo_comida = $tipo_comida
+        MERGE (r)-[:OFRECE]->(p)
+        MERGE (u)-[v:VISITO {visita_id: toInteger($visita_id)}]->(r)
+        SET v.fecha = date($fecha),
+            v.hora = localtime($hora),
+            v.monto = toFloat($monto),
+            v.barrio = $barrio,
+            v.origen = 'sync_cassandra_frontend'
+        MERGE (u)-[pedido:PIDIO {visita_id: toInteger($visita_id)}]->(p)
+        SET pedido.fecha = date($fecha),
+            pedido.hora = localtime($hora),
+            pedido.monto = toFloat($monto),
+            pedido.plato_nombre = $plato_nombre,
+            pedido.tipo_comida = $tipo_comida,
+            pedido.origen = 'sync_cassandra_frontend'
+        RETURN u.username AS usuario,
+               r.nombre AS restaurante,
+               p.nombre AS plato,
+               v.visita_id AS visita_id,
+               v.fecha AS fecha
+    """
+    driver = obtener_driver()
+    try:
+        with obtener_session(driver) as session:
+            fila = session.run(consulta, {
+                "dni_usuario": int(visita["dni_usuario"]),
+                "restaurante_id": int(visita["restaurante_id"]),
+                "visita_id": int(visita["visita_id"]),
+                "plato_id": int(visita.get("plato_id", 0)),
+                "plato_nombre": visita.get("plato_nombre", "Plato registrado"),
+                "tipo_comida": visita.get("tipo_comida", "Sin tipo"),
+                "barrio": visita.get("barrio", ""),
+                "monto": float(visita.get("monto", 0)),
+                "fecha": str(visita["fecha"]),
+                "hora": str(visita.get("hora", "12:00:00"))[:8],
+            }).single()
+    finally:
+        driver.close()
+
+    registro = fila.data() if fila else None
+    _imprimir_registro("Sync Cassandra -> Neo4j: visita/pedido", registro)
+    return registro

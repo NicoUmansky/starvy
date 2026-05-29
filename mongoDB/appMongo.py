@@ -2,7 +2,7 @@ from pymongo.errors import ServerSelectionTimeoutError
 
 from carga_dataset import cargar_dataset, limpiar_colecciones
 from conexion import cerrar_conexion, probar_conexion
-from consultas import (
+from mongoDB.consultas import (
     buscar_restaurantes_por_filtros,
     ejecutar_consultas,
     validar_credenciales,
@@ -10,7 +10,7 @@ from consultas import (
     ver_mis_resenas
 )
 from esquema import crear_indices, verificar_esquema
-from escrituras import (
+from mongoDB.escrituras import (
     ejecutar_escrituras,
     insertar_calificacion,
     insertar_resena,

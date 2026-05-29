@@ -272,3 +272,20 @@ def ejecutar_escrituras():
     ver_mis_resenas(dni_usuario)
     ver_mis_calificaciones(dni_usuario)
     ver_calificacion_restaurante(1)
+
+
+def eliminar_resena_por_id(resena_id):
+    """
+    Función de compensación para mantener consistencia si falla una sincronización externa.
+    Elimina una reseña por resena_id y recalcula el promedio del restaurante afectado.
+    """
+    resenas = obtener_coleccion("resenas")
+    documento = resenas.find_one({"resena_id": int(resena_id)})
+    if documento is None:
+        return None
+
+    restaurante_id = documento["restaurante_id"]
+    resenas.delete_one({"resena_id": int(resena_id)})
+    promedio = recalcular_calificacion_promedio(restaurante_id)
+    print(f"\nReseña {resena_id} eliminada por compensación. Promedio recalculado: {promedio}")
+    return {"resena_id": int(resena_id), "restaurante_id": restaurante_id, "promedio_recalculado": promedio}

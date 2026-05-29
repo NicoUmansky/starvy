@@ -325,3 +325,64 @@ def ejecutar_consultas(username=USERNAME_DEMO):
     recomendar_por_usuarios_similares(username)
     recomendar_por_contenido(username)
     explicar_camino_de_recomendacion(username)
+
+
+def consultar_detalle_perfil_usuario(username):
+    """
+    Consulta ampliada para el frontend.
+    Devuelve el perfil con listas reales de usuarios/restaurantes para poder dibujar grafo.
+    """
+    consulta = """
+        MATCH (u:Usuario {username: $username})
+        CALL {
+          WITH u
+          OPTIONAL MATCH (u)-[:SIGUE]->(s:Usuario)
+          RETURN count(s) AS siguiendo,
+                 collect(DISTINCT {
+                   username: s.username,
+                   nombre: trim(coalesce(s.nombre,'') + ' ' + coalesce(s.apellido,''))
+                 })[0..15] AS siguiendo_usuarios
+        }
+        CALL {
+          WITH u
+          OPTIONAL MATCH (f:Usuario)-[:SIGUE]->(u)
+          RETURN count(f) AS seguidores,
+                 collect(DISTINCT {
+                   username: f.username,
+                   nombre: trim(coalesce(f.nombre,'') + ' ' + coalesce(f.apellido,''))
+                 })[0..15] AS seguidores_usuarios
+        }
+        CALL {
+          WITH u
+          OPTIONAL MATCH (u)-[v:VISITO]->(r:Restaurante)
+          RETURN count(v) AS visitas,
+                 collect(DISTINCT {
+                   restaurante: r.nombre,
+                   barrio: r.barrio,
+                   tipo_comida: r.tipo_comida,
+                   fecha: toString(v.fecha)
+                 })[0..15] AS visitas_restaurantes
+        }
+        CALL {
+          WITH u
+          OPTIONAL MATCH (u)-[c:CALIFICO]->(r:Restaurante)
+          RETURN count(c) AS resenas,
+                 collect(DISTINCT {
+                   restaurante: r.nombre,
+                   puntaje: c.puntaje,
+                   comentario: c.comentario,
+                   fecha: toString(c.fecha)
+                 })[0..15] AS resenas_restaurantes
+        }
+        RETURN u.username AS username,
+               trim(coalesce(u.nombre,'') + ' ' + coalesce(u.apellido,'')) AS nombre,
+               siguiendo, seguidores, visitas, resenas,
+               siguiendo_usuarios, seguidores_usuarios,
+               visitas_restaurantes, resenas_restaurantes
+    """
+
+    return ejecutar_consulta(
+        f"Perfil social ampliado de {username}",
+        consulta,
+        {"username": username}
+    )

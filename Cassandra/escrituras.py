@@ -18,14 +18,31 @@ def actualizar_rankings_redis_si_disponible(restaurante_id, tipo_comida):
     """
     Intenta actualizar los rankings de Redis tras insertar una visita en Cassandra.
     Si Redis no está disponible, lo informa y continúa sin interrumpir el flujo.
-    Usa restaurante_id como identificador porque Cassandra no almacena el nombre.
+    Para el ranking de restaurantes intenta obtener el nombre real desde MongoDB;
+    si Mongo no está disponible usa restaurante_{id}.
     """
     redis_dir = Path(__file__).resolve().parent.parent / "Redis"
     redis_consultas = redis_dir / "consultas.py"
 
     if not redis_consultas.exists():
         print("No se actualizó Redis: no se encontró Redis/consultas.py.")
-        return
+        return None
+
+    nombre_restaurante = f"restaurante_{restaurante_id}"
+    try:
+        mongo_dir = Path(__file__).resolve().parent.parent / "mongoDB"
+        if str(mongo_dir) not in sys.path:
+            sys.path.insert(0, str(mongo_dir))
+        spec_mongo = importlib.util.spec_from_file_location("mongo_conexion_cassandra", mongo_dir / "conexion.py")
+        mongo_conexion = importlib.util.module_from_spec(spec_mongo)
+        spec_mongo.loader.exec_module(mongo_conexion)
+        doc = mongo_conexion.obtener_coleccion("restaurantes").find_one(
+            {"restaurante_id": int(restaurante_id)}, {"_id": 0, "nombre": 1}
+        )
+        if doc and doc.get("nombre"):
+            nombre_restaurante = doc["nombre"]
+    except Exception:
+        pass
 
     try:
         if str(redis_dir) not in sys.path:
@@ -35,9 +52,11 @@ def actualizar_rankings_redis_si_disponible(restaurante_id, tipo_comida):
         mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
 
-        mod.registrar_visita(f"restaurante_{restaurante_id}", tipo_comida)
+        mod.registrar_visita(nombre_restaurante, tipo_comida)
+        return {"restaurante": nombre_restaurante, "tipo_comida": tipo_comida}
     except Exception as error:
         print(f"No se pudo actualizar Redis: {error}")
+        return None
 
 
 def existe_promocion(session, restaurante_id, estado, fecha_fin, promocion_id):
@@ -340,3 +359,105 @@ def ejecutar_escrituras():
     consultar_visitas_por_restaurante_dia(14, "2026-05-12")
     consultar_historial_visitas_usuario(44000014)
     consultar_plato_mas_vendido(14, "2026-05-12")
+
+def registrar_visita(nueva_visita):
+    """
+    Inserta una visita parametrizable desde el frontend usando la lógica del motor Cassandra.
+    Mantiene las tres tablas desnormalizadas y actualiza Redis con la función existente.
+    """
+    cluster, session = conectar_con_keyspace()
+
+    try:
+        import time
+        nueva_visita = dict(nueva_visita or {})
+        nueva_visita.setdefault("visita_id", int(time.time()))
+        nueva_visita.setdefault("fecha", "2026-05-15")
+        nueva_visita.setdefault("hora", "12:00:00")
+        nueva_visita.setdefault("barrio", "Sin barrio")
+        nueva_visita.setdefault("tipo_comida", "Sin tipo")
+        nueva_visita.setdefault("plato_nombre", "Plato registrado")
+        nueva_visita.setdefault("plato_id", 0)
+        nueva_visita.setdefault("monto", 0)
+
+        fecha = convertir_fecha(nueva_visita["fecha"])
+        hora = convertir_hora(str(nueva_visita["hora"])[:5])
+        monto = Decimal(str(nueva_visita["monto"]))
+        visita_id = int(nueva_visita["visita_id"])
+        restaurante_id = int(nueva_visita["restaurante_id"])
+        dni_usuario = int(nueva_visita["dni_usuario"])
+        plato_id = int(nueva_visita["plato_id"])
+
+        if existe_visita(session, restaurante_id, fecha, hora, visita_id):
+            print("\nQ6 - La visita ya existe. No se vuelve a insertar.")
+            return {
+                **nueva_visita,
+                "visita_id": visita_id,
+                "restaurante_id": restaurante_id,
+                "dni_usuario": dni_usuario,
+                "plato_id": plato_id,
+                "fecha": str(fecha),
+                "hora": str(hora),
+                "monto": float(monto),
+                "status": "La visita ya existía"
+            }
+
+        insert_visita_restaurante = session.prepare("""
+            INSERT INTO visitas_por_restaurante_dia (
+                restaurante_id, fecha, hora, visita_id, dni_usuario,
+                plato_id, plato_nombre, tipo_comida, barrio, monto
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+        """)
+
+        insert_visita_usuario = session.prepare("""
+            INSERT INTO visitas_por_usuario_fecha (
+                dni_usuario, fecha, hora, visita_id, restaurante_id,
+                plato_id, plato_nombre, tipo_comida, monto
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+        """)
+
+        insert_metrica = session.prepare("""
+            INSERT INTO metricas_restaurante_por_dia (
+                restaurante_id, fecha, cantidad_vendida, plato_id,
+                plato_nombre, tipo_comida, total_ingresos
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?);
+        """)
+
+        session.execute(insert_visita_restaurante, (
+            restaurante_id, fecha, hora, visita_id, dni_usuario,
+            plato_id, nueva_visita["plato_nombre"], nueva_visita["tipo_comida"],
+            nueva_visita["barrio"], monto
+        ))
+
+        session.execute(insert_visita_usuario, (
+            dni_usuario, fecha, hora, visita_id, restaurante_id,
+            plato_id, nueva_visita["plato_nombre"], nueva_visita["tipo_comida"], monto
+        ))
+
+        session.execute(insert_metrica, (
+            restaurante_id, fecha, 1, plato_id,
+            nueva_visita["plato_nombre"], nueva_visita["tipo_comida"], monto
+        ))
+
+        sync_redis = actualizar_rankings_redis_si_disponible(restaurante_id, nueva_visita["tipo_comida"])
+
+        print("\nQ6 - Nueva visita insertada correctamente desde frontend.")
+        return {
+            "status": "Visita insertada correctamente",
+            "visita_id": visita_id,
+            "dni_usuario": dni_usuario,
+            "restaurante_id": restaurante_id,
+            "plato_id": plato_id,
+            "plato_nombre": nueva_visita["plato_nombre"],
+            "tipo_comida": nueva_visita["tipo_comida"],
+            "barrio": nueva_visita["barrio"],
+            "fecha": str(fecha),
+            "hora": str(hora),
+            "monto": float(monto),
+            "sincronizado_redis": bool(sync_redis)
+        }
+    finally:
+        session.shutdown()
+        cluster.shutdown()

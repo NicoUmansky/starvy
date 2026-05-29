@@ -23,11 +23,6 @@ def _restaurantes_collection():
 
 
 # ─── Funcionalidad 1: Crear y cerrar sesiones ─────────────────────────────────
-#
-# Cuando un usuario hace login en MongoDB, se genera un token UUID que se guarda
-# en Redis con SETEX. El TTL (por defecto 1 hora) hace que la sesión expire
-# automáticamente sin que ningún otro motor tenga que intervenir.
-# Redis ES fuente de verdad para sesiones: si se pierde, el usuario vuelve a loguearse.
 
 def crear_sesion(user_id, ttl=3600):
     """
@@ -45,28 +40,31 @@ def crear_sesion(user_id, ttl=3600):
 def cerrar_sesion(user_id):
     """
     Elimina la sesión del usuario borrando su key en Redis.
-    Equivale a un logout explícito antes de que expire el TTL.
     """
     r.delete(f"sesion:{user_id}")
     print(f"Sesión cerrada para {user_id}")
+    return {"usuario": user_id, "sesion_cerrada": True}
 
 
 # ─── Funcionalidad 2: Consultar sesiones activas ──────────────────────────────
-#
-# Permite ver qué usuarios tienen sesión vigente en este momento.
-# En producción se usaría SCAN en lugar de KEYS para no bloquear el servidor.
 
 def verificar_sesion(user_id):
     """
     Verifica si el usuario tiene una sesión activa en Redis.
-    Retorna True si existe la key, False si expiró o nunca se creó.
     """
     token = r.get(f"sesion:{user_id}")
-    if token:
+    ttl = r.ttl(f"sesion:{user_id}")
+    activa = token is not None
+    if activa:
         print(f"Sesión activa | Usuario: {user_id} | Token: {token}")
-        return True
-    print(f"Sin sesión activa para {user_id}")
-    return False
+    else:
+        print(f"Sin sesión activa para {user_id}")
+    return {
+        "usuario": user_id,
+        "sesion_activa": activa,
+        "token": token or "sin sesion",
+        "ttl_segundos": ttl
+    }
 
 
 def ver_sesiones_activas():
@@ -76,68 +74,69 @@ def ver_sesiones_activas():
     claves = r.keys("sesion:*")
     if not claves:
         print("No hay sesiones activas.")
-        return
+        return []
+
+    filas = []
     print(f"{len(claves)} sesión(es) activa(s):")
     for clave in claves:
         token = r.get(clave)
         ttl = r.ttl(clave)
-        user_id = clave.split(":")[1]
+        user_id = clave.split(":", 1)[1]
         print(f"  Usuario: {user_id} | Token: {token} | Expira en: {ttl}s")
+        filas.append({"usuario": user_id, "token": token, "ttl_segundos": ttl, "sesion_activa": True})
+    return filas
 
 
 # ─── Funcionalidad 3: Ranking de restaurantes más visitados ───────────────────
-#
-# Usa un Sorted Set donde cada miembro es el nombre del restaurante y el score
-# es la cantidad de visitas. ZINCRBY incrementa el score en O(log N).
-# La fuente de verdad es Cassandra (visitas_por_restaurante_dia).
-# Redis NO es fuente de verdad: si se pierde, se reconstruye con reconstruir_desde_cassandra().
 
 def registrar_visita_restaurante(nombre_restaurante):
     """
     Incrementa en 1 el contador de visitas del restaurante en el Sorted Set.
-    Llamar junto con el INSERT de visita en Cassandra.
     """
     r.zincrby("ranking:restaurante", 1, nombre_restaurante)
+    return nombre_restaurante
 
 
 def ver_ranking_restaurantes(top_n=10):
     """
-    Muestra el top N de restaurantes ordenados por cantidad de visitas (mayor a menor).
-    ZREVRANGE devuelve los elementos en orden descendente por score.
+    Muestra el top N de restaurantes ordenados por cantidad de visitas.
     """
-    resultados = r.zrevrange("ranking:restaurante", 0, top_n - 1, withscores=True)
+    resultados = r.zrevrange("ranking:restaurante", 0, int(top_n) - 1, withscores=True)
     print(f"\nTop {top_n} restaurantes más visitados:")
+    filas = []
     if not resultados:
         print("  Sin datos. Ejecutá reconstruir_desde_cassandra() primero.")
-        return
+        return filas
     for i, (nombre, visitas) in enumerate(resultados, 1):
         print(f"  {i}. {nombre} — {int(visitas)} visitas")
+        filas.append({"posicion": i, "restaurante": nombre, "visitas": int(visitas)})
+    return filas
 
 
 # ─── Funcionalidad 4: Ranking de tipos de comida ─────────────────────────────
-#
-# Mismo mecanismo que el ranking de restaurantes pero por tipo de cocina.
-# La fuente de verdad es Cassandra (metricas_restaurante_por_dia, campo tipo_comida).
 
 def registrar_visita_tipo_comida(tipo_comida):
     """
     Incrementa en 1 el contador del tipo de comida en el Sorted Set.
-    Llamar junto con el INSERT de visita en Cassandra.
     """
     r.zincrby("ranking:tipoComida", 1, tipo_comida)
+    return tipo_comida
 
 
 def ver_ranking_tipos_comida(top_n=10):
     """
-    Muestra el top N de tipos de comida ordenados por popularidad (mayor a menor).
+    Muestra el top N de tipos de comida ordenados por popularidad.
     """
-    resultados = r.zrevrange("ranking:tipoComida", 0, top_n - 1, withscores=True)
+    resultados = r.zrevrange("ranking:tipoComida", 0, int(top_n) - 1, withscores=True)
     print(f"\nTop {top_n} tipos de comida más pedidos:")
+    filas = []
     if not resultados:
         print("  Sin datos. Ejecutá reconstruir_desde_cassandra() primero.")
-        return
+        return filas
     for i, (tipo, cantidad) in enumerate(resultados, 1):
         print(f"  {i}. {tipo} — {int(cantidad)} pedidos")
+        filas.append({"posicion": i, "tipo_comida": tipo, "pedidos": int(cantidad)})
+    return filas
 
 
 def registrar_visita(nombre_restaurante, tipo_comida):
@@ -147,15 +146,12 @@ def registrar_visita(nombre_restaurante, tipo_comida):
     """
     registrar_visita_restaurante(nombre_restaurante)
     registrar_visita_tipo_comida(tipo_comida)
+    return {"restaurante": nombre_restaurante, "tipo_comida": tipo_comida, "rankings_actualizados": True}
 
 
 def reconstruir_desde_cassandra():
     """
     Reconstruye los rankings desde cero cuando Redis pierde su estado.
-    Lee todas las visitas de Cassandra, cuenta en Python, y consulta MongoDB
-    para obtener el nombre del restaurante a partir del restaurante_id.
-    Usa ALLOW FILTERING porque la tabla está particionada por (restaurante_id, fecha)
-    y necesitamos recorrer todas las particiones.
     """
     from cassandra.cluster import Cluster
 
@@ -179,7 +175,6 @@ def reconstruir_desde_cassandra():
     session.shutdown()
     cluster.shutdown()
 
-    # Limpiar los sorted sets antes de recargar
     r.delete("ranking:restaurante")
     r.delete("ranking:tipoComida")
 
@@ -192,37 +187,35 @@ def reconstruir_desde_cassandra():
         r.zincrby("ranking:restaurante", visitas, nombre)
 
     print("Rankings reconstruidos desde Cassandra y MongoDB.")
-    ver_ranking_restaurantes()
-    ver_ranking_tipos_comida()
+    return {
+        "restaurantes": ver_ranking_restaurantes(),
+        "tipos_comida": ver_ranking_tipos_comida()
+    }
 
 
 # ─── Funcionalidad 5: Últimas búsquedas de un usuario ────────────────────────
-#
-# Usa una List por usuario. LPUSH inserta al principio, por lo que el elemento
-# más reciente siempre queda en el índice 0. LTRIM recorta la lista para que
-# no crezca más allá de _MAX_BUSQUEDAS entradas.
-# Redis ES fuente de verdad: este dato no existe en ningún otro motor.
-# Si se pierde, está bien: las búsquedas recientes son efímeras por naturaleza.
 
 def registrar_busqueda(user_id, termino):
     """
-    Agrega el término al inicio del historial del usuario y descarta los más viejos
-    si superan el límite de _MAX_BUSQUEDAS.
+    Agrega el término al inicio del historial del usuario y descarta los más viejos.
     """
     r.lpush(f"busqueda:{user_id}", termino)
     r.ltrim(f"busqueda:{user_id}", 0, _MAX_BUSQUEDAS - 1)
     print(f"Búsqueda registrada para {user_id}: '{termino}'")
+    return ver_ultimas_busquedas(user_id)
 
 
 def ver_ultimas_busquedas(user_id):
     """
-    Devuelve las últimas búsquedas del usuario en orden cronológico inverso
-    (la más reciente primero).
+    Devuelve las últimas búsquedas del usuario en orden cronológico inverso.
     """
     busquedas = r.lrange(f"busqueda:{user_id}", 0, _MAX_BUSQUEDAS - 1)
     print(f"\nÚltimas búsquedas de {user_id}:")
+    filas = []
     if not busquedas:
         print("  Sin búsquedas registradas.")
-        return
+        return filas
     for i, termino in enumerate(busquedas, 1):
         print(f"  {i}. {termino}")
+        filas.append({"posicion": i, "termino": termino})
+    return filas

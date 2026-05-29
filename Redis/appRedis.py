@@ -1,4 +1,4 @@
-from consultas import (
+from Redis.consultas import (
     crear_sesion,
     cerrar_sesion,
     verificar_sesion,

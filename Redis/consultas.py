@@ -96,23 +96,34 @@ def registrar_visita_restaurante(nombre_restaurante):
     r.zincrby("ranking:restaurante", 1, nombre_restaurante)
     return nombre_restaurante
 
-
 def ver_ranking_restaurantes(top_n=10):
     """
-    Muestra el top N de restaurantes ordenados por cantidad de visitas.
+    Devuelve el top N de restaurantes más visitados.
+
+    Antes reconstruye el ranking desde Cassandra para asegurar que Redis
+    tenga datos completos y nombres correctos.
     """
-    resultados = r.zrevrange("ranking:restaurante", 0, int(top_n) - 1, withscores=True)
-    print(f"\nTop {top_n} restaurantes más visitados:")
-    filas = []
-    if not resultados:
-        print("  Sin datos. Ejecutá reconstruir_desde_cassandra() primero.")
-        return filas
-    for i, (nombre, visitas) in enumerate(resultados, 1):
-        print(f"  {i}. {nombre} — {int(visitas)} visitas")
-        filas.append({"posicion": i, "restaurante": nombre, "visitas": int(visitas)})
-    return filas
+    top_n = int(top_n)
 
+    reconstruir_desde_cassandra()
 
+    resultados = r.zrevrange(
+        "ranking:restaurante",
+        0,
+        top_n - 1,
+        withscores=True
+    )
+
+    return [
+        {
+            "puesto": i,
+            "nombre": nombre,
+            "restaurante": nombre,
+            "visitas": int(score),
+            "score": int(score)
+        }
+        for i, (nombre, score) in enumerate(resultados, 1)
+    ]
 # ─── Funcionalidad 4: Ranking de tipos de comida ─────────────────────────────
 
 def registrar_visita_tipo_comida(tipo_comida):
@@ -125,18 +136,29 @@ def registrar_visita_tipo_comida(tipo_comida):
 
 def ver_ranking_tipos_comida(top_n=10):
     """
-    Muestra el top N de tipos de comida ordenados por popularidad.
+    Devuelve el top N de tipos de comida más pedidos.
     """
-    resultados = r.zrevrange("ranking:tipoComida", 0, int(top_n) - 1, withscores=True)
-    print(f"\nTop {top_n} tipos de comida más pedidos:")
-    filas = []
-    if not resultados:
-        print("  Sin datos. Ejecutá reconstruir_desde_cassandra() primero.")
-        return filas
-    for i, (tipo, cantidad) in enumerate(resultados, 1):
-        print(f"  {i}. {tipo} — {int(cantidad)} pedidos")
-        filas.append({"posicion": i, "tipo_comida": tipo, "pedidos": int(cantidad)})
-    return filas
+    top_n = int(top_n)
+
+    reconstruir_desde_cassandra()
+
+    resultados = r.zrevrange(
+        "ranking:tipoComida",
+        0,
+        top_n - 1,
+        withscores=True
+    )
+
+    return [
+        {
+            "puesto": i,
+            "tipo_comida": tipo,
+            "nombre": tipo,
+            "pedidos": int(score),
+            "score": int(score)
+        }
+        for i, (tipo, score) in enumerate(resultados, 1)
+    ]
 
 
 def registrar_visita(nombre_restaurante, tipo_comida):
@@ -151,24 +173,42 @@ def registrar_visita(nombre_restaurante, tipo_comida):
 
 def reconstruir_desde_cassandra():
     """
-    Reconstruye los rankings desde cero cuando Redis pierde su estado.
+    Reconstruye los rankings de Redis desde Cassandra.
+
+    Cassandra aporta las visitas reales.
+    DATASET/restaurantes.json aporta el nombre correcto del restaurante.
+    Redis guarda el ranking ya preparado para responder rápido.
     """
+    import json
+    from pathlib import Path
+    from collections import Counter
     from cassandra.cluster import Cluster
 
-    restaurantes = _restaurantes_collection()
+    base_dir = Path(__file__).resolve().parent.parent
+    restaurantes_path = base_dir / "DATASET" / "restaurantes.json"
+
+    with open(restaurantes_path, "r", encoding="utf-8") as f:
+        restaurantes = json.load(f)
+
+    mapa_restaurantes = {
+        str(r.get("restaurante_id")): r.get("nombre", f"Restaurante {r.get('restaurante_id')}")
+        for r in restaurantes
+    }
 
     cluster = Cluster(["127.0.0.1"], port=9042)
     session = cluster.connect("starvy")
 
     filas = session.execute(
-        "SELECT restaurante_id, tipo_comida FROM visitas_por_restaurante_dia ALLOW FILTERING"
+        "SELECT restaurante_id, tipo_comida FROM visitas_por_restaurante_dia"
     )
 
     contador_restaurante = Counter()
     contador_tipo = Counter()
 
     for fila in filas:
-        contador_restaurante[fila.restaurante_id] += 1
+        restaurante_id = str(fila.restaurante_id)
+        contador_restaurante[restaurante_id] += 1
+
         if fila.tipo_comida:
             contador_tipo[fila.tipo_comida] += 1
 
@@ -178,19 +218,18 @@ def reconstruir_desde_cassandra():
     r.delete("ranking:restaurante")
     r.delete("ranking:tipoComida")
 
-    for tipo, cantidad in contador_tipo.items():
-        r.zincrby("ranking:tipoComida", cantidad, tipo)
+    for restaurante_id, cantidad in contador_restaurante.items():
+        nombre = mapa_restaurantes.get(restaurante_id, f"Restaurante {restaurante_id}")
+        r.zincrby("ranking:restaurante", cantidad, nombre)
 
-    for restaurante_id, visitas in contador_restaurante.items():
-        doc = restaurantes.find_one({"restaurante_id": restaurante_id}, {"nombre": 1})
-        nombre = doc["nombre"] if doc else f"restaurante_{restaurante_id}"
-        r.zincrby("ranking:restaurante", visitas, nombre)
+    for tipo_comida, cantidad in contador_tipo.items():
+        r.zincrby("ranking:tipoComida", cantidad, tipo_comida)
 
-    print("Rankings reconstruidos desde Cassandra y MongoDB.")
     return {
-        "restaurantes": ver_ranking_restaurantes(),
-        "tipos_comida": ver_ranking_tipos_comida()
+        "restaurantes_cargados": len(contador_restaurante),
+        "tipos_cargados": len(contador_tipo)
     }
+
 
 
 # ─── Funcionalidad 5: Últimas búsquedas de un usuario ────────────────────────

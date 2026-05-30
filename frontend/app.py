@@ -181,8 +181,17 @@ def mongo_buscar_restaurantes():
     barrio = request.args.get("barrio", "").strip() or None
     min_cal_raw = request.args.get("min_calificacion", "0")
     min_cal = float(min_cal_raw or 0)
+    dni = request.args.get("dni", "").strip() or None
     query = f"""db.restaurantes.find({{\n  tipo_comida: {tipo!r},\n  barrio: {barrio!r},\n  calificacion_minima: {min_cal}\n}}).sort({{ calificacion_promedio: -1 }}).limit(20)"""
     try:
+        if dni:
+            termino_busqueda = " ".join(filter(None, [tipo, barrio]))
+            if termino_busqueda:
+                try:
+                    if motor_call("redis", "consultas", "verificar_sesion", dni):
+                        motor_call("redis", "consultas", "registrar_busqueda", dni, termino_busqueda)
+                except Exception:
+                    pass
         rows = motor_call(
             "mongo",
             "consultas",
@@ -381,8 +390,15 @@ def neo4j_seguidores():
 @app.route("/api/neo4j/buscar-usuarios")
 def neo4j_buscar_usuarios():
     termino = request.args.get("termino", "val")
+    dni = request.args.get("dni", "").strip() or None
     query = "Neo4j.consultas.buscar_usuarios(termino, limite=20)"
     try:
+        if dni and termino:
+            try:
+                if motor_call("redis", "consultas", "verificar_sesion", dni):
+                    motor_call("redis", "consultas", "registrar_busqueda", dni, termino)
+            except Exception:
+                pass
         rows = motor_call("neo4j", "consultas", "buscar_usuarios", termino, 20)
         return ok_response(query, "cypher", rows)
     except Exception as e:
@@ -595,29 +611,21 @@ def redis_ultimas_busquedas():
 @app.route("/api/redis/registrar-busqueda", methods=["POST"])
 def redis_registrar_busqueda():
     data = request.json or {}
-    user_id = data.get("user_id", "44000009")
-    termino = data.get("termino", "pizza")
+    user_id = data.get("user_id", "").strip()
+    termino = data.get("termino", "").strip()
     query = "Redis.consultas.registrar_busqueda(user_id, termino)"
+    if not user_id:
+        return error_response(query, "Se requiere user_id para registrar una búsqueda.", 400, lenguaje="redis")
+    if not termino:
+        return error_response(query, "Se requiere un término de búsqueda.", 400, lenguaje="redis")
     try:
+        sesion_activa = motor_call("redis", "consultas", "verificar_sesion", user_id)
+        if not sesion_activa:
+            return error_response(query, f"No hay sesión activa para el usuario {user_id}. Iniciá sesión primero.", 401, lenguaje="redis")
         rows = motor_call("redis", "consultas", "registrar_busqueda", user_id, termino)
         return ok_response(query, "redis", rows, exito=True)
     except Exception as e:
         return error_response(query, str(e), lenguaje="redis")
-
-
-@app.route("/api/redis/ping-test")
-def redis_ping_test():
-    import time
-    import redis as redis_lib
-    r = redis_lib.Redis(
-        host='redis-10212.c14.us-east-1-2.ec2.cloud.redislabs.com',
-        port=10212, password='cRWgta2gV5bWacRM2zr5AfVUxUtP5LKE',
-        decode_responses=True, socket_connect_timeout=5
-    )
-    t1 = time.time(); r.ping(); ping_ms = int((time.time()-t1)*1000)
-    t2 = time.time(); r.zcard("ranking:restaurante"); zcard_ms = int((time.time()-t2)*1000)
-    t3 = time.time(); motor_call("redis", "consultas", "ver_ranking_restaurantes", 10); motor_ms = int((time.time()-t3)*1000)
-    return jsonify({"ping_ms": ping_ms, "zcard_ms": zcard_ms, "motor_call_ms": motor_ms})
 
 
 if __name__ == "__main__":

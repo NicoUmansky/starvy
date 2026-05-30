@@ -215,15 +215,18 @@ def reconstruir_desde_cassandra():
     session.shutdown()
     cluster.shutdown()
 
-    r.delete("ranking:restaurante")
-    r.delete("ranking:tipoComida")
+    pipe = r.pipeline()
+    pipe.delete("ranking:restaurante")
+    pipe.delete("ranking:tipoComida")
 
     for restaurante_id, cantidad in contador_restaurante.items():
         nombre = mapa_restaurantes.get(restaurante_id, f"Restaurante {restaurante_id}")
-        r.zincrby("ranking:restaurante", cantidad, nombre)
+        pipe.zincrby("ranking:restaurante", cantidad, nombre)
 
     for tipo_comida, cantidad in contador_tipo.items():
-        r.zincrby("ranking:tipoComida", cantidad, tipo_comida)
+        pipe.zincrby("ranking:tipoComida", cantidad, tipo_comida)
+
+    pipe.execute()
 
     return {
         "restaurantes_cargados": len(contador_restaurante),

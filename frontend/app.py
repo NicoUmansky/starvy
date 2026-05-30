@@ -46,7 +46,6 @@ _SHARED_MODULE_NAMES = [
     "carga_dataset",
     "esquema",
     "mongo_client",
-    "redis_client",
 ]
 
 
@@ -88,13 +87,22 @@ def _engine_import_context(engine: str):
         sys.path = old_path
 
 
+_module_cache: Dict[str, Any] = {}
+
+
 def motor_call(engine: str, module_name: str, function_name: str, *args, **kwargs):
     """Llama una función existente de un motor, capturando prints de consola."""
-    with _engine_import_context(engine):
-        module = importlib.import_module(module_name)
-        function = getattr(module, function_name)
-        with redirect_stdout(io.StringIO()):
-            return function(*args, **kwargs)
+    cache_key = f"{engine}:{module_name}"
+    if cache_key in _module_cache:
+        module = _module_cache[cache_key]
+    else:
+        with _engine_import_context(engine):
+            module = importlib.import_module(module_name)
+        if engine == "redis":
+            _module_cache[cache_key] = module
+    function = getattr(module, function_name)
+    with redirect_stdout(io.StringIO()):
+        return function(*args, **kwargs)
 
 
 def ok_response(query: str, lenguaje: str, resultado: Any, **extra):
@@ -597,5 +605,28 @@ def redis_registrar_busqueda():
         return error_response(query, str(e), lenguaje="redis")
 
 
+@app.route("/api/redis/ping-test")
+def redis_ping_test():
+    import time
+    import redis as redis_lib
+    r = redis_lib.Redis(
+        host='redis-10212.c14.us-east-1-2.ec2.cloud.redislabs.com',
+        port=10212, password='cRWgta2gV5bWacRM2zr5AfVUxUtP5LKE',
+        decode_responses=True, socket_connect_timeout=5
+    )
+    t1 = time.time(); r.ping(); ping_ms = int((time.time()-t1)*1000)
+    t2 = time.time(); r.zcard("ranking:restaurante"); zcard_ms = int((time.time()-t2)*1000)
+    t3 = time.time(); motor_call("redis", "consultas", "ver_ranking_restaurantes", 10); motor_ms = int((time.time()-t3)*1000)
+    return jsonify({"ping_ms": ping_ms, "zcard_ms": zcard_ms, "motor_call_ms": motor_ms})
+
+
 if __name__ == "__main__":
+    import os
+    if os.environ.get("WERKZEUG_RUN_MAIN") != "true":
+        try:
+            print("Reconstruyendo rankings Redis desde Cassandra...")
+            motor_call("redis", "consultas", "reconstruir_desde_cassandra")
+            print("Rankings Redis listos.")
+        except Exception as e:
+            print(f"No se pudo reconstruir Redis desde Cassandra: {e}")
     app.run(debug=True, port=5000)

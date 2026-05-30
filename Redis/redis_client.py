@@ -17,6 +17,9 @@ def get_client() -> redis.Redis:
             port=10212,
             db=0,
             password='cRWgta2gV5bWacRM2zr5AfVUxUtP5LKE',
-            decode_responses=True
+            decode_responses=True,
+            socket_keepalive=True,
+            socket_connect_timeout=5,
+            health_check_interval=30,
         )
     return redis.Redis(connection_pool=_pool)

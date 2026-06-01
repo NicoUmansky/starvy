@@ -155,7 +155,22 @@ def mongo_login():
 def mongo_mis_resenas():
     dni = int(request.args.get("dni", 44000009))
     limit = int(request.args.get("limit", 10))
-    query = f"""db.resenas.aggregate([\n  {{ $match: {{ dni_usuario: {dni}, comentario: {{ $ne: "" }} }} }},\n  {{ $sort: {{ fecha: -1, resena_id: -1 }} }},\n  {{ $limit: {limit} }},\n  {{ $lookup: {{ from: "restaurantes", localField: "restaurante_id", foreignField: "restaurante_id", as: "restaurante" }} }},\n  {{ $unwind: "$restaurante" }}\n])"""
+    query = f"""db.resenas.aggregate([
+  {{ $match: {{ dni_usuario: {dni}, comentario: {{ $ne: "" }} }} }},
+  {{ $sort: {{ fecha: -1, resena_id: -1 }} }},
+  {{ $limit: {limit} }},
+  {{ $lookup: {{ from: "restaurantes", localField: "restaurante_id", foreignField: "restaurante_id", as: "restaurante" }} }},
+  {{ $unwind: "$restaurante" }},
+  {{ $project: {{
+      _id: 0,
+      resena_id: 1,
+      restaurante_id: 1,
+      restaurante: "$restaurante.nombre",
+      comentario: 1,
+      puntaje: 1,
+      fecha: 1
+  }} }}
+])"""
     try:
         rows = motor_call("mongo", "consultas", "ver_mis_resenas", dni, limit)
         return ok_response(query, "javascript", rows)
@@ -167,7 +182,21 @@ def mongo_mis_resenas():
 def mongo_mis_calificaciones():
     dni = int(request.args.get("dni", 44000009))
     limit = int(request.args.get("limit", 10))
-    query = f"""db.resenas.aggregate([\n  {{ $match: {{ dni_usuario: {dni} }} }},\n  {{ $sort: {{ fecha: -1, resena_id: -1 }} }},\n  {{ $limit: {limit} }},\n  {{ $lookup: {{ from: "restaurantes", localField: "restaurante_id", foreignField: "restaurante_id", as: "restaurante" }} }}\n])"""
+    query = f"""db.resenas.aggregate([
+  {{ $match: {{ dni_usuario: {dni} }} }},
+  {{ $sort: {{ fecha: -1, resena_id: -1 }} }},
+  {{ $limit: {limit} }},
+  {{ $lookup: {{ from: "restaurantes", localField: "restaurante_id", foreignField: "restaurante_id", as: "restaurante" }} }},
+  {{ $unwind: "$restaurante" }},
+  {{ $project: {{
+      _id: 0,
+      resena_id: 1,
+      restaurante_id: 1,
+      restaurante: "$restaurante.nombre",
+      puntaje: 1,
+      fecha: 1
+  }} }}
+])"""
     try:
         rows = motor_call("mongo", "consultas", "ver_mis_calificaciones", dni, limit)
         return ok_response(query, "javascript", rows)
@@ -210,7 +239,21 @@ def mongo_buscar_restaurantes():
 def mongo_resenas_restaurante():
     rid = int(request.args.get("restaurante_id", 1))
     limit = int(request.args.get("limit", 10))
-    query = f"""db.resenas.aggregate([\n  {{ $match: {{ restaurante_id: {rid} }} }},\n  {{ $sort: {{ fecha: -1, resena_id: -1 }} }},\n  {{ $limit: {limit} }},\n  {{ $lookup: {{ from: "usuarios", localField: "dni_usuario", foreignField: "dni_usuario", as: "usuario" }} }}\n])"""
+    query = f"""db.resenas.aggregate([
+  {{ $match: {{ restaurante_id: {rid} }} }},
+  {{ $sort: {{ fecha: -1, resena_id: -1 }} }},
+  {{ $limit: {limit} }},
+  {{ $lookup: {{ from: "usuarios", localField: "dni_usuario", foreignField: "dni_usuario", as: "usuario" }} }},
+  {{ $unwind: "$usuario" }},
+  {{ $project: {{
+      _id: 0,
+      resena_id: 1,
+      usuario: "$usuario.username",
+      puntaje: 1,
+      comentario: 1,
+      fecha: 1
+  }} }}
+])"""
     try:
         rows = motor_call("mongo", "consultas", "ver_resenas_de_restaurante", rid, limit)
         return ok_response(query, "javascript", rows)

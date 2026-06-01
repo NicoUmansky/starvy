@@ -796,7 +796,7 @@ const OPS = {
   cass: [
     { id:'promociones-restaurante', title:'Promociones activas', method:'GET',
       desc:'Promos activas de un restaurante (partition key)', endpoint:'/api/cassandra/promociones-restaurante',
-      params:[{key:'restaurante_id',label:'Restaurante ID',default:'1'}] },
+      params:[{key:'restaurante_id',label:'Restaurante ID',default:'2'}] },
     { id:'promociones-fecha-barrio', title:'Promos por fecha y barrio', method:'GET',
       desc:'Promociones vigentes un día y barrio específicos', endpoint:'/api/cassandra/promociones-fecha-barrio',
       params:[{key:'dia',label:'Fecha (YYYY-MM-DD)',default:'2026-05-15'},{key:'barrio',label:'Barrio',default:'Palermo'}] },

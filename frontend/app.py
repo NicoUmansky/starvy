@@ -235,6 +235,21 @@ def mongo_buscar_restaurantes():
         return error_response(query, str(e), lenguaje="javascript")
 
 
+@app.route("/api/mongo/platos-restaurante")
+def mongo_platos_restaurante():
+    rid = int(request.args.get("restaurante_id", 1))
+    query = f"""db.restaurantes.findOne(
+  {{ restaurante_id: {rid} }},
+  {{ _id: 0, restaurante_id: 1, nombre: 1, barrio: 1, platos: 1 }}
+)
+// En Python se filtran los platos disponibles para armar el dropdown."""
+    try:
+        rows = motor_call("mongo", "consultas", "listar_platos_restaurante", rid, True)
+        return ok_response(query, "mql", rows)
+    except Exception as e:
+        return error_response(query, str(e), lenguaje="mql")
+
+
 @app.route("/api/mongo/resenas-restaurante")
 def mongo_resenas_restaurante():
     rid = int(request.args.get("restaurante_id", 1))

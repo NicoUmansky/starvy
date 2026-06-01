@@ -75,6 +75,47 @@ def buscar_restaurantes_por_filtros(tipo_comida=None, calificacion_minima=None, 
     return imprimir_documentos("Restaurantes encontrados por filtros", documentos)
 
 
+def listar_platos_restaurante(restaurante_id, solo_disponibles=True):
+    """
+    Devuelve los platos de un restaurante para que el frontend arme un selector.
+    Trae solo los campos necesarios y, por defecto, filtra los platos disponibles.
+    """
+    restaurante = obtener_coleccion("restaurantes").find_one(
+        {"restaurante_id": int(restaurante_id)},
+        {
+            "_id": 0,
+            "restaurante_id": 1,
+            "nombre": 1,
+            "barrio": 1,
+            "tipo_comida": 1,
+            "platos": 1
+        }
+    )
+
+    if not restaurante:
+        return imprimir_documentos(f"Platos del restaurante {restaurante_id}", [])
+
+    platos = restaurante.get("platos", [])
+    if solo_disponibles:
+        platos = [plato for plato in platos if plato.get("disponible", True)]
+
+    documentos = []
+    for plato in platos:
+        documentos.append({
+            "restaurante_id": restaurante["restaurante_id"],
+            "restaurante": restaurante["nombre"],
+            "barrio": restaurante.get("barrio", ""),
+            "tipo_comida": plato.get("tipo_comida", restaurante.get("tipo_comida", "")),
+            "plato_id": plato.get("plato_id"),
+            "plato_nombre": plato.get("plato_nombre"),
+            "precio": plato.get("precio"),
+            "disponible": plato.get("disponible", True)
+        })
+
+    documentos.sort(key=lambda plato: str(plato.get("plato_nombre", "")))
+    return imprimir_documentos(f"Platos del restaurante {restaurante_id}", documentos)
+
+
 def ver_mis_resenas(dni_usuario, limite=10):
     """
     Muestra las reseñas escritas por un usuario, con nombre del restaurante.

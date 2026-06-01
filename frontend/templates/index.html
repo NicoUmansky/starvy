@@ -234,13 +234,16 @@
     }
     .param-group { display: flex; align-items: center; gap: 6px; }
     .params-bar label { font-size: 10.5px; color: var(--muted); font-weight: 700; white-space: nowrap; }
-    .params-bar input {
+    .params-bar input,
+    .params-bar select {
       background: var(--bg); border: 1px solid var(--border); color: var(--text);
       border-radius: 7px; padding: 5px 10px; font-size: 12px;
       font-family: 'JetBrains Mono', monospace; outline: none; width: 150px;
       transition: border-color .2s, box-shadow .2s;
     }
-    .params-bar input:focus { border-color: var(--brand); box-shadow: 0 0 0 3px rgba(0,197,160,.12); }
+    .params-bar select { width: 250px; cursor: pointer; }
+    .params-bar input:focus,
+    .params-bar select:focus { border-color: var(--brand); box-shadow: 0 0 0 3px rgba(0,197,160,.12); }
     .run-btn {
       margin-left: auto; padding: 7px 20px;
       background: linear-gradient(135deg, var(--brand), #00a882);
@@ -805,7 +808,7 @@ const OPS = {
       params:[{key:'restaurante_id',label:'Restaurante ID',default:'1'},{key:'fecha',label:'Fecha (YYYY-MM-DD)',default:'2026-05-15'}] },
     { id:'insertar-visita', title:'Insertar visita', method:'POST',
       desc:'Registra nueva visita con timestamp automático (INSERT)', endpoint:'/api/cassandra/insertar-visita',
-      params:[{key:'dni_usuario',label:'DNI',default:'44000001'},{key:'restaurante_id',label:'Rest. ID',default:'1'},{key:'plato_nombre',label:'Plato',default:'Milanesa napolitana'},{key:'monto',label:'Monto ($)',default:'1500'}],
+      params:[{key:'dni_usuario',label:'DNI',default:'44000001'},{key:'restaurante_id',label:'Rest. ID',default:'1'},{key:'plato_id',label:'Plato',default:'',type:'plato_select'},{key:'plato_nombre',type:'hidden',default:''},{key:'tipo_comida',type:'hidden',default:''},{key:'barrio',type:'hidden',default:''},{key:'monto',type:'hidden',default:''}],
       body:(p)=>p },
     { id:'metricas-dia', title:'Métricas del día', method:'GET',
       desc:'Total visitas, ingresos y plato más pedido', endpoint:'/api/cassandra/metricas-dia',
@@ -841,6 +844,7 @@ const DB_META = {
 };
 
 let currentDB=null, currentOp=null, loading=false, queryCount=0;
+let platosLoadTimer=null, platosRestauranteCargado=null;
 let currentRows=[], currentSpecial=null, currentView='table', lastParams={}, resultsMax=false;
 let currentGraphData=null;
 let sidebarCollapsed=false;
@@ -939,6 +943,7 @@ function selectOp(op){
   currentRows=[]; 
   currentView='table'; 
   currentGraphData=null;
+  platosRestauranteCargado=null;
 
   document.querySelectorAll('.op-card').forEach(c=>c.classList.remove('active'));
   document.getElementById(`op-${op.id}`).classList.add('active');
@@ -947,6 +952,15 @@ function selectOp(op){
   bar.innerHTML='';
 
   op.params.forEach(p=>{
+    if(p.type === 'hidden'){
+      const hidden=document.createElement('input');
+      hidden.type='hidden';
+      hidden.id=`param-${p.key}`;
+      hidden.value=p.default||'';
+      bar.appendChild(hidden);
+      return;
+    }
+
     const g=document.createElement('div'); 
     g.className='param-group';
 
@@ -997,6 +1011,12 @@ function selectOp(op){
       g.appendChild(wrap);
 
       setTimeout(()=>pintarEstrellas(hidden.value), 0);
+    } else if(p.type === 'plato_select') {
+      const sel=document.createElement('select');
+      sel.id=`param-${p.key}`;
+      sel.innerHTML='<option value="">Cargando platos...</option>';
+      sel.addEventListener('change',()=>sincronizarPlatoSeleccionado(sel));
+      g.appendChild(sel);
     } else {
       const inp=document.createElement('input');
       inp.type=p.type||'text'; 
@@ -1004,6 +1024,11 @@ function selectOp(op){
       inp.id=`param-${p.key}`; 
       inp.placeholder=p.default||'';
       inp.addEventListener('keydown',e=>{if(e.key==='Enter')runOp();});
+      if(op.id === 'insertar-visita' && p.key === 'restaurante_id'){
+        inp.addEventListener('input',programarCargaPlatosDeRestaurante);
+        inp.addEventListener('change',cargarPlatosDeRestaurante);
+        inp.addEventListener('blur',cargarPlatosDeRestaurante);
+      }
       g.appendChild(inp);
     }
 
@@ -1020,6 +1045,83 @@ function selectOp(op){
 
   setQueryPlaceholder();
   setResultsEmpty();
+
+  if(op.id === 'insertar-visita'){
+    cargarPlatosDeRestaurante();
+  }
+}
+
+async function cargarPlatosDeRestaurante(){
+  if(currentOp?.id !== 'insertar-visita') return;
+
+  const restauranteInput=document.getElementById('param-restaurante_id');
+  const platoSelect=document.getElementById('param-plato_id');
+  if(!restauranteInput || !platoSelect) return;
+
+  const restauranteId=restauranteInput.value || '1';
+  platoSelect.disabled=true;
+  platoSelect.innerHTML='<option value="">Cargando platos...</option>';
+  actualizarBotonInsertarVisita(false);
+
+  try{
+    const response=await fetch(`/api/mongo/platos-restaurante?restaurante_id=${encodeURIComponent(restauranteId)}`);
+    const data=await response.json();
+    const platos=data.resultado || [];
+
+    if(!platos.length){
+      platoSelect.innerHTML='<option value="">Restaurante inexistente</option>';
+      platosRestauranteCargado=String(restauranteId);
+      sincronizarPlatoSeleccionado(platoSelect);
+      actualizarBotonInsertarVisita(false);
+      return;
+    }
+
+    platoSelect.innerHTML=platos.map(plato=>{
+      const precio=plato.precio ?? '';
+      const label=`${plato.plato_nombre}${precio!=='' ? ' - $'+precio : ''}`;
+      return `<option value="${escHtml(plato.plato_id)}"
+        data-nombre="${escHtml(plato.plato_nombre || '')}"
+        data-tipo="${escHtml(plato.tipo_comida || '')}"
+        data-barrio="${escHtml(plato.barrio || '')}"
+        data-precio="${escHtml(precio)}">${escHtml(label)}</option>`;
+    }).join('');
+
+    platoSelect.disabled=false;
+    platosRestauranteCargado=String(restauranteId);
+    sincronizarPlatoSeleccionado(platoSelect);
+    actualizarBotonInsertarVisita(true);
+  }catch(e){
+    platoSelect.innerHTML='<option value="">No se pudieron cargar platos</option>';
+    platosRestauranteCargado=null;
+    sincronizarPlatoSeleccionado(platoSelect);
+    actualizarBotonInsertarVisita(false);
+  }
+}
+
+function programarCargaPlatosDeRestaurante(){
+  clearTimeout(platosLoadTimer);
+  platosLoadTimer=setTimeout(cargarPlatosDeRestaurante, 300);
+}
+
+function setParamValue(key, value){
+  const el=document.getElementById(`param-${key}`);
+  if(el) el.value=value ?? '';
+}
+
+function sincronizarPlatoSeleccionado(select){
+  const opt=select?.selectedOptions?.[0];
+  setParamValue('plato_nombre', opt?.dataset?.nombre || '');
+  setParamValue('tipo_comida', opt?.dataset?.tipo || '');
+  setParamValue('barrio', opt?.dataset?.barrio || '');
+  setParamValue('monto', opt?.dataset?.precio || '');
+  actualizarBotonInsertarVisita(Boolean(select?.value));
+}
+
+function actualizarBotonInsertarVisita(habilitado){
+  if(currentOp?.id !== 'insertar-visita') return;
+  const btn=document.getElementById('run-btn');
+  if(!btn || loading) return;
+  btn.disabled=!habilitado;
 }
 
 async function runOp(){
@@ -1027,6 +1129,23 @@ async function runOp(){
   loading=true;
   const btn=document.getElementById('run-btn');
   if(btn){btn.disabled=true;btn.innerHTML='<div class="spinner"></div> Ejecutando...';}
+
+  if(currentOp.id === 'insertar-visita'){
+    clearTimeout(platosLoadTimer);
+    const restauranteActual=document.getElementById('param-restaurante_id')?.value || '';
+    const platoActual=document.getElementById('param-plato_id')?.value || '';
+    if(platosRestauranteCargado !== String(restauranteActual) || !platoActual){
+      await cargarPlatosDeRestaurante();
+    }
+
+    if(!document.getElementById('param-plato_id')?.value){
+      loading=false;
+      if(btn){btn.disabled=true;btn.innerHTML='▶ Ejecutar';}
+      renderError('Seleccioná un restaurante existente con platos disponibles antes de insertar la visita.');
+      return;
+    }
+  }
+
   const params={};
   currentOp.params.forEach(p=>{const el=document.getElementById(`param-${p.key}`);if(el)params[p.key]=el.value;});
   lastParams=params;
@@ -1056,7 +1175,13 @@ async function runOp(){
     renderError('No se pudo conectar con Flask. Verificá que python app.py esté corriendo en la terminal.');
   }finally{
     loading=false;
-    if(btn){btn.disabled=false;btn.innerHTML='▶ Ejecutar';}
+    if(btn){
+      btn.disabled=false;
+      btn.innerHTML='▶ Ejecutar';
+      if(currentOp?.id === 'insertar-visita'){
+        actualizarBotonInsertarVisita(Boolean(document.getElementById('param-plato_id')?.value));
+      }
+    }
   }
 }
 

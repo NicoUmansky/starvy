@@ -344,7 +344,16 @@ def construir_grafo_perfil(row: Dict[str, Any], username: str) -> Dict[str, List
 @app.route("/api/neo4j/perfil")
 def neo4j_perfil():
     username = request.args.get("username", "VitoNava")
-    query = "CALL Neo4j.consultas.consultar_detalle_perfil_usuario($username)"
+    query = f"""MATCH (u:Usuario {{username: "{username}"}})
+OPTIONAL MATCH (u)-[:SIGUE]->(seguido:Usuario)
+OPTIONAL MATCH (seguidor:Usuario)-[:SIGUE]->(u)
+OPTIONAL MATCH (u)-[v:VISITO]->(rest_visitado:Restaurante)
+OPTIONAL MATCH (u)-[c:CALIFICO]->(rest_calificado:Restaurante)
+RETURN u.username, u.nombre + " " + u.apellido AS nombre,
+       count(DISTINCT seguido) AS siguiendo,
+       count(DISTINCT seguidor) AS seguidores,
+       count(DISTINCT v) AS visitas,
+       count(DISTINCT c) AS resenas"""
     try:
         rows = motor_call("neo4j", "consultas", "consultar_detalle_perfil_usuario", username)
         rows = limpiar_docs(rows)
@@ -368,7 +377,10 @@ def neo4j_perfil():
 @app.route("/api/neo4j/siguiendo")
 def neo4j_siguiendo():
     username = request.args.get("username", "VitoNava")
-    query = "Neo4j.consultas.consultar_usuarios_que_sigue(username)"
+    query = f"""MATCH (:Usuario {{username: "{username}"}})-[:SIGUE]->(seguido:Usuario)
+RETURN seguido.username AS username,
+       seguido.nombre + " " + seguido.apellido AS nombre
+ORDER BY username"""
     try:
         rows = motor_call("neo4j", "consultas", "consultar_usuarios_que_sigue", username)
         return ok_response(query, "cypher", rows)
@@ -379,7 +391,10 @@ def neo4j_siguiendo():
 @app.route("/api/neo4j/seguidores")
 def neo4j_seguidores():
     username = request.args.get("username", "VitoNava")
-    query = "Neo4j.consultas.consultar_seguidores(username)"
+    query = f"""MATCH (seguidor:Usuario)-[:SIGUE]->(:Usuario {{username: "{username}"}})
+RETURN seguidor.username AS username,
+       seguidor.nombre + " " + seguidor.apellido AS nombre
+ORDER BY username"""
     try:
         rows = motor_call("neo4j", "consultas", "consultar_seguidores", username)
         return ok_response(query, "cypher", rows)
@@ -391,7 +406,15 @@ def neo4j_seguidores():
 def neo4j_buscar_usuarios():
     termino = request.args.get("termino", "val")
     dni = request.args.get("dni", "").strip() or None
-    query = "Neo4j.consultas.buscar_usuarios(termino, limite=20)"
+    query = f"""MATCH (u:Usuario)
+WHERE toLower(u.username) CONTAINS toLower("{termino}")
+   OR toLower(u.nombre) CONTAINS toLower("{termino}")
+   OR toLower(u.apellido) CONTAINS toLower("{termino}")
+RETURN u.dni_usuario AS dni_usuario,
+       u.username AS username,
+       u.nombre + " " + u.apellido AS nombre
+ORDER BY username
+LIMIT 20"""
     try:
         if dni and termino:
             try:
@@ -408,7 +431,14 @@ def neo4j_buscar_usuarios():
 @app.route("/api/neo4j/visitas-amigos")
 def neo4j_visitas_amigos():
     username = request.args.get("username", "VitoNava")
-    query = "Neo4j.consultas.consultar_visitas_amigos(username, limite=15)"
+    query = f"""MATCH (:Usuario {{username: "{username}"}})-[:SIGUE]->(amigo:Usuario)-[v:VISITO]->(r:Restaurante)
+RETURN amigo.username AS amigo,
+       r.nombre AS restaurante,
+       r.barrio AS barrio,
+       r.tipo_comida AS tipo_comida,
+       v.fecha AS fecha
+ORDER BY v.fecha DESC
+LIMIT 15"""
     try:
         rows = motor_call("neo4j", "consultas", "consultar_visitas_amigos", username, 15)
         return ok_response(query, "cypher", rows)
@@ -419,7 +449,18 @@ def neo4j_visitas_amigos():
 @app.route("/api/neo4j/recomendacion-colaborativa")
 def neo4j_recom_colaborativa():
     username = request.args.get("username", "VitoNava")
-    query = "Neo4j.consultas.recomendar_bien_calificados_por_amigos(username, limite=8)"
+    query = f"""MATCH (yo:Usuario {{username: "{username}"}})-[:SIGUE]->(amigo:Usuario)-[c:CALIFICO]->(r:Restaurante)
+WHERE c.puntaje >= 4
+  AND NOT (yo)-[:VISITO]->(r)
+RETURN r.restaurante_id AS restaurante_id,
+       r.nombre AS restaurante,
+       r.tipo_comida AS tipo_comida,
+       r.barrio AS barrio,
+       round(avg(c.puntaje) * 100) / 100 AS puntaje_promedio_amigos,
+       count(c) AS calificaciones_altas,
+       collect(DISTINCT amigo.username)[0..4] AS amigos
+ORDER BY puntaje_promedio_amigos DESC, calificaciones_altas DESC
+LIMIT 8"""
     try:
         rows = motor_call("neo4j", "consultas", "recomendar_bien_calificados_por_amigos", username, 8)
         # Alias para que el HTML actual siga mostrando el grafo/puntaje esperado.
@@ -434,7 +475,20 @@ def neo4j_recom_colaborativa():
 @app.route("/api/neo4j/recomendacion-contenido")
 def neo4j_recom_contenido():
     username = request.args.get("username", "VitoNava")
-    query = "Neo4j.consultas.recomendar_por_contenido(username, limite=8)"
+    query = f"""MATCH (yo:Usuario {{username: "{username}"}})-[c:CALIFICO]->(gustado:Restaurante)
+WHERE c.puntaje >= 4
+MATCH (rec:Restaurante)
+WHERE rec <> gustado
+  AND NOT (yo)-[:VISITO]->(rec)
+  AND NOT (yo)-[:CALIFICO]->(rec)
+  AND (rec.tipo_comida = gustado.tipo_comida OR rec.barrio = gustado.barrio)
+RETURN rec.restaurante_id AS restaurante_id,
+       rec.nombre AS restaurante,
+       rec.tipo_comida AS tipo_comida,
+       rec.barrio AS barrio,
+       rec.calificacion_promedio AS calificacion_promedio
+ORDER BY calificacion_promedio DESC
+LIMIT 8"""
     try:
         rows = motor_call("neo4j", "consultas", "recomendar_por_contenido", username, 8)
         for r in rows or []:
@@ -450,7 +504,12 @@ def neo4j_seguir():
     data = request.json or {}
     follower = data.get("follower", "VitoNava")
     followed = data.get("followed", "LuisRam")
-    query = "Neo4j.escrituras.seguir_usuario(follower, followed)"
+    query = f"""MATCH (origen:Usuario {{username: "{follower}"}})
+MATCH (destino:Usuario {{username: "{followed}"}})
+WHERE origen <> destino
+MERGE (origen)-[:SIGUE]->(destino)
+RETURN origen.username AS usuario,
+       destino.username AS sigue_a"""
     try:
         row = motor_call("neo4j", "escrituras", "seguir_usuario", follower, followed)
         return ok_response(query, "cypher", [row] if row else [], exito=bool(row))
@@ -466,7 +525,11 @@ def neo4j_seguir():
 @app.route("/api/cassandra/promociones-restaurante")
 def cass_promociones_restaurante():
     rid = int(request.args.get("restaurante_id", 1))
-    query = "Cassandra.consultas.consultar_promociones_por_restaurante(restaurante_id)"
+    query = f"""SELECT restaurante_id, estado, fecha_fin, promocion_id, titulo,
+       descripcion, descuento, fecha_inicio, barrio
+FROM promociones_por_restaurante
+WHERE restaurante_id = {rid}
+AND estado = 'activa';"""
     try:
         rows = motor_call("cassandra", "consultas", "consultar_promociones_por_restaurante", rid)
         return ok_response(query, "sql", rows)
@@ -478,7 +541,11 @@ def cass_promociones_restaurante():
 def cass_promociones_fecha_barrio():
     dia = request.args.get("dia", "2026-05-15")
     barrio = request.args.get("barrio", "Palermo")
-    query = "Cassandra.consultas.consultar_promociones_por_fecha_barrio(dia, barrio)"
+    query = f"""SELECT dia_vigencia, barrio, restaurante_id, promocion_id,
+       titulo, descuento, fecha_inicio, fecha_fin, estado
+FROM promociones_activas_por_fecha
+WHERE dia_vigencia = '{dia}'
+AND barrio = '{barrio}';"""
     try:
         rows = motor_call("cassandra", "consultas", "consultar_promociones_por_fecha_barrio", dia, barrio)
         return ok_response(query, "sql", rows)
@@ -490,7 +557,11 @@ def cass_promociones_fecha_barrio():
 def cass_visitas_dia():
     rid = int(request.args.get("restaurante_id", 1))
     fecha = request.args.get("fecha", "2026-05-15")
-    query = "Cassandra.consultas.consultar_visitas_por_restaurante_dia(restaurante_id, fecha)"
+    query = f"""SELECT restaurante_id, fecha, hora, visita_id, dni_usuario,
+       plato_id, plato_nombre, tipo_comida, barrio, monto
+FROM visitas_por_restaurante_dia
+WHERE restaurante_id = {rid}
+AND fecha = '{fecha}';"""
     try:
         rows = motor_call("cassandra", "consultas", "consultar_visitas_por_restaurante_dia", rid, fecha)
         return ok_response(query, "sql", rows)
@@ -512,7 +583,18 @@ def cass_insertar_visita():
         "fecha": _dt.date.today().isoformat(),
         "hora": _dt.datetime.now().strftime("%H:%M:%S"),
     }
-    query = "Cassandra.escrituras.registrar_visita(visita) + Neo4j.escrituras.sincronizar_visita_desde_cassandra(visita)"
+    query = f"""INSERT INTO visitas_por_restaurante_dia (
+  restaurante_id, fecha, hora, visita_id, dni_usuario,
+  plato_id, plato_nombre, tipo_comida, barrio, monto
+) VALUES (
+  {visita["restaurante_id"]}, '{visita["fecha"]}', '{visita["hora"]}', <nuevo_id>, {visita["dni_usuario"]},
+  {visita["plato_id"]}, '{visita["plato_nombre"]}', '{visita["tipo_comida"]}', '{visita["barrio"]}', {visita["monto"]}
+);
+
+INSERT INTO visitas_por_usuario_fecha (...) VALUES (...);
+INSERT INTO metricas_restaurante_por_dia (...) VALUES (...);
+
+// Luego se sincroniza VISITO y PIDIO en Neo4j"""
     try:
         resultado_cassandra = motor_call("cassandra", "escrituras", "registrar_visita", visita)
 
@@ -541,7 +623,12 @@ def cass_insertar_visita():
 def cass_metricas_dia():
     rid = int(request.args.get("restaurante_id", 1))
     fecha = request.args.get("fecha", "2026-05-15")
-    query = "Cassandra.consultas.consultar_plato_mas_vendido(restaurante_id, fecha)"
+    query = f"""SELECT restaurante_id, fecha, cantidad_vendida, plato_id,
+       plato_nombre, tipo_comida, total_ingresos
+FROM metricas_restaurante_por_dia
+WHERE restaurante_id = {rid}
+AND fecha = '{fecha}'
+LIMIT 1;"""
     try:
         rows = motor_call("cassandra", "consultas", "consultar_plato_mas_vendido", rid, fecha)
         return ok_response(query, "sql", rows)
@@ -556,7 +643,9 @@ def cass_metricas_dia():
 
 @app.route("/api/redis/sesiones-activas")
 def redis_sesiones():
-    query = "Redis.consultas.ver_sesiones_activas()"
+    query = """KEYS sesion:*
+GET sesion:{user_id}
+TTL sesion:{user_id}"""
     try:
         rows = motor_call("redis", "consultas", "ver_sesiones_activas")
         return ok_response(query, "redis", rows)
@@ -567,7 +656,8 @@ def redis_sesiones():
 @app.route("/api/redis/verificar-sesion")
 def redis_verificar_sesion():
     user_id = request.args.get("user_id", "44000009")
-    query = "Redis.consultas.verificar_sesion(user_id)"
+    query = f"""GET sesion:{user_id}
+TTL sesion:{user_id}"""
     try:
         row = motor_call("redis", "consultas", "verificar_sesion", user_id)
         return ok_response(query, "redis", [row] if isinstance(row, dict) else [{"usuario": user_id, "sesion_activa": bool(row)}])
@@ -578,7 +668,7 @@ def redis_verificar_sesion():
 @app.route("/api/redis/ranking-restaurantes")
 def redis_ranking_restaurantes():
     top_n = int(request.args.get("top", 10))
-    query = f"Redis.consultas.ver_ranking_restaurantes(top_n={top_n})"
+    query = f"ZREVRANGE ranking:restaurante 0 {top_n - 1} WITHSCORES"
     try:
         rows = motor_call("redis", "consultas", "ver_ranking_restaurantes", top_n)
         return ok_response(query, "redis", rows)
@@ -589,7 +679,7 @@ def redis_ranking_restaurantes():
 @app.route("/api/redis/ranking-tipos-comida")
 def redis_ranking_tipos():
     top_n = int(request.args.get("top", 10))
-    query = f"Redis.consultas.ver_ranking_tipos_comida(top_n={top_n})"
+    query = f"ZREVRANGE ranking:tipoComida 0 {top_n - 1} WITHSCORES"
     try:
         rows = motor_call("redis", "consultas", "ver_ranking_tipos_comida", top_n)
         return ok_response(query, "redis", rows)
@@ -600,7 +690,7 @@ def redis_ranking_tipos():
 @app.route("/api/redis/ultimas-busquedas")
 def redis_ultimas_busquedas():
     user_id = request.args.get("user_id", "44000009")
-    query = "Redis.consultas.ver_ultimas_busquedas(user_id)"
+    query = f"LRANGE busqueda:{user_id} 0 4"
     try:
         rows = motor_call("redis", "consultas", "ver_ultimas_busquedas", user_id)
         return ok_response(query, "redis", rows)
@@ -613,7 +703,8 @@ def redis_registrar_busqueda():
     data = request.json or {}
     user_id = data.get("user_id", "").strip()
     termino = data.get("termino", "").strip()
-    query = "Redis.consultas.registrar_busqueda(user_id, termino)"
+    query = f"""LPUSH busqueda:{user_id or "<user_id>"} "{termino or "<termino>"}"
+LTRIM busqueda:{user_id or "<user_id>"} 0 4"""
     if not user_id:
         return error_response(query, "Se requiere user_id para registrar una búsqueda.", 400, lenguaje="redis")
     if not termino:

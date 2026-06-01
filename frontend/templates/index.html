@@ -1081,7 +1081,7 @@ function resetMain(){
 }
 function setLangPill(lang){
   const pill=document.getElementById('lang-pill');
-  const labels={javascript:'MongoDB JS',cypher:'Cypher',sql:'CQL',redis:'Redis CLI',plaintext:''};
+  const labels={javascript:'MQL',cypher:'Cypher',sql:'CQL',redis:'Redis CLI',plaintext:''};
   pill.textContent=labels[lang]||lang;
   pill.className=`lang-pill lang-${lang}`;
 }

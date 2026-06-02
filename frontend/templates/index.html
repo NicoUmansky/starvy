@@ -813,6 +813,10 @@ const OPS = {
     { id:'metricas-dia', title:'Métricas del día', method:'GET',
       desc:'Total visitas, ingresos y plato más pedido', endpoint:'/api/cassandra/metricas-dia',
       params:[{key:'restaurante_id',label:'Restaurante ID',default:'1'},{key:'fecha',label:'Fecha (YYYY-MM-DD)',default:'2026-05-15'}] },
+      { id:'historial-usuario', title:'Historial por usuario', method:'GET',
+  desc:'Últimas visitas registradas por DNI de usuario',
+  endpoint:'/api/cassandra/historial-usuario',
+  params:[{key:'dni_usuario',label:'DNI usuario',default:'44000014'}] },
   ],
   redis: [
     { id:'sesiones-activas', title:'Sesiones activas', method:'GET',

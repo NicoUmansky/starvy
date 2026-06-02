@@ -626,6 +626,19 @@ AND fecha = '{fecha}';"""
     except Exception as e:
         return error_response(query, str(e), lenguaje="sql")
 
+@app.route("/api/cassandra/historial-usuario")
+def cass_historial_usuario():
+    dni = int(request.args.get("dni_usuario", 44000014))
+    query = f"""SELECT dni_usuario, fecha, hora, visita_id, restaurante_id,
+       plato_id, plato_nombre, tipo_comida, monto
+FROM visitas_por_usuario_fecha
+WHERE dni_usuario = {dni}
+LIMIT 10;"""
+    try:
+        rows = motor_call("cassandra", "consultas", "consultar_historial_visitas_usuario", dni)
+        return ok_response(query, "sql", rows)
+    except Exception as e:
+        return error_response(query, str(e), lenguaje="sql")
 
 @app.route("/api/cassandra/insertar-visita", methods=["POST"])
 def cass_insertar_visita():

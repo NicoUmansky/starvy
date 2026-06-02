@@ -99,13 +99,9 @@ def registrar_visita_restaurante(nombre_restaurante):
 def ver_ranking_restaurantes(top_n=10):
     """
     Devuelve el top N de restaurantes más visitados.
-
-    Antes reconstruye el ranking desde Cassandra para asegurar que Redis
-    tenga datos completos y nombres correctos.
+    El ranking se mantiene actualizado en tiempo real via ZINCRBY en cada visita.
     """
     top_n = int(top_n)
-
-    reconstruir_desde_cassandra()
 
     resultados = r.zrevrange(
         "ranking:restaurante",
@@ -137,10 +133,9 @@ def registrar_visita_tipo_comida(tipo_comida):
 def ver_ranking_tipos_comida(top_n=10):
     """
     Devuelve el top N de tipos de comida más pedidos.
+    El ranking se mantiene actualizado en tiempo real via ZINCRBY en cada visita.
     """
     top_n = int(top_n)
-
-    reconstruir_desde_cassandra()
 
     resultados = r.zrevrange(
         "ranking:tipoComida",

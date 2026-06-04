@@ -13,3 +13,4 @@ Neo4j/.env
 generar_doc_redis.py
 Redis/Documentacion_Redis_Starvy.pdf
 .DS_Store
+docs/speech_neo4j_nico.md

@@ -138,7 +138,7 @@ def consultar_plato_mas_vendido(restaurante_id, fecha_texto):
             FROM metricas_restaurante_por_dia
             WHERE restaurante_id = %s
             AND fecha = %s
-            LIMIT 10;
+            LIMIT 1;
         """, (int(restaurante_id), fecha)))
 
         print(f"\nQ5 - Plato más vendido del restaurante {restaurante_id} el día {fecha_texto}:")

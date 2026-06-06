@@ -156,7 +156,7 @@ def mongo_mis_resenas():
     dni = int(request.args.get("dni", 44000009))
     limit = int(request.args.get("limit", 10))
     query = f"""db.resenas.aggregate([
-  {{ $match: {{ dni_usuario: {dni}, comentario: {{ $ne: "" }} }} }},
+  {{ $match: {{ dni_usuario: {dni}, comentario: {{ $exists: true, $nin: [null, ""] }} }} }},
   {{ $sort: {{ fecha: -1, resena_id: -1 }} }},
   {{ $limit: {limit} }},
   {{ $lookup: {{ from: "restaurantes", localField: "restaurante_id", foreignField: "restaurante_id", as: "restaurante" }} }},

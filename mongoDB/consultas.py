@@ -121,7 +121,12 @@ def ver_mis_resenas(dni_usuario, limite=10):
     Muestra las reseñas escritas por un usuario, con nombre del restaurante.
     """
     pipeline = [
-        {"$match": {"dni_usuario": int(dni_usuario), "comentario": {"$ne": ""}}},
+        {
+            "$match": {
+                "dni_usuario": int(dni_usuario),
+                "comentario": {"$exists": True, "$nin": [None, ""]}
+            }
+        },
         {"$sort": {"fecha": -1, "resena_id": -1}},
         {"$limit": int(limite)},
         {

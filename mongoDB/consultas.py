@@ -45,6 +45,11 @@ def buscar_restaurantes_por_filtros(tipo_comida=None, calificacion_minima=None, 
     if barrio:
         filtro["barrio"] = {"$regex": re.escape(str(barrio)), "$options": "i"}
 
+    if calificacion_minima is not None:
+        calificacion_minima = float(calificacion_minima)
+        umbral = 4.95 if calificacion_minima >= 5 else calificacion_minima
+        filtro["calificacion_promedio"] = {"$gte": umbral}
+
     documentos = list(obtener_coleccion("restaurantes").find(
         filtro,
         {
@@ -57,21 +62,8 @@ def buscar_restaurantes_por_filtros(tipo_comida=None, calificacion_minima=None, 
             "calificacion_promedio": 1,
             "platos": 1
         }
-    ))
+    ).sort("calificacion_promedio", -1).limit(int(limite)))
 
-    def rating_num(doc):
-        try:
-            return float(doc.get("calificacion_promedio", 0) or 0)
-        except Exception:
-            return 0.0
-
-    if calificacion_minima is not None:
-        calificacion_minima = float(calificacion_minima)
-        umbral = 4.95 if calificacion_minima >= 5 else calificacion_minima
-        documentos = [doc for doc in documentos if rating_num(doc) >= umbral]
-
-    documentos.sort(key=rating_num, reverse=True)
-    documentos = documentos[:limite]
     return imprimir_documentos("Restaurantes encontrados por filtros", documentos)
 
 

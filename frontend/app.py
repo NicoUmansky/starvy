@@ -211,7 +211,16 @@ def mongo_buscar_restaurantes():
     min_cal_raw = request.args.get("min_calificacion", "0")
     min_cal = float(min_cal_raw or 0)
     dni = request.args.get("dni", "").strip() or None
-    query = f"""db.restaurantes.find({{\n  tipo_comida: {tipo!r},\n  barrio: {barrio!r},\n  calificacion_minima: {min_cal}\n}}).sort({{ calificacion_promedio: -1 }}).limit(20)"""
+    filtro_mql = {}
+    if tipo:
+        filtro_mql["tipo_comida"] = {"$regex": tipo, "$options": "i"}
+    if barrio:
+        filtro_mql["barrio"] = {"$regex": barrio, "$options": "i"}
+    if min_cal > 0:
+        filtro_mql["calificacion_promedio"] = {"$gte": 4.95 if min_cal >= 5 else min_cal}
+    query = f"""db.restaurantes.find(
+{json.dumps(filtro_mql, ensure_ascii=False, indent=2)}
+).sort({{ calificacion_promedio: -1 }}).limit(20)"""
     try:
         if dni:
             termino_busqueda = " ".join(filter(None, [tipo, barrio]))

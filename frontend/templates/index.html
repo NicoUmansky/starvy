@@ -1441,7 +1441,7 @@ function renderTableResults(rows){
         const s='★'.repeat(val)+'☆'.repeat(5-val);
         html+=`<td><span class="stars">${s}</span> <span style="color:var(--muted);font-size:11px;">(${val})</span></td>`;
       }else if(Array.isArray(val)){
-        html+=`<td>${val.map(v=>`<code class="inline">${escHtml(String(v))}</code>`).join(' ')}</td>`;
+        html+=`<td>${formatArrayCell(val)}</td>`;
       }else if(typeof val==='boolean'){
         html+=`<td><span style="color:${val?'var(--brand)':'#ef4444'};font-weight:700;">${val?'✓ Sí':'✗ No'}</span></td>`;
       }else if(k==='posicion'){
@@ -1461,6 +1461,38 @@ function renderTableResults(rows){
   });
   html+='</tbody></table>';
   body.innerHTML=html;
+}
+
+function formatArrayCell(values){
+  if(!values.length) return '<span style="color:var(--muted);">—</span>';
+  const visible = values.slice(0, 4).map(value => {
+    const label = formatComplexValue(value);
+    return `<code class="inline">${escHtml(label)}</code>`;
+  });
+  if(values.length > 4){
+    visible.push(`<code class="inline">+${values.length - 4} más</code>`);
+  }
+  return visible.join(' ');
+}
+
+function formatComplexValue(value){
+  if(value === null || value === undefined) return '—';
+  if(typeof value !== 'object') return String(value);
+
+  if(value.plato_nombre || value.nombre){
+    const nombre = value.plato_nombre || value.nombre;
+    const precio = value.precio !== undefined ? ` - $${value.precio}` : '';
+    return `${nombre}${precio}`;
+  }
+
+  if(value.restaurante) return String(value.restaurante);
+  if(value.username) return String(value.username);
+  if(value.tipo_comida) return String(value.tipo_comida);
+
+  return Object.entries(value)
+    .slice(0, 3)
+    .map(([key, val]) => `${key}: ${val}`)
+    .join(', ');
 }
 
 function addNode(graph, id, label, type='user', sub=''){

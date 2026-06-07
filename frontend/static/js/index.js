@@ -861,7 +861,7 @@ function buildGraphFromRows(rows){
         const amigoId=`user:${a}`;
         addNode(graph, amigoId, a, 'user', 'amigo');
         addLink(graph, centerId, amigoId, 'SIGUE');
-        addLink(graph, amigoId, restId, `★ ${r.puntaje_amigos ?? ''}`.trim());
+        addLink(graph, amigoId, restId, `★ ${r.puntaje_promedio_amigos ?? ''}`.trim());
       });
     });
   } else if(opId === 'recomendacion-contenido'){

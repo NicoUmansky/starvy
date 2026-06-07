@@ -530,10 +530,6 @@ ORDER BY puntaje_promedio_amigos DESC, calificaciones_altas DESC
 LIMIT 8"""
     try:
         rows = motor_call("neo4j", "consultas", "recomendar_bien_calificados_por_amigos", username, 8)
-        # Alias para que el HTML actual siga mostrando el grafo/puntaje esperado.
-        for r in rows or []:
-            if "puntaje_promedio_amigos" in r:
-                r["puntaje_amigos"] = r["puntaje_promedio_amigos"]
         return ok_response(query, "cypher", rows)
     except Exception as e:
         return error_response(query, str(e), lenguaje="cypher")

@@ -1,95 +1,99 @@
-﻿const OPS = {
+const OPS = {
   mongo: [
     { id:'login', title:'Login de usuario', method:'POST',
-      desc:'Valida username y contraseÃ±a (findOne)', endpoint:'/api/mongo/login',
-      params:[{key:'username',label:'Username',default:'VitoNava'},{key:'password',label:'ContraseÃ±a',default:'starvy123',type:'password'}],
+      desc:'Valida username y contraseña (findOne)', endpoint:'/api/mongo/login',
+      params:[{key:'username',label:'Username',default:'VitoNava'},{key:'password',label:'Contraseña',default:'starvy123',type:'password'}],
       body:(p)=>({username:p.username,password:p.password}) },
-    { id:'mis-resenas', title:'Mis reseÃ±as', method:'GET',
-      desc:'ReseÃ±as del usuario con $lookup de restaurantes', endpoint:'/api/mongo/mis-resenas',
+    { id:'mis-resenas', title:'Mis reseñas', method:'GET',
+      desc:'Reseñas del usuario con $lookup de restaurantes', endpoint:'/api/mongo/mis-resenas',
       params:[{key:'dni',label:'DNI usuario',default:'44000009'}] },
     { id:'mis-calificaciones', title:'Mis calificaciones', method:'GET',
-      desc:'Calificaciones 1â€“5 estrellas del usuario', endpoint:'/api/mongo/mis-calificaciones',
+      desc:'Calificaciones 1–5 estrellas del usuario', endpoint:'/api/mongo/mis-calificaciones',
       params:[{key:'dni',label:'DNI usuario',default:'44000009'}] },
     { id:'buscar-restaurantes', title:'Buscar restaurantes', method:'GET',
-      desc:'Filtra por tipo, barrio y calificaciÃ³n mÃ­nima', endpoint:'/api/mongo/buscar-restaurantes',
-      params:[{key:'tipo',label:'Tipo comida',default:''},{key:'barrio',label:'Barrio',default:''},{key:'min_calificacion',label:'Cal. mÃ­nima',default:'0'},{key:'dni',label:'DNI usuario',default:'44000009'}] },
-    { id:'resenas-restaurante', title:'ReseÃ±as de restaurante', method:'GET',
-      desc:'Lista reseÃ±as con username del autor ($lookup)', endpoint:'/api/mongo/resenas-restaurante',
+      desc:'Filtra por tipo, barrio y calificación mínima', endpoint:'/api/mongo/buscar-restaurantes',
+      params:[{key:'tipo',label:'Tipo comida',default:'Hamburguesa'},{key:'barrio',label:'Barrio',default:'Almagro'},{key:'min_calificacion',label:'Cal. mínima',default:'3'},{key:'dni',label:'DNI usuario',default:'44000009'}] },
+    { id:'resenas-restaurante', title:'Reseñas de restaurante', method:'GET',
+      desc:'Lista reseñas con username del autor ($lookup)', endpoint:'/api/mongo/resenas-restaurante',
       params:[{key:'restaurante_id',label:'Restaurante ID',default:'1'}] },
-      { id:'insertar-resena', title:'Insertar reseÃ±a â­', method:'POST',
-  desc:'CalificÃ¡ con estrellas y guardÃ¡ la reseÃ±a en MongoDB (insertOne)',
+      { id:'insertar-resena', title:'Insertar reseña ⭐', method:'POST',
+  desc:'Calificá con estrellas y guardá la reseña en MongoDB (insertOne)',
   endpoint:'/api/mongo/insertar-resena',
   params:[
     {key:'dni_usuario',label:'DNI',default:'44000001'},
     {key:'restaurante_id',label:'Rest. ID',default:'1'},
-    {key:'puntaje',label:'CalificaciÃ³n',default:'5',type:'stars'},
-    {key:'comentario',label:'Tu reseÃ±a',default:'Excelente lugar!'}
+    {key:'puntaje',label:'Calificación',default:'5',type:'stars'},
+    {key:'comentario',label:'Tu reseña',default:'Excelente lugar!'}
   ],
   body:(p)=>p },
   ],
   neo4j: [
     { id:'perfil', title:'Perfil social', method:'GET',
-      desc:'Siguiendo, seguidores, visitas y reseÃ±as', endpoint:'/api/neo4j/perfil',
+      desc:'Siguiendo, seguidores, visitas y reseñas', endpoint:'/api/neo4j/perfil',
       params:[{key:'username',label:'Username',default:'VitoNava'}] },
-    { id:'siguiendo', title:'A quiÃ©n sigue', method:'GET',
-      desc:'Usuarios con relaciÃ³n [:SIGUE] saliente', endpoint:'/api/neo4j/siguiendo',
+    { id:'siguiendo', title:'A quién sigue', method:'GET',
+      desc:'Usuarios con relación [:SIGUE] saliente', endpoint:'/api/neo4j/siguiendo',
       params:[{key:'username',label:'Username',default:'VitoNava'}] },
     { id:'seguidores', title:'Seguidores', method:'GET',
-      desc:'Usuarios con relaciÃ³n [:SIGUE] entrante', endpoint:'/api/neo4j/seguidores',
+      desc:'Usuarios con relación [:SIGUE] entrante', endpoint:'/api/neo4j/seguidores',
       params:[{key:'username',label:'Username',default:'VitoNava'}] },
     { id:'buscar-usuarios', title:'Buscar usuarios', method:'GET',
       desc:'Busca por username, nombre o apellido', endpoint:'/api/neo4j/buscar-usuarios',
-      params:[{key:'termino',label:'TÃ©rmino',default:'val'},{key:'dni',label:'DNI usuario',default:'44000009'}] },
+      params:[{key:'termino',label:'Término',default:'val'},{key:'dni',label:'DNI usuario',default:'44000009'}] },
     { id:'visitas-amigos', title:'Visitas de amigos', method:'GET',
-      desc:'Restaurantes donde fueron las personas que seguÃ­s', endpoint:'/api/neo4j/visitas-amigos',
+      desc:'Restaurantes donde fueron las personas que seguís', endpoint:'/api/neo4j/visitas-amigos',
+      params:[{key:'username',label:'Username',default:'ValentinaMannino'}] },
+    { id:'recomendacion-colaborativa', title:'Recomendación colaborativa', method:'GET',
+      desc:'Lugares ≥4★ por amigos que no visitaste', endpoint:'/api/neo4j/recomendacion-colaborativa',
       params:[{key:'username',label:'Username',default:'VitoNava'}] },
-    { id:'recomendacion-colaborativa', title:'RecomendaciÃ³n colaborativa', method:'GET',
-      desc:'Lugares â‰¥4â˜… por amigos que no visitaste', endpoint:'/api/neo4j/recomendacion-colaborativa',
-      params:[{key:'username',label:'Username',default:'VitoNava'}] },
-    { id:'recomendacion-contenido', title:'RecomendaciÃ³n por contenido', method:'GET',
-      desc:'Lugares similares a lo que te gustÃ³ antes', endpoint:'/api/neo4j/recomendacion-contenido',
+    { id:'recomendacion-contenido', title:'Recomendación por contenido', method:'GET',
+      desc:'Lugares similares a lo que te gustó antes', endpoint:'/api/neo4j/recomendacion-contenido',
       params:[{key:'username',label:'Username',default:'VitoNava'}] },
     { id:'seguir', title:'Seguir usuario', method:'POST',
-      desc:'Crea relaciÃ³n [:SIGUE] con MERGE', endpoint:'/api/neo4j/seguir',
-      params:[{key:'follower',label:'Yo (follower)',default:'VitoNava'},{key:'followed',label:'A seguir',default:'LuisRam'}],
+      desc:'Crea relación [:SIGUE] con MERGE', endpoint:'/api/neo4j/seguir',
+      params:[{key:'follower',label:'Yo (follower)',default:'VitoNava'},{key:'followed',label:'A seguir',default:'LuisRamos'}],
       body:(p)=>p },
   ],
   cass: [
     { id:'promociones-restaurante', title:'Promociones activas', method:'GET',
       desc:'Promos activas de un restaurante (partition key)', endpoint:'/api/cassandra/promociones-restaurante',
-      params:[{key:'restaurante_id',label:'Restaurante ID',default:'2'}] },
+      params:[{key:'restaurante_id',label:'Restaurante ID',default:'10'}] },
     { id:'promociones-fecha-barrio', title:'Promos por fecha y barrio', method:'GET',
-      desc:'Promociones vigentes un dÃ­a y barrio especÃ­ficos', endpoint:'/api/cassandra/promociones-fecha-barrio',
+      desc:'Promociones vigentes un día y barrio específicos', endpoint:'/api/cassandra/promociones-fecha-barrio',
       params:[{key:'dia',label:'Fecha (YYYY-MM-DD)',default:'2026-05-15'},{key:'barrio',label:'Barrio',default:'Palermo'}] },
-    { id:'visitas-restaurante-dia', title:'Visitas por dÃ­a', method:'GET',
+    { id:'visitas-restaurante-dia', title:'Visitas por día', method:'GET',
       desc:'Visitas registradas en un restaurante una fecha dada', endpoint:'/api/cassandra/visitas-restaurante-dia',
       params:[{key:'restaurante_id',label:'Restaurante ID',default:'1'},{key:'fecha',label:'Fecha (YYYY-MM-DD)',default:'2026-05-15'}] },
     { id:'insertar-visita', title:'Insertar visita', method:'POST',
-      desc:'Registra nueva visita con timestamp automÃ¡tico (INSERT)', endpoint:'/api/cassandra/insertar-visita',
+      desc:'Registra nueva visita con timestamp automático (INSERT)', endpoint:'/api/cassandra/insertar-visita',
       params:[{key:'dni_usuario',label:'DNI',default:'44000001'},{key:'restaurante_id',label:'Rest. ID',default:'1'},{key:'plato_id',label:'Plato',default:'',type:'plato_select'},{key:'plato_nombre',type:'hidden',default:''},{key:'tipo_comida',type:'hidden',default:''},{key:'barrio',type:'hidden',default:''},{key:'monto',type:'hidden',default:''}],
       body:(p)=>p },
-    { id:'metricas-dia', title:'MÃ©tricas del dÃ­a', method:'GET',
-      desc:'Total visitas, ingresos y plato mÃ¡s pedido', endpoint:'/api/cassandra/metricas-dia',
-      params:[{key:'restaurante_id',label:'Restaurante ID',default:'1'},{key:'fecha',label:'Fecha (YYYY-MM-DD)',default:'2026-05-15'}] },
+    { id:'metricas-dia', title:'Métricas del día', method:'GET',
+      desc:'Total visitas, ingresos y plato más pedido', endpoint:'/api/cassandra/metricas-dia',
+      params:[{key:'restaurante_id',label:'Restaurante ID',default:'34'},{key:'fecha',label:'Fecha (YYYY-MM-DD)',default:'2026-05-15'}] },
+      { id:'historial-usuario', title:'Historial por usuario', method:'GET',
+  desc:'Últimas visitas registradas por DNI de usuario',
+  endpoint:'/api/cassandra/historial-usuario',
+  params:[{key:'dni_usuario',label:'DNI usuario',default:'44000014'}] },
   ],
   redis: [
     { id:'sesiones-activas', title:'Sesiones activas', method:'GET',
       desc:'Usuarios logueados ahora mismo (KEYS + GET + TTL)', endpoint:'/api/redis/sesiones-activas', params:[], special:'sessions' },
-    { id:'verificar-sesion', title:'Verificar sesiÃ³n', method:'GET',
-      desc:'Chequea si un usuario estÃ¡ logueado y cuÃ¡nto le queda', endpoint:'/api/redis/verificar-sesion',
-      params:[{key:'user_id',label:'User ID (DNI)',default:'44000009'}], special:'session-single' },
-    { id:'ranking-restaurantes', title:'Ranking restaurantes ðŸ†', method:'GET',
-      desc:'Top N mÃ¡s visitados (ZREVRANGE Sorted Set)', endpoint:'/api/redis/ranking-restaurantes',
+    { id:'verificar-sesion', title:'Verificar sesión', method:'GET',
+      desc:'Chequea si un usuario está logueado y cuánto le queda', endpoint:'/api/redis/verificar-sesion',
+      params:[{key:'user_id',label:'User ID (DNI)',default:'44000006'}], special:'session-single' },
+    { id:'ranking-restaurantes', title:'Ranking restaurantes 🏆', method:'GET',
+      desc:'Top N más visitados (ZREVRANGE Sorted Set)', endpoint:'/api/redis/ranking-restaurantes',
       params:[{key:'top',label:'Top N',default:'10'}] },
-    { id:'ranking-tipos-comida', title:'Ranking tipos de comida ðŸ•', method:'GET',
-      desc:'Top N tipos mÃ¡s pedidos (ZREVRANGE Sorted Set)', endpoint:'/api/redis/ranking-tipos-comida',
+    { id:'ranking-tipos-comida', title:'Ranking tipos de comida 🍕', method:'GET',
+      desc:'Top N tipos más pedidos (ZREVRANGE Sorted Set)', endpoint:'/api/redis/ranking-tipos-comida',
       params:[{key:'top',label:'Top N',default:'10'}] },
-    { id:'ultimas-busquedas', title:'Ãšltimas bÃºsquedas', method:'GET',
+    { id:'ultimas-busquedas', title:'Últimas búsquedas', method:'GET',
       desc:'Historial reciente del usuario (LRANGE)', endpoint:'/api/redis/ultimas-busquedas',
       params:[{key:'user_id',label:'User ID (DNI)',default:'44000009'}] },
-    { id:'registrar-busqueda', title:'Registrar bÃºsqueda', method:'POST',
+    { id:'registrar-busqueda', title:'Registrar búsqueda', method:'POST',
       desc:'LPUSH + LTRIM: agrega al historial del usuario', endpoint:'/api/redis/registrar-busqueda',
-      params:[{key:'user_id',label:'User ID',default:'44000009'},{key:'termino',label:'TÃ©rmino',default:'pizza'}],
+      params:[{key:'user_id',label:'User ID',default:'44000009'},{key:'termino',label:'Término',default:'pizza'}],
       body:(p)=>p },
   ]
 };
@@ -129,7 +133,7 @@ function toggleResultsMax(){
   const main = document.querySelector('.main');
   main.classList.toggle('results-max', resultsMax);
   const btn = document.getElementById('expand-results');
-  if(btn) btn.textContent = resultsMax ? 'â†™ Reducir' : 'â›¶ Ampliar';
+  if(btn) btn.textContent = resultsMax ? '↙ Reducir' : '⛶ Ampliar';
   if(currentRows.length && currentDB === 'neo4j' && currentView === 'graph') renderResults(currentRows, currentSpecial);
 }
 function initResizableResults(){
@@ -253,7 +257,7 @@ function selectOp(op){
         star.type='button';
         star.className='star-btn';
         star.dataset.value=i;
-        star.innerHTML='â˜…';
+        star.innerHTML='★';
         star.title=`${i} estrella${i>1?'s':''}`;
 
         star.onclick=()=>{
@@ -296,7 +300,7 @@ function selectOp(op){
   const btn=document.createElement('button');
   btn.className='run-btn'; 
   btn.id='run-btn';
-  btn.innerHTML='â–¶ Ejecutar'; 
+  btn.innerHTML='▶ Ejecutar'; 
   btn.onclick=runOp;
 
   bar.appendChild(btn);
@@ -327,7 +331,7 @@ async function cargarPlatosDeRestaurante(){
     const platos=data.resultado || [];
 
     if(!platos.length){
-      platoSelect.innerHTML='<option value="">Restaurante inexistente o sin platos</option>';
+      platoSelect.innerHTML='<option value="">Restaurante inexistente</option>';
       platosRestauranteCargado=String(restauranteId);
       sincronizarPlatoSeleccionado(platoSelect);
       actualizarBotonInsertarVisita(false);
@@ -398,8 +402,8 @@ async function runOp(){
 
     if(!document.getElementById('param-plato_id')?.value){
       loading=false;
-      if(btn){btn.disabled=true;btn.innerHTML='â–¶ Ejecutar';}
-      renderError('SeleccionÃ¡ un restaurante existente con platos disponibles antes de insertar la visita.');
+      if(btn){btn.disabled=true;btn.innerHTML='▶ Ejecutar';}
+      renderError('Seleccioná un restaurante existente con platos disponibles antes de insertar la visita.');
       return;
     }
   }
@@ -420,22 +424,22 @@ async function runOp(){
     const data=await response.json();
     currentGraphData = data.grafo || null;
     const ms=Date.now()-t0;
-    document.getElementById('exec-time').textContent=`â± ${ms}ms`;
+    document.getElementById('exec-time').textContent=`⏱ ${ms}ms`;
     renderQuery(data.query,data.lenguaje);
     if(data.error){ renderError(data.error); }
     else{ renderResults(data.resultado||[], currentOp.special); }
     queryCount++;
     document.getElementById('stat-queries').textContent=queryCount;
-    const lastStr=currentOp.title.replace(/[â­ðŸ†ðŸ•âœï¸]/g,'').trim();
-    document.getElementById('stat-last').textContent=lastStr.slice(0,13)+(lastStr.length>13?'â€¦':'');
+    const lastStr=currentOp.title.replace(/[⭐🏆🍕✍️]/g,'').trim();
+    document.getElementById('stat-last').textContent=lastStr.slice(0,13)+(lastStr.length>13?'…':'');
   }catch(err){
     currentGraphData = null;
-    renderError('No se pudo conectar con Flask. VerificÃ¡ que python app.py estÃ© corriendo en la terminal.');
+    renderError('No se pudo conectar con Flask. Verificá que python app.py esté corriendo en la terminal.');
   }finally{
     loading=false;
     if(btn){
       btn.disabled=false;
-      btn.innerHTML='â–¶ Ejecutar';
+      btn.innerHTML='▶ Ejecutar';
       if(currentOp?.id === 'insertar-visita'){
         actualizarBotonInsertarVisita(Boolean(document.getElementById('param-plato_id')?.value));
       }
@@ -446,17 +450,17 @@ async function runOp(){
 function setQueryPlaceholder(){
   const langMap={mongo:'javascript',neo4j:'cypher',cass:'sql',redis:'redis'};
   setLangPill(langMap[currentDB]||'plaintext');
-  document.getElementById('query-code').innerHTML=`<div class="state-empty"><span class="icon">â³</span>PresionÃ¡ <strong>Ejecutar</strong> para ver la query</div>`;
+  document.getElementById('query-code').innerHTML=`<div class="state-empty"><span class="icon">⏳</span>Presioná <strong>Ejecutar</strong> para ver la query</div>`;
   document.getElementById('exec-time').textContent='';
 }
 function setResultsEmpty(){
   document.getElementById('count-pill').style.display='none';
   const toggle=document.getElementById('view-toggle'); if(toggle) toggle.style.display='none';
-  document.getElementById('results-body').innerHTML=`<div class="state-empty"><span class="icon">ðŸ“‹</span>Los resultados aparecerÃ¡n acÃ¡</div>`;
+  document.getElementById('results-body').innerHTML=`<div class="state-empty"><span class="icon">📋</span>Los resultados aparecerán acá</div>`;
 }
 function resetMain(){
-  document.getElementById('params-bar').innerHTML='<span style="color:var(--muted);font-size:13px;font-weight:600;">â† SeleccionÃ¡ una operaciÃ³n del panel</span>';
-  document.getElementById('query-code').innerHTML=`<div class="welcome"><div class="welcome-logo">â­</div><h2>ElegÃ­ una operaciÃ³n</h2><p>HacÃ© clic en cualquier operaciÃ³n del panel para ver la query que se ejecuta en la base de datos.</p></div>`;
+  document.getElementById('params-bar').innerHTML='<span style="color:var(--muted);font-size:13px;font-weight:600;">← Seleccioná una operación del panel</span>';
+  document.getElementById('query-code').innerHTML=`<div class="welcome"><div class="welcome-logo">⭐</div><h2>Elegí una operación</h2><p>Hacé clic en cualquier operación del panel para ver la query que se ejecuta en la base de datos.</p></div>`;
   document.getElementById('lang-pill').textContent='';
   document.getElementById('lang-pill').className='lang-pill';
   document.getElementById('exec-time').textContent='';
@@ -486,7 +490,7 @@ function renderQuery(queryText, lang) {
 function renderError(msg){
   document.getElementById('count-pill').style.display='none';
   const toggle=document.getElementById('view-toggle'); if(toggle) toggle.style.display='none';
-  document.getElementById('results-body').innerHTML=`<div class="error-box">âŒ ${escHtml(msg)}</div>`;
+  document.getElementById('results-body').innerHTML=`<div class="error-box">❌ ${escHtml(msg)}</div>`;
 }
 
 function renderResults(rows, special){
@@ -506,7 +510,7 @@ function renderResults(rows, special){
   }
 
   if(!currentRows.length){
-    document.getElementById('results-body').innerHTML=`<div class="state-empty"><span class="icon">ðŸ”</span>Sin resultados para estos parÃ¡metros<br><span style="font-size:11px;margin-top:4px;">ProbÃ¡ con otros valores</span></div>`;
+    document.getElementById('results-body').innerHTML=`<div class="state-empty"><span class="icon">🔍</span>Sin resultados para estos parámetros<br><span style="font-size:11px;margin-top:4px;">Probá con otros valores</span></div>`;
     return;
   }
 
@@ -530,24 +534,24 @@ function renderSessionCards(rows){
   const TTL_MAX=3600;
   let html='<div class="session-grid">';
   rows.forEach((row,i)=>{
-    const token=row.token||'â€”';
+    const token=row.token||'—';
     const ttl=row.ttl_segundos||0;
-    const activa=row.sesion_activa!==false && token!=='â€”' && token!=='sin sesion';
+    const activa=row.sesion_activa!==false && token!=='—' && token!=='sin sesion';
     const usuario=row.usuario||'Usuario';
     const min=Math.floor(ttl/60), seg=ttl%60;
     const pct=Math.min(100,Math.round((ttl/TTL_MAX)*100));
-    const tokenCorto=token.length>20?token.slice(0,8)+'â€¦'+token.slice(-8):token;
+    const tokenCorto=token.length>20?token.slice(0,8)+'…'+token.slice(-8):token;
     html+=`<div class="session-card ${activa?'active-session':''}" style="animation-delay:${i*60}ms">
       <div class="session-top">
-        <div class="session-avatar">ðŸ‘¤</div>
+        <div class="session-avatar">👤</div>
         <div>
           <div class="session-username">Usuario ${escHtml(String(usuario).slice(0,12))}</div>
-          <div class="session-status">${activa?'ðŸŸ¢ SesiÃ³n activa':'ðŸ”´ Sin sesiÃ³n'}</div>
+          <div class="session-status">${activa?'🟢 Sesión activa':'🔴 Sin sesión'}</div>
         </div>
       </div>
       <div class="session-info">
-        <div class="session-row"><span class="session-label">ðŸ”‘ Token</span><span class="session-val">${escHtml(tokenCorto)}</span></div>
-        <div class="session-row"><span class="session-label">â³ Tiempo restante</span><span class="session-val">${activa?`${min}min ${seg}seg`:'Expirada'}</span></div>
+        <div class="session-row"><span class="session-label">🔑 Token</span><span class="session-val">${escHtml(tokenCorto)}</span></div>
+        <div class="session-row"><span class="session-label">⏳ Tiempo restante</span><span class="session-val">${activa?`${min}min ${seg}seg`:'Expirada'}</span></div>
       </div>
       ${activa?`<div class="ttl-bar-wrap"><div class="ttl-bar-bg"><div class="ttl-bar" style="width:${pct}%"></div></div></div>`:''}
     </div>`;
@@ -563,10 +567,10 @@ function renderRedisRanking(rows){
   const nameKey = isFood ? 'tipo_comida' : 'restaurante';
   const scoreKey = isFood ? 'pedidos' : 'visitas';
   const label = isFood ? 'pedidos' : 'visitas';
-  const medals = ['ðŸ¥‡','ðŸ¥ˆ','ðŸ¥‰'];
+  const medals = ['🥇','🥈','🥉'];
   const podiumClass = {1:'first', 2:'second', 3:'third'};
 
-  // Siempre dibujamos los 3 lugares del podio. Orden visual: 2Â° | 1Â° | 3Â°
+  // Siempre dibujamos los 3 lugares del podio. Orden visual: 2° | 1° | 3°
   const byPosition = {};
   rows.forEach((row, idx)=>{
     const pos = Number(row.posicion || idx + 1);
@@ -583,14 +587,14 @@ function renderRedisRanking(rows){
       html += `<article class="podium-card ${cls}" style="animation-delay:${visualIdx*70}ms">
         <div class="podium-position">#${pos}</div>
         <div class="podium-rank">${medals[pos-1]}</div>
-        <div class="podium-title">${escHtml(row[nameKey] || 'â€”')}</div>
+        <div class="podium-title">${escHtml(row[nameKey] || '—')}</div>
         <div class="podium-score">${escHtml(row[scoreKey] ?? 0)} ${label}</div>
       </article>`;
     } else {
       html += `<article class="podium-card ${cls} empty" style="animation-delay:${visualIdx*70}ms">
         <div class="podium-position">#${pos}</div>
         <div class="podium-rank">${medals[pos-1]}</div>
-        <div class="podium-empty-title">TodavÃ­a no hay datos para este puesto</div>
+        <div class="podium-empty-title">Todavía no hay datos para este puesto</div>
         <div class="podium-score">0 ${label}</div>
       </article>`;
     }
@@ -606,7 +610,7 @@ function renderRedisRanking(rows){
       const pos = Number(row.posicion || i + 4);
       html += `<div class="redis-rank-row" style="animation-delay:${i*40}ms">
         <div class="redis-rank-num">#${escHtml(pos)}</div>
-        <div class="redis-rank-name">${escHtml(row[nameKey] || 'â€”')}</div>
+        <div class="redis-rank-name">${escHtml(row[nameKey] || '—')}</div>
         <div class="redis-rank-score">${escHtml(row[scoreKey] ?? 0)} ${label}</div>
       </div>`;
     });
@@ -621,7 +625,7 @@ function renderSearchCards(rows){
   const body=document.getElementById('results-body');
   let html='<div class="search-timeline">';
   rows.forEach((row,i)=>{
-    html += `<div class="search-card" style="animation-delay:${i*45}ms"><span>#${escHtml(row.posicion || i+1)} bÃºsqueda reciente</span><strong>${escHtml(row.termino || 'â€”')}</strong></div>`;
+    html += `<div class="search-card" style="animation-delay:${i*45}ms"><span>#${escHtml(row.posicion || i+1)} búsqueda reciente</span><strong>${escHtml(row.termino || '—')}</strong></div>`;
   });
   html+='</div>';
   body.innerHTML=html;
@@ -645,9 +649,9 @@ function cassSubtitle(row){
   if(row.barrio) parts.push(row.barrio);
   if(row.tipo_comida) parts.push(row.tipo_comida);
   if(row.fecha) parts.push(formatDateValue('fecha', row.fecha));
-  if(row.fecha_inicio || row.fecha_fin) parts.push(`${formatDateValue('fecha_inicio', row.fecha_inicio || '')} â†’ ${formatDateValue('fecha_fin', row.fecha_fin || '')}`);
+  if(row.fecha_inicio || row.fecha_fin) parts.push(`${formatDateValue('fecha_inicio', row.fecha_inicio || '')} → ${formatDateValue('fecha_fin', row.fecha_fin || '')}`);
   if(row.restaurante_id !== undefined) parts.push(`Rest. #${row.restaurante_id}`);
-  return parts.filter(Boolean).join(' Â· ') || 'Modelo por consulta';
+  return parts.filter(Boolean).join(' · ') || 'Modelo por consulta';
 }
 function renderCassandraCards(rows){
   const body=document.getElementById('results-body');
@@ -666,12 +670,12 @@ function renderCassandraCards(rows){
     if(row.descripcion){ html += `<p style="color:var(--text);font-size:13px;line-height:1.45;margin:8px 0 10px;">${escHtml(row.descripcion)}</p>`; }
     if(minis.length){
       html += '<div class="cass-metrics">';
-      minis.forEach(([k,v])=>{ html += `<div class="cass-mini"><span>${escHtml(cassLabel(k))}</span><strong>${escHtml(v ?? 'â€”')}</strong></div>`; });
+      minis.forEach(([k,v])=>{ html += `<div class="cass-mini"><span>${escHtml(cassLabel(k))}</span><strong>${escHtml(v ?? '—')}</strong></div>`; });
       html += '</div>';
     }
     html += `<details class="cass-details"><summary>Ver detalle completo</summary>`;
     entries.forEach(([k,v])=>{
-      html += `<div class="cass-detail-row"><span>${escHtml(cassLabel(k))}</span><span>${escHtml(v ?? 'â€”')}</span></div>`;
+      html += `<div class="cass-detail-row"><span>${escHtml(cassLabel(k))}</span><span>${escHtml(v ?? '—')}</span></div>`;
     });
     html += `</details></article>`;
   });
@@ -690,23 +694,23 @@ function renderTableResults(rows){
     keys.forEach(k=>{
       let val=row[k];
       val = formatDateValue(k, val);
-      if(val===null||val===undefined)val='â€”';
+      if(val===null||val===undefined)val='—';
       if(k==='puntaje'&&typeof val==='number'){
-        const s='â˜…'.repeat(val)+'â˜†'.repeat(5-val);
+        const s='★'.repeat(val)+'☆'.repeat(5-val);
         html+=`<td><span class="stars">${s}</span> <span style="color:var(--muted);font-size:11px;">(${val})</span></td>`;
       }else if(Array.isArray(val)){
         html+=`<td>${formatArrayCell(val)}</td>`;
       }else if(typeof val==='boolean'){
-        html+=`<td><span style="color:${val?'var(--brand)':'#ef4444'};font-weight:700;">${val?'âœ“ SÃ­':'âœ— No'}</span></td>`;
+        html+=`<td><span style="color:${val?'var(--brand)':'#ef4444'};font-weight:700;">${val?'✓ Sí':'✗ No'}</span></td>`;
       }else if(k==='posicion'){
-        const medals=['ðŸ¥‡','ðŸ¥ˆ','ðŸ¥‰'];
+        const medals=['🥇','🥈','🥉'];
         html+=`<td style="font-weight:700;">${medals[val-1]||('#'+val)}</td>`;
       }else if(k==='ttl_segundos'&&typeof val==='number'){
         const m=Math.floor(val/60),s=val%60;
         html+=`<td style="font-family:'JetBrains Mono',monospace;font-size:11px;">${m}min ${s}seg</td>`;
       }else if(k==='token'&&String(val).length>20){
         const t=String(val);
-        html+=`<td style="font-family:'JetBrains Mono',monospace;font-size:11px;">${escHtml(t.slice(0,8))}â€¦${escHtml(t.slice(-8))}</td>`;
+        html+=`<td style="font-family:'JetBrains Mono',monospace;font-size:11px;">${escHtml(t.slice(0,8))}…${escHtml(t.slice(-8))}</td>`;
       }else{
         html+=`<td>${escHtml(String(val))}</td>`;
       }
@@ -801,18 +805,18 @@ function buildGraphFromRows(rows){
     visitasLista.forEach(v=>{
       const rest = v.restaurante || v.nombre || v;
       const id = `rest:${rest}`;
-      addNode(graph, id, rest, 'restaurant', `${v.tipo_comida || ''} ${v.barrio ? 'Â· '+v.barrio : ''}`.trim());
-      addLink(graph, centerId, id, v.fecha ? `VISITÃ“ ${formatDateValue('fecha', v.fecha)}` : 'VISITÃ“');
+      addNode(graph, id, rest, 'restaurant', `${v.tipo_comida || ''} ${v.barrio ? '· '+v.barrio : ''}`.trim());
+      addLink(graph, centerId, id, v.fecha ? `VISITÓ ${formatDateValue('fecha', v.fecha)}` : 'VISITÓ');
     });
     resenasLista.forEach(c=>{
       const rest = c.restaurante || c.nombre || c;
       const id = `rest:${rest}`;
-      addNode(graph, id, rest, 'restaurant', c.puntaje ? `â˜… ${c.puntaje}` : 'calificado');
-      addLink(graph, centerId, id, c.puntaje ? `CALIFICÃ“ ${c.puntaje}` : 'CALIFICÃ“');
+      addNode(graph, id, rest, 'restaurant', c.puntaje ? `★ ${c.puntaje}` : 'calificado');
+      addLink(graph, centerId, id, c.puntaje ? `CALIFICÓ ${c.puntaje}` : 'CALIFICÓ');
     });
 
     if(graph.nodeMap.size <= 1){
-      [['siguiendo','SIGUE A'],['seguidores','LO SIGUEN'],['visitas','VISITÃ“'],['resenas','CALIFICÃ“']].forEach(([k,label])=>{
+      [['siguiendo','SIGUE A'],['seguidores','LO SIGUEN'],['visitas','VISITÓ'],['resenas','CALIFICÓ']].forEach(([k,label])=>{
         const id=`metric:${k}`;
         addNode(graph, id, `${label}\n${r[k] ?? 0}`, 'metric', 'sin detalle');
         addLink(graph, centerId, id, k.toUpperCase());
@@ -831,9 +835,9 @@ function buildGraphFromRows(rows){
       addLink(graph, id, centerId, 'SIGUE');
     });
   } else if(opId === 'buscar-usuarios'){
-    const term = getParamValue('termino', 'bÃºsqueda');
+    const term = getParamValue('termino', 'búsqueda');
     const searchId = `search:${term}`;
-    addNode(graph, searchId, `BÃºsqueda\n${term}`, 'search', 'filtro');
+    addNode(graph, searchId, `Búsqueda\n${term}`, 'search', 'filtro');
     rows.forEach(r=>{
       const id=`user:${r.username}`;
       addNode(graph, id, r.username, 'user', `${r.nombre || ''} ${r.apellido || ''}`.trim());
@@ -846,24 +850,24 @@ function buildGraphFromRows(rows){
       addNode(graph, amigoId, r.amigo, 'user', 'amigo');
       addNode(graph, restId, r.restaurante, 'restaurant', r.fecha || 'restaurante');
       addLink(graph, centerId, amigoId, 'SIGUE');
-      addLink(graph, amigoId, restId, 'VISITÃ“');
+      addLink(graph, amigoId, restId, 'VISITÓ');
     });
   } else if(opId === 'recomendacion-colaborativa'){
     rows.forEach(r=>{
       const restId=`rest:${r.restaurante}`;
-      addNode(graph, restId, r.restaurante, 'restaurant', `${r.tipo_comida || ''} Â· ${r.barrio || ''}`);
+      addNode(graph, restId, r.restaurante, 'restaurant', `${r.tipo_comida || ''} · ${r.barrio || ''}`);
       addLink(graph, centerId, restId, 'RECOMENDADO');
       (r.amigos || []).forEach(a=>{
         const amigoId=`user:${a}`;
         addNode(graph, amigoId, a, 'user', 'amigo');
         addLink(graph, centerId, amigoId, 'SIGUE');
-        addLink(graph, amigoId, restId, `â˜… ${r.puntaje_amigos ?? ''}`.trim());
+        addLink(graph, amigoId, restId, `★ ${r.puntaje_amigos ?? ''}`.trim());
       });
     });
   } else if(opId === 'recomendacion-contenido'){
     rows.forEach(r=>{
       const restId=`rest:${r.restaurante}`;
-      addNode(graph, restId, r.restaurante, 'restaurant', `${r.tipo_comida || ''} Â· ${r.barrio || ''}`);
+      addNode(graph, restId, r.restaurante, 'restaurant', `${r.tipo_comida || ''} · ${r.barrio || ''}`);
       addLink(graph, centerId, restId, 'SIMILAR');
       (r.basado_en || []).forEach(base=>{
         const baseId=`content:${base}`;
@@ -893,7 +897,7 @@ function nodeClass(type){
 }
 function shorten(str, max=18){
   str=String(str||'');
-  return str.length>max ? str.slice(0,max-1)+'â€¦' : str;
+  return str.length>max ? str.slice(0,max-1)+'…' : str;
 }
 function renderGraphResults(rows){
   const body=document.getElementById('results-body');
@@ -915,7 +919,7 @@ function renderGraphResults(rows){
     positions[n.id]={x:cx+Math.cos(angle)*(radius+jitter), y:cy+Math.sin(angle)*(radius+jitter)};
   });
 
-  let svg=`<svg class="graph-canvas" viewBox="0 0 ${w} ${h}" role="img" aria-label="VisualizaciÃ³n de grafo Neo4j">`;
+  let svg=`<svg class="graph-canvas" viewBox="0 0 ${w} ${h}" role="img" aria-label="Visualización de grafo Neo4j">`;
   svg+=`<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L7,3 z" fill="rgba(126,184,164,.65)" /></marker></defs>`;
 
   graph.links.forEach(l=>{
@@ -943,7 +947,7 @@ function renderGraphResults(rows){
   });
   svg+='</svg>';
 
-  body.innerHTML=`<div class="graph-shell">${svg}<aside class="graph-side" id="graph-info"><h3>Grafo Neo4j</h3><p>Esta vista muestra entidades reales devueltas por Neo4j como nodos y relaciones. TocÃ¡ un nodo para ver su detalle.</p><br><p><strong>Nodos:</strong> usuarios reales, restaurantes y recomendaciones.<br><strong>Flechas:</strong> SIGUE, VISITÃ“, CALIFICÃ“ o recomendaciÃ³n.</p></aside></div>`;
+  body.innerHTML=`<div class="graph-shell">${svg}<aside class="graph-side" id="graph-info"><h3>Grafo Neo4j</h3><p>Esta vista muestra entidades reales devueltas por Neo4j como nodos y relaciones. Tocá un nodo para ver su detalle.</p><br><p><strong>Nodos:</strong> usuarios reales, restaurantes y recomendaciones.<br><strong>Flechas:</strong> SIGUE, VISITÓ, CALIFICÓ o recomendación.</p></aside></div>`;
 
   document.querySelectorAll('.graph-node').forEach(node=>{
     node.addEventListener('click',()=>{
@@ -951,8 +955,8 @@ function renderGraphResults(rows){
         <h3>Detalle del nodo</h3>
         <div class="graph-kv"><span>Nombre</span><span>${escHtml(node.dataset.label)}</span></div>
         <div class="graph-kv"><span>Tipo</span><span>${escHtml(node.dataset.type)}</span></div>
-        <div class="graph-kv"><span>Dato</span><span>${escHtml(node.dataset.sub || 'â€”')}</span></div>
-        <p style="margin-top:10px;">OperaciÃ³n activa: <strong>${escHtml(currentOp?.title || 'Neo4j')}</strong></p>`;
+        <div class="graph-kv"><span>Dato</span><span>${escHtml(node.dataset.sub || '—')}</span></div>
+        <p style="margin-top:10px;">Operación activa: <strong>${escHtml(currentOp?.title || 'Neo4j')}</strong></p>`;
     });
   });
 }

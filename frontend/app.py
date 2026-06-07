@@ -558,9 +558,6 @@ ORDER BY calificacion_promedio DESC
 LIMIT 8"""
     try:
         rows = motor_call("neo4j", "consultas", "recomendar_por_contenido", username, 8)
-        for r in rows or []:
-            if "calificacion_promedio" in r:
-                r["calificacion"] = r["calificacion_promedio"]
         return ok_response(query, "cypher", rows)
     except Exception as e:
         return error_response(query, str(e), lenguaje="cypher")

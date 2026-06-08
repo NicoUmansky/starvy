@@ -270,7 +270,7 @@ def recomendar_por_contenido(username, limite=5):
                coincidencias_tipo,
                coincidencias_barrio,
                basado_en
-        ORDER BY coincidencias DESC, calificacion_promedio DESC, restaurante
+        ORDER BY calificacion_promedio DESC, coincidencias DESC, restaurante
         LIMIT $limite
     """
 

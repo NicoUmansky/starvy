@@ -545,12 +545,21 @@ WHERE rec <> gustado
   AND NOT (yo)-[:VISITO]->(rec)
   AND NOT (yo)-[:CALIFICO]->(rec)
   AND (rec.tipo_comida = gustado.tipo_comida OR rec.barrio = gustado.barrio)
+WITH rec,
+     count(DISTINCT gustado) AS coincidencias,
+     sum(CASE WHEN rec.tipo_comida = gustado.tipo_comida THEN 1 ELSE 0 END) AS coincidencias_tipo,
+     sum(CASE WHEN rec.barrio = gustado.barrio THEN 1 ELSE 0 END) AS coincidencias_barrio,
+     collect(DISTINCT gustado.nombre)[0..4] AS basado_en
 RETURN rec.restaurante_id AS restaurante_id,
        rec.nombre AS restaurante,
        rec.tipo_comida AS tipo_comida,
        rec.barrio AS barrio,
-       rec.calificacion_promedio AS calificacion_promedio
-ORDER BY calificacion_promedio DESC
+       rec.calificacion_promedio AS calificacion_promedio,
+       coincidencias,
+       coincidencias_tipo,
+       coincidencias_barrio,
+       basado_en
+ORDER BY calificacion_promedio DESC, coincidencias DESC, restaurante
 LIMIT 8"""
     try:
         rows = motor_call("neo4j", "consultas", "recomendar_por_contenido", username, 8)
